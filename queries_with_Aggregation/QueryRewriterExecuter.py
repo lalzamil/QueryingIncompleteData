@@ -987,8 +987,8 @@ class QueryExecutor:
 # element_to_remove = -1
 # # connect & run
 # conn = psycopg2.connect(
-#     host="localhost", port=5433, dbname="mydb",
-#     user="alzamill", password="1234"
+#     host="localhost", port=****, dbname="db",
+#     user="user", password="****"
 # )
 # for csv_queries in query_config:
 #     executor = QueryExecutor(conn, csv_queries)
@@ -1068,8 +1068,8 @@ class QueryExecutor:
 # element_to_remove = -1
 # # connect & run
 # conn = psycopg2.connect(
-#     host="localhost", port=5433, dbname="mydb",
-#     user="alzamill", password="1234"
+#     host="localhost", port=****, dbname="db",
+#     user="user", password="****"
 # )
 # for csv_queries in query_config:
 #     executor = QueryExecutor(conn, csv_queries)
@@ -1145,8 +1145,8 @@ JQT_s =[]
 element_to_remove = -1
 # connect & run
 conn = psycopg2.connect(
-    host="localhost", port=5433, dbname="mydb",
-    user="alzamill", password="1234"
+    host="localhost", port=****, dbname="db",
+     user="user", password="****"
 )
 for csv_queries in query_config:
     executor = QueryExecutor(conn, csv_queries)
@@ -1348,8 +1348,8 @@ conn.close()
 # element_to_remove = -1
 # # connect & run
 # conn = psycopg2.connect(
-#     host="localhost", port=5433, dbname="mydb",
-#     user="alzamill", password="1234"
+#     host="localhost", port=****, dbname="db",
+#     user="user", password="****"
 # )
 
 # executor = QueryExecutor(conn, csv_queries)
