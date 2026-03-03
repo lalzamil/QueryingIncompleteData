@@ -1,6 +1,6 @@
 # Causality-Aware Query Answering on Incomplete Databases
 A framework for answering SQL queries over incomplete databases with **Missing Not At Random (MNAR)** data. Rather than discarding incomplete tuples or imputing values, the system rewrites queries into probabilistic forms that estimate tuple membership in the query result with quantified uncertainty.
-
+## Full paper: (https://research.engr.oregonstate.edu/idea/sites/research.engr.oregonstate.edu.idea/files/causal_aware.pdf)
 ## Overview
 
 Given a relational table with missing values and a SQL query, the framework:
