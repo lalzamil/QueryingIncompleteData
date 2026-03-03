@@ -10,7 +10,7 @@ Given a relational table with missing values and a SQL query, the framework:
 3. **Scores** each tuple with a probability of belonging to the query result.
 4. **Returns** a set (certain + possible tuples) along with confidence intervals.
 
-The system compiles all estimation logic into standard SQL (CTEs, conditional aggregation, joins) and delegates execution to PostgreSQL — no UDFs or custom extensions required.
+The system compiles all estimation logic into standard SQL (CTEs, conditional aggregation, joins) and delegates execution to PostgreSQL.
 
 ## Approaches
 
