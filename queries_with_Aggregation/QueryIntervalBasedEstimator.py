@@ -771,8 +771,8 @@ class IntervalQueryExecutor:
 
 # # 1) Connect to Postgres:
 # conn = psycopg2.connect(
-#     host="localhost", port=5433, dbname="mydb",
-#     user="alzamill", password="1234"
+#     host="localhost", port=****, dbname="db",
+#     user="user", password="****"
 # )
 # executor = IntervalQueryExecutor(conn, csv_queries)
 
@@ -837,8 +837,8 @@ query_config=[csv_queries_bank_mar,csv_queries_nyc_mar,
 # ]
 
 # 1) Connect to Postgres (adjust host/port/dbname/user/password):
-conn = psycopg2.connect(host="localhost", port=5433, dbname="mydb",
-                        user="alzamill", password="1234")
+conn = psycopg2.connect(host="localhost", port=123, dbname="db",
+                        user="user", password="****")
 
 
 for csv_queries in query_config:
@@ -969,10 +969,7 @@ conn.close()
 
 
 
-# # 1) Connect to Postgres (adjust host/port/dbname/user/password):
-# conn = psycopg2.connect(host="localhost", port=5433, dbname="mydb",
-#                         user="alzamill", password="1234")
-# executor = IntervalQueryExecutor(conn, csv_queries)
+
 
 # # # 2) Run the estimation:
 # # results = executor.estimate_interval()
