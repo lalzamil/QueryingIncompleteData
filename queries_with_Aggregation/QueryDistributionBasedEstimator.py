@@ -563,8 +563,8 @@ query_config=[csv_queries_bank_mar,csv_queries_nyc_mar,
 element_to_remove = -1
 # connect & run
 conn = psycopg2.connect(
-    host="localhost", port=5433, dbname="mydb",
-    user="alzamill", password="1234"
+    host="localhost", port=****, dbname="db",
+     user="user", password="****"
 )
 for csv_queries in query_config:
     executor = DistributionQueryExecutor(conn, csv_queries)
@@ -689,8 +689,8 @@ conn.close()
 # element_to_remove = -1
 # # connect & run
 # conn = psycopg2.connect(
-#     host="localhost", port=5433, dbname="mydb",
-#     user="alzamill", password="1234"
+#     host="localhost", port=****, dbname="db",
+#     user="user", password="****"
 # )
 
 # executor = DistributionQueryExecutor(conn, csv_queries)
