@@ -1,0 +1,91 @@
+{
+    "student_mnar_set": {
+      "student_mnar": {
+        "csv": [
+          "data/MI/student_admission_record_dirty.csv",
+          "data/MI/student_join1.csv",
+          "data/MI/student_join2.csv"
+        ],
+        "table": ["mnar_student0", "mnar_student1", "mnar_student2"],
+        "complete_csv": [],
+        "complete_table": [],
+        "missing_attrs_single": ["name", "city"],
+        "ordering_single": {
+          "name": ["admission_status"],
+          "city": ["admission_status"]
+        },
+        "missing_attrs_T": ["name", "city"],
+        "ordering_T": {
+          "name": ["admission_status"],
+          "city": ["admission_status"]
+        },
+        "missing_attrs_S": [],
+        "ordering_S": {},
+        "queries": [
+"Select city from mnar_student0 where admission_status = 'accepted'",
+"Select name, city from mnar_student0 Group By name, city",
+"Select city from mnar_student0 where high_school_percentage > 85",
+"Select name from mnar_student0 where admission_test_score >= 90",
+"Select city from mnar_student1 join mnar_student2 USING (id) where admission_status = 'rejected'"
+   ]
+      }
+    },
+    "plane_mnar_set": {
+      "plane_mnar": {
+        "csv": [
+          "data/MI/Aiplane_BlueBook.csv",
+          "data/MI/Aiplane_join1.csv",
+          "data/MI/Aiplane_join2.csv"
+        ],
+        "table": ["mnar_plane0", "mnar_plane1", "mnar_plane2"],
+        "complete_csv": [],
+        "complete_table": [],
+        "missing_attrs_single": ["eng_out_rate_of_climb"],
+        "ordering_single": {
+          "eng_out_rate_of_climb": ["eng_out_service_ceiling"]
+        },
+        "missing_attrs_T": ["eng_out_rate_of_climb"],
+        "ordering_T": {
+          "eng_out_rate_of_climb": ["eng_out_service_ceiling"]
+        },
+        "missing_attrs_S": [],
+        "ordering_S": {},
+        "queries": [
+"Select eng_out_rate_of_climb from mnar_plane0 where max_speed_knots > 300",
+"Select eng_out_rate_of_climb, model from mnar_plane0 Group By eng_out_rate_of_climb, model",
+"Select eng_out_rate_of_climb from mnar_plane0 where gross_weight_lbs > 5000",
+"Select eng_out_rate_of_climb from mnar_plane0 where engine_type = 'jet'",
+"Select eng_out_rate_of_climb from mnar_plane1 join mnar_plane2 USING (id) where eng_out_service_ceiling = '26000'"
+]
+      }
+    },
+    "med_mnar_set": {
+      "med_mnar": {
+        "csv": [
+          "data/MI/medical_conditions_dataset.csv",
+          "data/MI/medical_join1.csv",
+          "data/MI/medical_join2.csv"
+        ],
+        "table": ["mnar_med0", "mnar_med1", "mnar_med2"],
+        "complete_csv": [],
+        "complete_table": [],
+        "missing_attrs_single": ["glucose_levels"],
+        "ordering_single": {
+          "glucose_levels": ["bmi"]
+        },
+        "missing_attrs_T": ["glucose_levels"],
+        "ordering_T": {
+          "glucose_levels": ["bmi"]
+        },
+        "missing_attrs_S": [],
+        "ordering_S": {},
+        "queries": [
+"Select glucose_levels from mnar_med0 where bmi >= 25",
+"Select glucose_levels, smoking_status from mnar_med0 Group By glucose_levels, smoking_status",
+"Select glucose_levels from mnar_med0 where blood_pressure > 130",
+"Select glucose_levels from mnar_med0 where gender = 'female'",
+"Select glucose_levels from mnar_med1 join mnar_med2 USING (id) where bmi > 30"
+        ]
+      }
+    }
+  }

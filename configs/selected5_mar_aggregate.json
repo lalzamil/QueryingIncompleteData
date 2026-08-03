@@ -1,0 +1,584 @@
+{
+  "bank_manr1_agg": {
+    "bank_mnar_5": {
+      "csv": [
+        "data/rwDatasets/bank_MAR_5.0.csv",
+        "data/Injected_JoinsData/bank_mar5_1.csv",
+        "data/Injected_JoinsData/bank_mar5_2.csv"
+      ],
+      "table": [
+        "mar_b0",
+        "mar_b1",
+        "mar_b2"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/bank_complete.csv",
+        "data/Injected_JoinsData/bank_complete1.csv",
+        "data/Injected_JoinsData/bank_complete2.csv"
+      ],
+      "complete_table": [
+        "full_b0",
+        "full_b1",
+        "full_b2"
+      ],
+      "Cause": [
+        [
+          "campaign"
+        ],
+        [
+          "campaign"
+        ],
+        [
+          "campaign"
+        ]
+      ],
+      "queries": [
+        "SELECT AVG(balance) FROM data/rwDatasets/bank_MAR_5.0.csv",
+        "Select AVG(balance) From data/rwDatasets/bank_MAR_5.0.csv where education = 'primary'",
+        "Select AVG(balance) From data/rwDatasets/bank_MAR_5.0.csv where duration < 100",
+        "SELECT AVG(balance) FROM data/rwDatasets/bank_MAR_5.0.csv where loan = 'yes' GROUP BY housing",
+        "SELECT AVG(balance) FROM data/Injected_JoinsData/bank_mar5_1.csv JOIN data/Injected_JoinsData/bank_mar5_2.csv USING (customer_id) WHERE housing = 'no'",
+        "SELECT AVG(balance) FROM data/rwDatasets/bank_MAR_5.0.csv",
+        "Select AVG(balance) From data/rwDatasets/bank_MAR_5.0.csv where education = 'primary'",
+        "Select AVG(balance) From data/rwDatasets/bank_MAR_5.0.csv where duration < 100",
+        "SELECT AVG(balance) FROM data/rwDatasets/bank_MAR_5.0.csv where loan = 'yes' GROUP BY housing",
+        "SELECT AVG(balance) FROM data/Injected_JoinsData/bank_mar5_1.csv JOIN data/Injected_JoinsData/bank_mar5_2.csv USING (customer_id) WHERE housing = 'no'"
+      ],
+      "factor_map": {
+        "balance": [
+          "campaign"
+        ],
+        "education": [
+          "campaign"
+        ],
+        "duration": [
+          "campaign"
+        ],
+        "loan": [
+          "campaign"
+        ],
+        "housing": [
+          "campaign"
+        ],
+        "customer_id": [
+          "campaign"
+        ]
+      }
+    },
+    "bank_mnar_10": {
+      "csv": [
+        "data/rwDatasets/bank_MAR_10.0.csv",
+        "data/Injected_JoinsData/bank_mar10_1.csv",
+        "data/Injected_JoinsData/bank_mar10_2.csv"
+      ],
+      "table": [
+        "mar10_b0",
+        "mar10_b1",
+        "mar10_b2"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/bank_complete.csv",
+        "data/Injected_JoinsData/bank_complete1.csv",
+        "data/Injected_JoinsData/bank_complete2.csv"
+      ],
+      "complete_table": [
+        "full_b0",
+        "full_b1",
+        "full_b2"
+      ],
+      "Cause": [
+        [
+          "campaign"
+        ],
+        [
+          "campaign"
+        ],
+        [
+          "campaign"
+        ]
+      ],
+      "queries": [
+        "SELECT AVG(balance) FROM data/rwDatasets/bank_MAR_10.0.csv",
+        "Select AVG(balance) From data/rwDatasets/bank_MAR_10.0.csv where education = 'primary'",
+        "Select AVG(balance) From data/rwDatasets/bank_MAR_10.0.csv where duration < 100",
+        "SELECT AVG(balance) FROM data/rwDatasets/bank_MAR_10.0.csv where loan = 'yes' GROUP BY housing",
+        "SELECT AVG(balance) FROM data/Injected_JoinsData/bank_mar10_1.csv JOIN data/Injected_JoinsData/bank_mar10_2.csv USING (customer_id) WHERE housing = 'no'",
+        "SELECT AVG(balance) FROM data/rwDatasets/bank_MAR_10.0.csv",
+        "Select AVG(balance) From data/rwDatasets/bank_MAR_10.0.csv where education = 'primary'",
+        "Select AVG(balance) From data/rwDatasets/bank_MAR_10.0.csv where duration < 100",
+        "SELECT AVG(balance) FROM data/rwDatasets/bank_MAR_10.0.csv where loan = 'yes' GROUP BY housing",
+        "SELECT AVG(balance) FROM data/Injected_JoinsData/bank_mar10_1.csv JOIN data/Injected_JoinsData/bank_mar10_2.csv USING (customer_id) WHERE housing = 'no'"
+      ],
+      "factor_map": {
+        "balance": [
+          "campaign"
+        ],
+        "education": [
+          "campaign"
+        ],
+        "duration": [
+          "campaign"
+        ],
+        "loan": [
+          "campaign"
+        ],
+        "housing": [
+          "campaign"
+        ],
+        "customer_id": [
+          "campaign"
+        ]
+      }
+    },
+    "bank_mnar_20": {
+      "csv": [
+        "data/rwDatasets/bank_MAR_20.0.csv",
+        "data/Injected_JoinsData/bank_mar20_1.csv",
+        "data/Injected_JoinsData/bank_mar20_2.csv"
+      ],
+      "table": [
+        "mar20_b0",
+        "mar20_b1",
+        "mar20_b2"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/bank_complete.csv",
+        "data/Injected_JoinsData/bank_complete1.csv",
+        "data/Injected_JoinsData/bank_complete2.csv"
+      ],
+      "complete_table": [
+        "full_b0",
+        "full_b1",
+        "full_b2"
+      ],
+      "Cause": [
+        [
+          "campaign"
+        ],
+        [
+          "campaign"
+        ],
+        [
+          "campaign"
+        ]
+      ],
+      "queries": [
+        "SELECT AVG(balance) FROM data/rwDatasets/bank_MAR_20.0.csv",
+        "Select AVG(balance) From data/rwDatasets/bank_MAR_20.0.csv where education = 'primary'",
+        "Select AVG(balance) From data/rwDatasets/bank_MAR_20.0.csv where duration < 100",
+        "SELECT AVG(balance) FROM data/rwDatasets/bank_MAR_20.0.csv where loan = 'yes' GROUP BY housing",
+        "SELECT AVG(balance) FROM data/Injected_JoinsData/bank_mar20_1.csv JOIN data/Injected_JoinsData/bank_mar20_2.csv USING (customer_id) WHERE housing = 'no'",
+        "SELECT AVG(balance) FROM data/rwDatasets/bank_MAR_20.0.csv",
+        "Select AVG(balance) From data/rwDatasets/bank_MAR_20.0.csv where education = 'primary'",
+        "Select AVG(balance) From data/rwDatasets/bank_MAR_20.0.csv where duration < 100",
+        "SELECT AVG(balance) FROM data/rwDatasets/bank_MAR_20.0.csv where loan = 'yes' GROUP BY housing",
+        "SELECT AVG(balance) FROM data/Injected_JoinsData/bank_mar20_1.csv JOIN data/Injected_JoinsData/bank_mar20_2.csv USING (customer_id) WHERE housing = 'no'"
+      ],
+      "factor_map": {
+        "balance": [
+          "campaign"
+        ],
+        "education": [
+          "campaign"
+        ],
+        "duration": [
+          "campaign"
+        ],
+        "loan": [
+          "campaign"
+        ],
+        "housing": [
+          "campaign"
+        ],
+        "customer_id": [
+          "campaign"
+        ]
+      }
+    }
+  },
+  "nyc_manr1_agg": {
+    "nyc_mnar_5": {
+      "csv": [
+        "data/rwDatasets/nyc_MAR_5.0.csv",
+        "data/Injected_JoinsData/nyc_mar5_1.csv",
+        "data/Injected_JoinsData/nyc_mar5_2.csv"
+      ],
+      "table": [
+        "mar5_n0",
+        "mar5_n1",
+        "mar5_n2"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/nyc_complete.csv",
+        "data/Injected_JoinsData/nyc_complete1.csv",
+        "data/Injected_JoinsData/nyc_complete2.csv"
+      ],
+      "complete_table": [
+        "full_n0",
+        "full_n1",
+        "full_n2"
+      ],
+      "Cause": [
+        [
+          "vendor_id"
+        ],
+        [
+          "vendor_id"
+        ],
+        [
+          "vendor_id"
+        ]
+      ],
+      "queries": [
+        "Select AVG(passenger_count) From data/rwDatasets/nyc_MAR_5.0.csv",
+        "Select AVG(passenger_count) From data/rwDatasets/nyc_MAR_5.0.csv where trip_duration > 400",
+        "Select AVG(trip_duration) From data/rwDatasets/nyc_MAR_5.0.csv",
+        "Select AVG(trip_duration) From data/rwDatasets/nyc_MAR_5.0.csv where store_and_fwd_flag = 'N'",
+        "SELECT AVG(passenger_count) from data/Injected_JoinsData/nyc_mar5_1.csv JOIN data/Injected_JoinsData/nyc_mar5_2.csv USING (id)",
+        "Select AVG(passenger_count) From data/rwDatasets/nyc_MAR_5.0.csv",
+        "Select AVG(passenger_count) From data/rwDatasets/nyc_MAR_5.0.csv where trip_duration > 400",
+        "Select AVG(trip_duration) From data/rwDatasets/nyc_MAR_5.0.csv",
+        "Select AVG(trip_duration) From data/rwDatasets/nyc_MAR_5.0.csv where store_and_fwd_flag = 'N'",
+        "SELECT AVG(passenger_count) from data/Injected_JoinsData/nyc_mar5_1.csv JOIN data/Injected_JoinsData/nyc_mar5_2.csv USING (id)"
+      ],
+      "factor_map": {
+        "passenger_count": [
+          "vendor_id"
+        ],
+        "trip_duration": [
+          "vendor_id"
+        ],
+        "store_and_fwd_flag": [
+          "vendor_id"
+        ],
+        "id": [
+          "vendor_id"
+        ]
+      }
+    },
+    "nyc_mnar_10": {
+      "csv": [
+        "data/rwDatasets/nyc_MAR_10.0.csv",
+        "data/Injected_JoinsData/nyc_mar10_1.csv",
+        "data/Injected_JoinsData/nyc_mar10_2.csv"
+      ],
+      "table": [
+        "mar10_n0",
+        "mar10_n1",
+        "mar10_n2"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/nyc_complete.csv",
+        "data/Injected_JoinsData/nyc_complete1.csv",
+        "data/Injected_JoinsData/nyc_complete2.csv"
+      ],
+      "complete_table": [
+        "full_n0",
+        "full_n1",
+        "full_n2"
+      ],
+      "Cause": [
+        [
+          "vendor_id"
+        ],
+        [
+          "vendor_id"
+        ],
+        [
+          "vendor_id"
+        ]
+      ],
+      "queries": [
+        "Select AVG(passenger_count) From data/rwDatasets/nyc_MAR_10.0.csv",
+        "Select AVG(passenger_count) From data/rwDatasets/nyc_MAR_10.0.csv where trip_duration > 400",
+        "Select AVG(trip_duration) From data/rwDatasets/nyc_MAR_10.0.csv",
+        "Select AVG(trip_duration) From data/rwDatasets/nyc_MAR_10.0.csv where store_and_fwd_flag = 'N'",
+        "SELECT AVG(passenger_count) from data/Injected_JoinsData/nyc_mar10_1.csv JOIN data/Injected_JoinsData/nyc_mar10_2.csv USING (id)",
+        "Select AVG(passenger_count) From data/rwDatasets/nyc_MAR_10.0.csv",
+        "Select AVG(passenger_count) From data/rwDatasets/nyc_MAR_10.0.csv where trip_duration > 400",
+        "Select AVG(trip_duration) From data/rwDatasets/nyc_MAR_10.0.csv",
+        "Select AVG(trip_duration) From data/rwDatasets/nyc_MAR_10.0.csv where store_and_fwd_flag = 'N'",
+        "SELECT AVG(passenger_count) from data/Injected_JoinsData/nyc_mar10_1.csv JOIN data/Injected_JoinsData/nyc_mar10_2.csv USING (id)"
+      ],
+      "factor_map": {
+        "passenger_count": [
+          "vendor_id"
+        ],
+        "trip_duration": [
+          "vendor_id"
+        ],
+        "store_and_fwd_flag": [
+          "vendor_id"
+        ],
+        "id": [
+          "vendor_id"
+        ]
+      }
+    },
+    "nyc_mnar_20": {
+      "csv": [
+        "data/rwDatasets/nyc_MAR_20.0.csv",
+        "data/Injected_JoinsData/nyc_mar20_1.csv",
+        "data/Injected_JoinsData/nyc_mar20_2.csv"
+      ],
+      "table": [
+        "mar20_n0",
+        "mar20_n1",
+        "mar20_n2"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/nyc_complete.csv",
+        "data/Injected_JoinsData/nyc_complete1.csv",
+        "data/Injected_JoinsData/nyc_complete2.csv"
+      ],
+      "complete_table": [
+        "full_n0",
+        "full_n1",
+        "full_n2"
+      ],
+      "Cause": [
+        [
+          "vendor_id"
+        ],
+        [
+          "vendor_id"
+        ],
+        [
+          "vendor_id"
+        ]
+      ],
+      "queries": [
+        "Select AVG(passenger_count) From data/rwDatasets/nyc_MAR_20.0.csv",
+        "Select AVG(passenger_count) From data/rwDatasets/nyc_MAR_20.0.csv where trip_duration > 400",
+        "Select AVG(trip_duration) From data/rwDatasets/nyc_MAR_20.0.csv",
+        "Select AVG(trip_duration) From data/rwDatasets/nyc_MAR_20.0.csv where store_and_fwd_flag = 'N'",
+        "SELECT AVG(passenger_count) from data/Injected_JoinsData/nyc_mar20_1.csv JOIN data/Injected_JoinsData/nyc_mar20_2.csv USING (id)",
+        "Select AVG(passenger_count) From data/rwDatasets/nyc_MAR_20.0.csv",
+        "Select AVG(passenger_count) From data/rwDatasets/nyc_MAR_20.0.csv where trip_duration > 400",
+        "Select AVG(trip_duration) From data/rwDatasets/nyc_MAR_20.0.csv",
+        "Select AVG(trip_duration) From data/rwDatasets/nyc_MAR_20.0.csv where store_and_fwd_flag = 'N'",
+        "SELECT AVG(passenger_count) from data/Injected_JoinsData/nyc_mar20_1.csv JOIN data/Injected_JoinsData/nyc_mar20_2.csv USING (id)"
+      ],
+      "factor_map": {
+        "passenger_count": [
+          "vendor_id"
+        ],
+        "trip_duration": [
+          "vendor_id"
+        ],
+        "store_and_fwd_flag": [
+          "vendor_id"
+        ],
+        "id": [
+          "vendor_id"
+        ]
+      }
+    }
+  },
+  "bit_manr1_agg": {
+    "bitcoin_mnar_5": {
+      "csv": [
+        "data/rwDatasets/BitcoinHeistData_MAR_5.csv",
+        "data/Injected_JoinsData/bitcoin_mar5_1.csv",
+        "data/Injected_JoinsData/bitcoin_mar5_2.csv"
+      ],
+      "table": [
+        "mar5_bit0",
+        "mar5_bit1",
+        "mar5_bit2"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/BitcoinHeistData_complete.csv",
+        "data/Injected_JoinsData/bit_complete1.csv",
+        "data/Injected_JoinsData/bit_complete2.csv"
+      ],
+      "complete_table": [
+        "full_bit0",
+        "full_bit1",
+        "full_bit2"
+      ],
+      "Cause": [
+        [
+          "year"
+        ],
+        [
+          "year"
+        ],
+        [
+          "year"
+        ]
+      ],
+      "queries": [
+        "Select AVG(income) From data/rwDatasets/BitcoinHeistData_MAR_5.csv GROUP BY looped",
+        "Select AVG(income) From data/rwDatasets/BitcoinHeistData_MAR_5.csv",
+        "Select AVG(income) From data/rwDatasets/BitcoinHeistData_MAR_5.csv where length > 2 and weight < 3",
+        "Select AVG(income) From data/rwDatasets/BitcoinHeistData_MAR_5.csv where neighbors > 0",
+        "Select AVG(income) from data/Injected_JoinsData/bitcoin_mar5_2.csv join data/Injected_JoinsData/bitcoin_mar5_1.csv USING (id) where day > 4",
+        "Select AVG(income) From data/rwDatasets/BitcoinHeistData_MAR_5.csv GROUP BY looped",
+        "Select AVG(income) From data/rwDatasets/BitcoinHeistData_MAR_5.csv",
+        "Select AVG(income) From data/rwDatasets/BitcoinHeistData_MAR_5.csv where length > 2 and weight < 3",
+        "Select AVG(income) From data/rwDatasets/BitcoinHeistData_MAR_5.csv where neighbors > 0",
+        "Select AVG(income) from data/Injected_JoinsData/bitcoin_mar5_2.csv join data/Injected_JoinsData/bitcoin_mar5_1.csv USING (id) where day > 4"
+      ],
+      "factor_map": {
+        "income": [
+          "year"
+        ],
+        "looped": [
+          "year"
+        ],
+        "length": [
+          "year"
+        ],
+        "weight": [
+          "year"
+        ],
+        "neighbors": [
+          "year"
+        ],
+        "day": [
+          "year"
+        ],
+        "id": [
+          "year"
+        ]
+      }
+    },
+    "bitcoin_mnar_10": {
+      "csv": [
+        "data/rwDatasets/BitcoinHeistData_MAR_10.csv",
+        "data/Injected_JoinsData/bitcoin_mar10_1.csv",
+        "data/Injected_JoinsData/bitcoin_mar10_2.csv"
+      ],
+      "table": [
+        "mar10_bit0",
+        "mar10_bit1",
+        "mar10_bit2"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/BitcoinHeistData_complete.csv",
+        "data/Injected_JoinsData/bit_complete1.csv",
+        "data/Injected_JoinsData/bit_complete2.csv"
+      ],
+      "complete_table": [
+        "full_bit0",
+        "full_bit1",
+        "full_bit2"
+      ],
+      "Cause": [
+        [
+          "year"
+        ],
+        [
+          "year"
+        ],
+        [
+          "year"
+        ]
+      ],
+      "queries": [
+        "Select AVG(income) From data/rwDatasets/BitcoinHeistData_MAR_10.csv GROUP BY looped",
+        "Select AVG(income) From data/rwDatasets/BitcoinHeistData_MAR_10.csv",
+        "Select AVG(income) From data/rwDatasets/BitcoinHeistData_MAR_10.csv where length > 2 and weight < 3",
+        "Select AVG(income) From data/rwDatasets/BitcoinHeistData_MAR_10.csv where neighbors > 0",
+        "Select AVG(income) from data/Injected_JoinsData/bitcoin_mar10_2.csv join data/Injected_JoinsData/bitcoin_mar10_1.csv USING (id) where day > 4",
+        "Select AVG(income) From data/rwDatasets/BitcoinHeistData_MAR_10.csv GROUP BY looped",
+        "Select AVG(income) From data/rwDatasets/BitcoinHeistData_MAR_10.csv",
+        "Select AVG(income) From data/rwDatasets/BitcoinHeistData_MAR_10.csv where length > 2 and weight < 3",
+        "Select AVG(income) From data/rwDatasets/BitcoinHeistData_MAR_10.csv where neighbors > 0",
+        "Select AVG(income) from data/Injected_JoinsData/bitcoin_mar10_2.csv join data/Injected_JoinsData/bitcoin_mar10_1.csv USING (id) where day > 4"
+      ],
+      "factor_map": {
+        "income": [
+          "year"
+        ],
+        "looped": [
+          "year"
+        ],
+        "length": [
+          "year"
+        ],
+        "weight": [
+          "year"
+        ],
+        "neighbors": [
+          "year"
+        ],
+        "day": [
+          "year"
+        ],
+        "id": [
+          "year"
+        ]
+      }
+    },
+    "bitcoin_mnar_20": {
+      "csv": [
+        "data/rwDatasets/BitcoinHeistData_MAR_20.csv",
+        "data/Injected_JoinsData/bitcoin_mar20_1.csv",
+        "data/Injected_JoinsData/bitcoin_mar20_2.csv"
+      ],
+      "table": [
+        "mar20_bit0",
+        "mar20_bit1",
+        "mar20_bit2"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/BitcoinHeistData_complete.csv",
+        "data/Injected_JoinsData/bit_complete1.csv",
+        "data/Injected_JoinsData/bit_complete2.csv"
+      ],
+      "complete_table": [
+        "full_bit0",
+        "full_bit1",
+        "full_bit2"
+      ],
+      "Cause": [
+        [
+          "year"
+        ],
+        [
+          "year"
+        ],
+        [
+          "year"
+        ]
+      ],
+      "queries": [
+        "Select AVG(income) From data/rwDatasets/BitcoinHeistData_MAR_20.csv GROUP BY looped",
+        "Select AVG(income) From data/rwDatasets/BitcoinHeistData_MAR_20.csv",
+        "Select AVG(income) From data/rwDatasets/BitcoinHeistData_MAR_20.csv where length > 2 and weight < 3",
+        "Select AVG(income) From data/rwDatasets/BitcoinHeistData_MAR_20.csv where neighbors > 0",
+        "Select AVG(income) from data/Injected_JoinsData/bitcoin_mar20_2.csv join data/Injected_JoinsData/bitcoin_mar20_1.csv USING (id) where day > 4",
+        "Select AVG(income) From data/rwDatasets/BitcoinHeistData_MAR_20.csv GROUP BY looped",
+        "Select AVG(income) From data/rwDatasets/BitcoinHeistData_MAR_20.csv",
+        "Select AVG(income) From data/rwDatasets/BitcoinHeistData_MAR_20.csv where length > 2 and weight < 3",
+        "Select AVG(income) From data/rwDatasets/BitcoinHeistData_MAR_20.csv where neighbors > 0",
+        "Select AVG(income) from data/Injected_JoinsData/bitcoin_mar20_2.csv join data/Injected_JoinsData/bitcoin_mar20_1.csv USING (id) where day > 4"
+      ],
+      "factor_map": {
+        "income": [
+          "year"
+        ],
+        "looped": [
+          "year"
+        ],
+        "length": [
+          "year"
+        ],
+        "weight": [
+          "year"
+        ],
+        "neighbors": [
+          "year"
+        ],
+        "day": [
+          "year"
+        ],
+        "id": [
+          "year"
+        ]
+      }
+    }
+  }
+}

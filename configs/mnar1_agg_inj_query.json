@@ -1,0 +1,308 @@
+{
+    "bank_manr1_agg":{
+    "bank_mnar_5": {
+        "csv": [
+            "data/MNAR1Data/bank/bank_agg_mnar1_5.csv",
+            "data/Mnar1JoinsData/bank_agg_mnar1_5_join1.csv",
+            "data/Mnar1JoinsData/bank_agg_mnar1_5_join2.csv"
+        ],
+        "table": ["mnar5_bank0", "mnar5_bank1", "mnar5_bank2"],
+        "complete_csv": [
+            "data/rwDatasets/bank_complete.csv",
+            "data/Injected_JoinsData/bank_complete1.csv",
+            "data/Injected_JoinsData/bank_complete2.csv"
+        ],
+        "complete_table": ["full_b0", "full_b1", "full_b2"],
+        "MNAR_Strata": [
+            ["campaign", "contact", "day", "default", "education", "job", "marital"],
+            [
+                "default",
+                "campaign",
+                "day",
+                "job",
+                "contact",
+                "duration",
+                "month",
+                "marital",
+                "education"
+            ],
+            ["marital", "job", "contact", "education", "default"]
+        ],
+        "mar_causes": {},
+        "queries": [
+            "SELECT AVG(balance) FROM data/MNAR1Data/bank/bank_agg_mnar1_5.csv",
+            "Select AVG(balance) From data/MNAR1Data/bank/bank_agg_mnar1_5.csv where education = 'primary'",
+            "Select AVG(balance) From data/MNAR1Data/bank/bank_agg_mnar1_5.csv where duration < 100",
+            "SELECT AVG(balance) FROM data/MNAR1Data/bank/bank_agg_mnar1_5.csv where loan = 'yes' GROUP BY housing",
+            "SELECT AVG(balance) FROM data/Mnar1JoinsData/bank_agg_mnar1_5_join1.csv JOIN data/Mnar1JoinsData/bank_agg_mnar1_5_join2.csv USING (customer_id) WHERE housing = 'no'"
+        ]
+    },
+
+    "bank_mnar_10": {
+        "csv": [
+            "data/MNAR1Data/bank/bank_agg_mnar1_10.csv",
+            "data/Mnar1JoinsData/bank_agg_mnar1_10_join1.csv",
+            "data/Mnar1JoinsData/bank_agg_mnar1_10_join2.csv"
+        ],
+        "table": ["mnar10_bank0", "mnar10_bank1", "mnar10_bank2"],
+        "complete_csv": [
+            "data/rwDatasets/bank_complete.csv",
+            "data/Injected_JoinsData/bank_complete1.csv",
+            "data/Injected_JoinsData/bank_complete2.csv"
+        ],
+        "complete_table": ["full_b0", "full_b1", "full_b2"],
+        "MNAR_Strata": [
+            ["campaign", "contact", "day", "default", "education", "job", "marital"],
+            [
+                "default",
+                "campaign",
+                "day",
+                "job",
+                "contact",
+                "duration",
+                "month",
+                "marital",
+                "education"
+            ],
+            ["marital", "job", "contact", "education", "default"]
+        ],
+        "mar_causes": {},
+        "queries": [
+            "SELECT AVG(balance) FROM data/MNAR1Data/bank/bank_agg_mnar1_10.csv",
+            "Select AVG(balance) From data/MNAR1Data/bank/bank_agg_mnar1_10.csv where education = 'primary'",
+            "Select AVG(balance) From data/MNAR1Data/bank/bank_agg_mnar1_10.csv where duration < 100",
+            "SELECT AVG(balance) FROM data/MNAR1Data/bank/bank_agg_mnar1_10.csv where loan = 'yes' GROUP BY housing",
+            "SELECT AVG(balance) FROM data/Mnar1JoinsData/bank_agg_mnar1_10_join1 JOIN data/Mnar1JoinsData/bank_agg_mnar1_10_join2.csv USING (customer_id) WHERE housing = 'no'"
+        ]
+    },
+    "bank_mnar_20": {
+        "csv": [
+            "data/MNAR1Data/bank/bank_agg_mnar1_20.csv",
+            "data/Mnar1JoinsData/bank_agg_mnar1_20_join1.csv",
+            "data/Mnar1JoinsData/bank_agg_mnar1_20_join2.csv"
+        ],
+        "table": ["mnar20_bank0", "mnar20_bank1", "mnar20_bank2"],
+        "complete_csv": [
+            "data/rwDatasets/bank_complete.csv",
+            "data/Injected_JoinsData/bank_complete1.csv",
+            "data/Injected_JoinsData/bank_complete2.csv"
+        ],
+        "complete_table": ["full_b0", "full_b1", "full_b2"],
+        "MNAR_Strata": [
+            ["campaign", "contact", "day", "default", "education", "job", "marital"],
+            [
+                "default",
+                "campaign",
+                "day",
+                "job",
+                "contact",
+                "duration",
+                "month",
+                "marital",
+                "education"
+            ],
+            ["marital", "job", "contact", "education", "default"]
+        ],
+        "mar_causes": {},
+        "queries": [
+            "SELECT AVG(balance) FROM data/MNAR1Data/bank/bank_agg_mnar1_20.csv",
+            "Select AVG(balance) From data/MNAR1Data/bank/bank_agg_mnar1_20.csv where education = 'primary'",
+            "Select AVG(balance) From data/MNAR1Data/bank/bank_agg_mnar1_20.csv where duration < 100",
+            "SELECT AVG(balance) FROM data/MNAR1Data/bank/bank_agg_mnar1_20.csv where loan = 'yes' GROUP BY housing",
+            "SELECT AVG(balance) FROM data/Mnar1JoinsData/bank_agg_mnar1_20_join1 JOIN data/Mnar1JoinsData/bank_agg_mnar1_20_join2.csv USING (customer_id) WHERE housing = 'no'"
+        ]
+    }
+},
+"nyc_manr1_agg":{
+    "nyc_mnar_5": {
+        "csv": [
+            "data/MNAR1Data/nyc/nyc_agg_mnar1_5.csv",
+            "data/Mnar1JoinsData/nyc_agg_mnar1_5_join1.csv",
+            "data/Mnar1JoinsData/nyc_agg_mnar1_5_join2.csv"
+        ],
+        "table": ["mnar5_nyc0", "mnar5_nyc1", "mnar5_nyc2"],
+        "complete_csv": [
+            "data/rwDatasets/nyc_complete.csv",
+            "data/Injected_JoinsData/nyc_complete1.csv",
+            "data/Injected_JoinsData/nyc_complete2.csv"
+        ],
+        "complete_table": ["full_nyc0", "full_nyc1", "full_nyc2"],
+        "MNAR_Strata": [
+            ["dropoff_longitude", "pickup_latitude", "vendor_id", "trip_duration"],
+            ["dropoff_longitude", "pickup_latitude", "vendor_id", "trip_duration"],
+            ["trip_duration", "vendor_id"]
+        ],
+        "mar_causes": [
+            {"dropoff_longitude": ["pickup_latitude", "trip_duration", "vendor_id"]},
+            {"dropoff_longitude": ["pickup_latitude", "trip_duration", "vendor_id"]},
+            {}
+        ],
+        "queries": [
+            "Select AVG(passenger_count) From data/MNAR1Data/nyc/nyc_agg_mnar1_5.csv",
+            "Select AVG(passenger_count) From data/MNAR1Data/nyc/nyc_agg_mnar1_5.csv where trip_duration > 400",
+            "Select AVG(trip_duration) From data/MNAR1Data/nyc/nyc_agg_mnar1_5.csv",
+            "Select AVG(trip_duration) From data/MNAR1Data/nyc/nyc_agg_mnar1_5.csv where store_and_fwd_flag = 'N'",
+            "SELECT AVG(passenger_count) from data/Mnar1JoinsData/nyc_agg_mnar1_5_join1.csv JOIN data/Mnar1JoinsData/nyc_agg_mnar1_5_join2.csv USING (id)"
+        ]
+    },
+    "nyc_mnar_10": {
+        "csv": [
+            "data/MNAR1Data/nyc/nyc_agg_mnar1_10.csv",
+            "data/Mnar1JoinsData/nyc_agg_mnar1_10_join1.csv",
+            "data/Mnar1JoinsData/nyc_agg_mnar1_10_join2.csv"
+        ],
+        "table": ["mnar10_nyc0", "mnar10_nyc1", "mnar10_nyc2"],
+        "complete_csv": [
+            "data/rwDatasets/nyc_complete.csv",
+            "data/Injected_JoinsData/nyc_complete1.csv",
+            "data/Injected_JoinsData/nyc_complete2.csv"
+        ],
+        "complete_table": ["full_nyc0", "full_nyc1", "full_nyc2"],
+        "MNAR_Strata": [
+            ["dropoff_longitude", "pickup_latitude", "vendor_id", "trip_duration"],
+            ["dropoff_longitude", "pickup_latitude", "vendor_id", "trip_duration"],
+            ["trip_duration", "vendor_id"]
+        ],
+        "mar_causes": [
+            {"dropoff_longitude": ["pickup_latitude", "trip_duration", "vendor_id"]},
+            {"dropoff_longitude": ["pickup_latitude", "trip_duration", "vendor_id"]},
+            {}
+        ],
+        "queries": [
+            "Select AVG(passenger_count) From data/MNAR1Data/nyc/nyc_agg_mnar1_10.csv",
+            "Select AVG(passenger_count) From data/MNAR1Data/nyc/nyc_agg_mnar1_10.csv where trip_duration > 400",
+            "Select AVG(trip_duration) From data/MNAR1Data/nyc/nyc_agg_mnar1_10.csv",
+            "Select AVG(trip_duration) From data/MNAR1Data/nyc/nyc_agg_mnar1_10.csv where store_and_fwd_flag = 'N'",
+            "SELECT AVG(passenger_count) from data/Mnar1JoinsData/nyc_agg_mnar1_10_join1.csv JOIN data/Mnar1JoinsData/nyc_agg_mnar1_10_join2.csv USING (id)"
+        ]
+    },
+    "nyc_mnar_20": {
+        "csv": [
+            "data/MNAR1Data/nyc/nyc_agg_mnar1_20.csv",
+            "data/Mnar1JoinsData/nyc_agg_mnar1_20_join1.csv",
+            "data/Mnar1JoinsData/nyc_agg_mnar1_20_join2.csv"
+        ],
+        "table": ["mnar20_nyc0", "mnar20_nyc1", "mnar20_nyc2"],
+        "complete_csv": [
+            "data/rwDatasets/nyc_complete.csv",
+            "data/Injected_JoinsData/nyc_complete1.csv",
+            "data/Injected_JoinsData/nyc_complete2.csv"
+        ],
+        "complete_table": ["full_nyc0", "full_nyc1", "full_nyc2"],
+        "MNAR_Strata": [
+            ["dropoff_longitude", "pickup_latitude", "vendor_id", "trip_duration"],
+            ["dropoff_longitude", "pickup_latitude", "vendor_id", "trip_duration"],
+            ["trip_duration", "vendor_id"]
+        ],
+        "mar_causes": [
+            {"dropoff_longitude": ["pickup_latitude", "trip_duration", "vendor_id"]},
+            {"dropoff_longitude": ["pickup_latitude", "trip_duration", "vendor_id"]},
+            {}
+        ],
+        "queries": [
+            "Select AVG(passenger_count) From data/MNAR1Data/nyc/nyc_agg_mnar1_20.csv",
+            "Select AVG(passenger_count) From data/MNAR1Data/nyc/nyc_agg_mnar1_20.csv where trip_duration > 400",
+            "Select AVG(trip_duration) From data/MNAR1Data/nyc/nyc_agg_mnar1_20.csv",
+            "Select AVG(trip_duration) From data/MNAR1Data/nyc/nyc_agg_mnar1_20.csv where store_and_fwd_flag = 'N'",
+            "SELECT AVG(passenger_count) from data/Mnar1JoinsData/nyc_agg_mnar1_20_join1.csv JOIN data/Mnar1JoinsData/nyc_agg_mnar1_20_join2.csv USING (id)"
+        ]
+    }
+},
+
+"bit_manr1_agg":{
+    "bitcoin_mnar_5": {
+        "csv": [
+            "data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_5.csv",
+            "data/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_5_join2.csv",
+            "data/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_5_join1.csv"
+        ],
+        "table": ["mnar5_bitc0", "mnar5_bitc2j", "mnar5_bitc1j"],
+        "complete_csv": [
+            "data/rwDatasets/BitcoinHeistData_complete.csv",
+            "data/Injected_JoinsData/bit_complete1.csv",
+            "data/Injected_JoinsData/bit_complete2.csv"
+        ],
+        "complete_table": ["full_bitc0", "full_bitc1", "full_bitc2"],
+        "MNAR_Strata": [
+            ["day", "neighbors", "weight", "year"],
+            ["neighbors", "day", "year", "weight"],
+            ["day", "neighbors"]
+        ],
+        "mar_causes": [
+            {"year": ["day", "neighbors", "weight"]},
+            {"year": ["day", "neighbors", "weight"]},
+            {}
+        ],
+        "queries": [
+            "Select AVG(income) From data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_5.csv GROUP BY year",
+            "Select AVG(income) From data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_5.csv",
+            "Select AVG(income) From data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_5.csv where length > 2 and weight < 3",
+            "Select AVG(income) From data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_5.csv where neighbors > 0",
+            "Select AVG(income) from data/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_5_join2.csv join data/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_5_join1.csv USING (id) where day > 4"
+        ]
+    },
+    "bitcoin_mnar_10": {
+        "csv": [
+            "data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_10.csv",
+            "data/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_10_join2.csv",
+            "data/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_10_join1.csv"
+        ],
+        "table": ["mnar10_bitc0", "mnar10_bitc2j", "mnar10_bitc1j"],
+        "complete_csv": [
+            "data/rwDatasets/BitcoinHeistData_complete.csv",
+            "data/Injected_JoinsData/bit_complete1.csv",
+            "data/Injected_JoinsData/bit_complete2.csv"
+        ],
+        "complete_table": ["full_bitc0", "full_bitc1", "full_bitc2"],
+        "MNAR_Strata": [
+            ["day", "neighbors", "weight", "year"],
+            ["neighbors", "day", "year", "weight"],
+            ["day", "neighbors"]
+        ],
+        "mar_causes": [
+            {"year": ["day", "neighbors", "weight"]},
+            {"year": ["day", "neighbors", "weight"]},
+            {}
+        ],
+        "queries": [
+            "Select AVG(income) From data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_10.csv GROUP BY year",
+            "Select AVG(income) From data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_10.csv",
+            "Select AVG(income) From data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_10.csv where length > 2 and weight < 3",
+            "Select AVG(income) From data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_10.csv where neighbors > 0",
+            "Select AVG(income) from data/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_10_join2.csv join data/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_10_join1.csv USING (id) where day > 4"
+        ]
+    },
+
+    "bitcoin_mnar_20": {
+        "csv": [
+            "data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_20.csv",
+            "data/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_20_join2.csv",
+            "data/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_20_join1.csv"
+        ],
+        "table": ["mnar20_bitc0", "mnar20_bitc2j", "mnar20_bitc1j"],
+        "complete_csv": [
+            "data/rwDatasets/BitcoinHeistData_complete.csv",
+            "data/Injected_JoinsData/bit_complete1.csv",
+            "data/Injected_JoinsData/bit_complete2.csv"
+        ],
+        "complete_table": ["full_bitc0", "full_bitc1", "full_bitc2"],
+        "MNAR_Strata": [
+            ["day", "neighbors", "weight", "year"],
+            ["neighbors", "day", "year", "weight"],
+            ["day", "neighbors"]
+        ],
+        "mar_causes": [
+            {"year": ["day", "neighbors", "weight"]},
+            {"year": ["day", "neighbors", "weight"]},
+            {}
+        ],
+        "queries": [
+            "Select AVG(income) From data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_20.csv GROUP BY year",
+            "Select AVG(income) From data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_20.csv",
+            "Select AVG(income) From data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_20.csv where length > 2 and weight < 3",
+            "Select AVG(income) From data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_20.csv where neighbors > 0",
+            "Select AVG(income) from data/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_20_join2.csv join data/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_20_join1.csv USING (id) where day > 4"
+        ]
+    }
+}
+}

@@ -1,0 +1,115 @@
+{
+  "dataset": "nyc",
+  "join_key": "tuple_id",
+  "set_config_key": "nyc_manr1_set",
+  "factor_file": "data/MNAR1Data/nyc/nyc_mnar1_minimal_separators_Xi.csv",
+  "normalized_rows": 20000,
+  "partitions": {
+    "trip": [
+      "vendor_id",
+      "passenger_count",
+      "store_and_fwd_flag",
+      "trip_duration"
+    ],
+    "pickup": [
+      "pickup_datetime",
+      "pickup_longitude",
+      "pickup_latitude"
+    ],
+    "dropoff": [
+      "id",
+      "dropoff_datetime",
+      "dropoff_longitude",
+      "dropoff_latitude"
+    ]
+  },
+  "rates": {
+    "5": {
+      "csv": [
+        "data/SemanticJoinData/nyc_mnar1_5_trip.csv",
+        "data/SemanticJoinData/nyc_mnar1_5_pickup.csv",
+        "data/SemanticJoinData/nyc_mnar1_5_dropoff.csv"
+      ],
+      "table": [
+        "nyc_5_trip",
+        "nyc_5_pickup",
+        "nyc_5_dropoff"
+      ],
+      "complete_csv": [
+        "data/CompleteSemanticJoinData/nyc_complete_trip.csv",
+        "data/CompleteSemanticJoinData/nyc_complete_pickup.csv",
+        "data/CompleteSemanticJoinData/nyc_complete_dropoff.csv"
+      ],
+      "complete_table": [
+        "nyc_complete_trip",
+        "nyc_complete_pickup",
+        "nyc_complete_dropoff"
+      ],
+      "set_queries": [
+        "SELECT vendor_id FROM data/SemanticJoinData/nyc_mnar1_5_trip.csv JOIN data/SemanticJoinData/nyc_mnar1_5_pickup.csv USING (tuple_id) JOIN data/SemanticJoinData/nyc_mnar1_5_dropoff.csv USING (tuple_id) WHERE passenger_count = 1 AND store_and_fwd_flag = 'N'",
+        "SELECT pickup_longitude, passenger_count FROM data/SemanticJoinData/nyc_mnar1_5_trip.csv JOIN data/SemanticJoinData/nyc_mnar1_5_pickup.csv USING (tuple_id) JOIN data/SemanticJoinData/nyc_mnar1_5_dropoff.csv USING (tuple_id) WHERE store_and_fwd_flag = 'N' GROUP BY pickup_longitude, passenger_count",
+        "SELECT trip_duration FROM data/SemanticJoinData/nyc_mnar1_5_trip.csv JOIN data/SemanticJoinData/nyc_mnar1_5_pickup.csv USING (tuple_id) JOIN data/SemanticJoinData/nyc_mnar1_5_dropoff.csv USING (tuple_id) WHERE passenger_count > 1 AND store_and_fwd_flag = 'N'",
+        "SELECT dropoff_latitude FROM data/SemanticJoinData/nyc_mnar1_5_trip.csv JOIN data/SemanticJoinData/nyc_mnar1_5_pickup.csv USING (tuple_id) JOIN data/SemanticJoinData/nyc_mnar1_5_dropoff.csv USING (tuple_id) WHERE passenger_count = 1 AND store_and_fwd_flag != 'Y'",
+        "SELECT pickup_longitude, trip_duration FROM data/SemanticJoinData/nyc_mnar1_5_trip.csv JOIN data/SemanticJoinData/nyc_mnar1_5_pickup.csv USING (tuple_id) JOIN data/SemanticJoinData/nyc_mnar1_5_dropoff.csv USING (tuple_id) WHERE pickup_latitude > 40.5 AND store_and_fwd_flag = 'N' GROUP BY pickup_longitude, trip_duration"
+      ]
+    },
+    "10": {
+      "csv": [
+        "data/SemanticJoinData/nyc_mnar1_10_trip.csv",
+        "data/SemanticJoinData/nyc_mnar1_10_pickup.csv",
+        "data/SemanticJoinData/nyc_mnar1_10_dropoff.csv"
+      ],
+      "table": [
+        "nyc_10_trip",
+        "nyc_10_pickup",
+        "nyc_10_dropoff"
+      ],
+      "complete_csv": [
+        "data/CompleteSemanticJoinData/nyc_complete_trip.csv",
+        "data/CompleteSemanticJoinData/nyc_complete_pickup.csv",
+        "data/CompleteSemanticJoinData/nyc_complete_dropoff.csv"
+      ],
+      "complete_table": [
+        "nyc_complete_trip",
+        "nyc_complete_pickup",
+        "nyc_complete_dropoff"
+      ],
+      "set_queries": [
+        "SELECT vendor_id FROM data/SemanticJoinData/nyc_mnar1_10_trip.csv JOIN data/SemanticJoinData/nyc_mnar1_10_pickup.csv USING (tuple_id) JOIN data/SemanticJoinData/nyc_mnar1_10_dropoff.csv USING (tuple_id) WHERE passenger_count = 1 AND store_and_fwd_flag = 'N'",
+        "SELECT pickup_longitude, passenger_count FROM data/SemanticJoinData/nyc_mnar1_10_trip.csv JOIN data/SemanticJoinData/nyc_mnar1_10_pickup.csv USING (tuple_id) JOIN data/SemanticJoinData/nyc_mnar1_10_dropoff.csv USING (tuple_id) WHERE store_and_fwd_flag = 'N' GROUP BY pickup_longitude, passenger_count",
+        "SELECT trip_duration FROM data/SemanticJoinData/nyc_mnar1_10_trip.csv JOIN data/SemanticJoinData/nyc_mnar1_10_pickup.csv USING (tuple_id) JOIN data/SemanticJoinData/nyc_mnar1_10_dropoff.csv USING (tuple_id) WHERE passenger_count > 1 AND store_and_fwd_flag = 'N'",
+        "SELECT dropoff_latitude FROM data/SemanticJoinData/nyc_mnar1_10_trip.csv JOIN data/SemanticJoinData/nyc_mnar1_10_pickup.csv USING (tuple_id) JOIN data/SemanticJoinData/nyc_mnar1_10_dropoff.csv USING (tuple_id) WHERE passenger_count = 1 AND store_and_fwd_flag != 'Y'",
+        "SELECT pickup_longitude, trip_duration FROM data/SemanticJoinData/nyc_mnar1_10_trip.csv JOIN data/SemanticJoinData/nyc_mnar1_10_pickup.csv USING (tuple_id) JOIN data/SemanticJoinData/nyc_mnar1_10_dropoff.csv USING (tuple_id) WHERE pickup_latitude > 40.5 AND store_and_fwd_flag = 'N' GROUP BY pickup_longitude, trip_duration"
+      ]
+    },
+    "20": {
+      "csv": [
+        "data/SemanticJoinData/nyc_mnar1_20_trip.csv",
+        "data/SemanticJoinData/nyc_mnar1_20_pickup.csv",
+        "data/SemanticJoinData/nyc_mnar1_20_dropoff.csv"
+      ],
+      "table": [
+        "nyc_20_trip",
+        "nyc_20_pickup",
+        "nyc_20_dropoff"
+      ],
+      "complete_csv": [
+        "data/CompleteSemanticJoinData/nyc_complete_trip.csv",
+        "data/CompleteSemanticJoinData/nyc_complete_pickup.csv",
+        "data/CompleteSemanticJoinData/nyc_complete_dropoff.csv"
+      ],
+      "complete_table": [
+        "nyc_complete_trip",
+        "nyc_complete_pickup",
+        "nyc_complete_dropoff"
+      ],
+      "set_queries": [
+        "SELECT vendor_id FROM data/SemanticJoinData/nyc_mnar1_20_trip.csv JOIN data/SemanticJoinData/nyc_mnar1_20_pickup.csv USING (tuple_id) JOIN data/SemanticJoinData/nyc_mnar1_20_dropoff.csv USING (tuple_id) WHERE passenger_count = 1 AND store_and_fwd_flag = 'N'",
+        "SELECT pickup_longitude, passenger_count FROM data/SemanticJoinData/nyc_mnar1_20_trip.csv JOIN data/SemanticJoinData/nyc_mnar1_20_pickup.csv USING (tuple_id) JOIN data/SemanticJoinData/nyc_mnar1_20_dropoff.csv USING (tuple_id) WHERE store_and_fwd_flag = 'N' GROUP BY pickup_longitude, passenger_count",
+        "SELECT trip_duration FROM data/SemanticJoinData/nyc_mnar1_20_trip.csv JOIN data/SemanticJoinData/nyc_mnar1_20_pickup.csv USING (tuple_id) JOIN data/SemanticJoinData/nyc_mnar1_20_dropoff.csv USING (tuple_id) WHERE passenger_count > 1 AND store_and_fwd_flag = 'N'",
+        "SELECT dropoff_latitude FROM data/SemanticJoinData/nyc_mnar1_20_trip.csv JOIN data/SemanticJoinData/nyc_mnar1_20_pickup.csv USING (tuple_id) JOIN data/SemanticJoinData/nyc_mnar1_20_dropoff.csv USING (tuple_id) WHERE passenger_count = 1 AND store_and_fwd_flag != 'Y'",
+        "SELECT pickup_longitude, trip_duration FROM data/SemanticJoinData/nyc_mnar1_20_trip.csv JOIN data/SemanticJoinData/nyc_mnar1_20_pickup.csv USING (tuple_id) JOIN data/SemanticJoinData/nyc_mnar1_20_dropoff.csv USING (tuple_id) WHERE pickup_latitude > 40.5 AND store_and_fwd_flag = 'N' GROUP BY pickup_longitude, trip_duration"
+      ]
+    }
+  }
+}

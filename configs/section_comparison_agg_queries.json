@@ -1,0 +1,23 @@
+{
+  "bank": [
+    "SELECT AVG(balance) FROM data/Mnar1JoinsData/bank_agg_mnar1_{rate}_join1.csv JOIN data/Mnar1JoinsData/bank_agg_mnar1_{rate}_join2.csv USING (customer_id) WHERE education = 'secondary'",
+    "SELECT AVG(balance) FROM data/Mnar1JoinsData/bank_agg_mnar1_{rate}_join1.csv JOIN data/Mnar1JoinsData/bank_agg_mnar1_{rate}_join2.csv USING (customer_id) WHERE duration > 180",
+    "SELECT AVG(balance) FROM data/Mnar1JoinsData/bank_agg_mnar1_{rate}_join1.csv JOIN data/Mnar1JoinsData/bank_agg_mnar1_{rate}_join2.csv USING (customer_id) WHERE contact = 'cellular'",
+    "SELECT AVG(balance) FROM data/Mnar1JoinsData/bank_agg_mnar1_{rate}_join1.csv JOIN data/Mnar1JoinsData/bank_agg_mnar1_{rate}_join2.csv USING (customer_id) WHERE day > 15 AND loan = 'no'",
+    "SELECT AVG(balance) FROM data/Mnar1JoinsData/bank_agg_mnar1_{rate}_join1.csv JOIN data/Mnar1JoinsData/bank_agg_mnar1_{rate}_join2.csv USING (customer_id) WHERE campaign > 2 AND housing = 'yes'"
+  ],
+  "nyc": [
+    "SELECT AVG(passenger_count) FROM data/Mnar1JoinsData/nyc_agg_mnar1_{rate}_join1.csv JOIN data/Mnar1JoinsData/nyc_agg_mnar1_{rate}_join2.csv USING (id) WHERE trip_duration > 600",
+    "SELECT AVG(passenger_count) FROM data/Mnar1JoinsData/nyc_agg_mnar1_{rate}_join1.csv JOIN data/Mnar1JoinsData/nyc_agg_mnar1_{rate}_join2.csv USING (id) WHERE store_and_fwd_flag = 'N'",
+    "SELECT AVG(passenger_count) FROM data/Mnar1JoinsData/nyc_agg_mnar1_{rate}_join1.csv JOIN data/Mnar1JoinsData/nyc_agg_mnar1_{rate}_join2.csv USING (id) WHERE vendor_id = 2",
+    "SELECT AVG(passenger_count) FROM data/Mnar1JoinsData/nyc_agg_mnar1_{rate}_join1.csv JOIN data/Mnar1JoinsData/nyc_agg_mnar1_{rate}_join2.csv USING (id) WHERE dropoff_longitude < -73.5",
+    "SELECT AVG(passenger_count) FROM data/Mnar1JoinsData/nyc_agg_mnar1_{rate}_join1.csv JOIN data/Mnar1JoinsData/nyc_agg_mnar1_{rate}_join2.csv USING (id) WHERE pickup_latitude > 40.5 AND store_and_fwd_flag = 'N'"
+  ],
+  "bitcoin": [
+    "SELECT AVG(income) FROM data/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_{rate}_join2.csv JOIN data/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_{rate}_join1.csv USING (id) WHERE year = 2016",
+    "SELECT AVG(income) FROM data/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_{rate}_join2.csv JOIN data/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_{rate}_join1.csv USING (id) WHERE neighbors > 0",
+    "SELECT AVG(income) FROM data/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_{rate}_join2.csv JOIN data/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_{rate}_join1.csv USING (id) WHERE weight < 3",
+    "SELECT AVG(income) FROM data/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_{rate}_join2.csv JOIN data/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_{rate}_join1.csv USING (id) WHERE day > 4",
+    "SELECT AVG(income) FROM data/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_{rate}_join2.csv JOIN data/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_{rate}_join1.csv USING (id) WHERE length > 2 AND looped = 0"
+  ]
+}

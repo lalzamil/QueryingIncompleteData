@@ -1,0 +1,821 @@
+{
+  "bank_manr1_set": {
+    "bank_mnar_5": {
+      "csv": [
+        "data/mcdb_test_data/bank_mnar_mcdb_5.csv",
+        "data/Mnar1JoinsData/bank_mnar1_5_join1.csv",
+        "data/Mnar1JoinsData/bank_mnar1_5_join2.csv"
+      ],
+      "table": [
+        "mnar5c_bank0",
+        "mnar5c_bank1",
+        "mnar5c_bank2"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/bank_complete.csv",
+        "data/Injected_JoinsData/bank_complete1.csv",
+        "data/Injected_JoinsData/bank_complete2.csv"
+      ],
+      "complete_table": [
+        "full_bank0",
+        "full_bank1",
+        "full_bank2"
+      ],
+      "missing_attrs_single": [
+        "day",
+        "contact",
+        "duration",
+        "housing"
+      ],
+      "ordering_single": {
+        "contact": [
+          "age",
+          "balance",
+          "campaign",
+          "month"
+        ],
+        "day": [
+          "age",
+          "balance",
+          "campaign",
+          "contact",
+          "default",
+          "education",
+          "housing"
+        ],
+        "housing": [
+          "age",
+          "balance",
+          "campaign"
+        ],
+        "duration": [
+          "age",
+          "balance",
+          "campaign",
+          "contact",
+          "day",
+          "default",
+          "education"
+        ]
+      },
+      "missing_attrs_T": [
+        "day",
+        "contact",
+        "housing"
+      ],
+      "ordering_T": {
+        "contact": [
+          "age",
+          "balance",
+          "campaign",
+          "month"
+        ],
+        "day": [
+          "age",
+          "balance",
+          "campaign",
+          "contact",
+          "default",
+          "education",
+          "housing"
+        ],
+        "housing": [
+          "age",
+          "balance",
+          "campaign"
+        ]
+      },
+      "missing_attrs_S": [],
+      "ordering_S": {},
+      "queries": [
+        "Select contact, count(*) as cnt From data/mcdb_test_data/bank_mnar_mcdb_5.csv WHERE duration > 100 AND housing = 'yes' GROUP BY contact HAVING count(*) > 50",
+        "Select housing, count(*) as cnt From data/mcdb_test_data/bank_mnar_mcdb_5.csv WHERE duration > 150 AND contact = 'cellular' GROUP BY housing HAVING count(*) > 750",
+        "Select contact, count(*) as cnt From data/mcdb_test_data/bank_mnar_mcdb_5.csv WHERE duration > 200 GROUP BY contact HAVING count(*) > 80",
+        "Select housing, count(*) as cnt From data/mcdb_test_data/bank_mnar_mcdb_5.csv WHERE day > 10 AND duration > 100 GROUP BY housing HAVING count(*) > 850",
+        "Select contact, count(*) as cnt From data/Mnar1JoinsData/bank_mnar1_5_join1.csv JOIN data/Mnar1JoinsData/bank_mnar1_5_join2.csv USING (customer_id) WHERE day > 10 AND pdays > 0 GROUP BY contact HAVING count(*) > 30"
+      ]
+    },
+    "bank_mnar_10": {
+      "csv": [
+        "data/mcdb_test_data/bank_mnar_mcdb_10.csv",
+        "data/Mnar1JoinsData/bank_mnar1_10_join1.csv",
+        "data/Mnar1JoinsData/bank_mnar1_10_join2.csv"
+      ],
+      "table": [
+        "mnar10c_bank0",
+        "mnar10c_bank1",
+        "mnar10c_bank2"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/bank_complete.csv",
+        "data/Injected_JoinsData/bank_complete1.csv",
+        "data/Injected_JoinsData/bank_complete2.csv"
+      ],
+      "complete_table": [
+        "full_bank0",
+        "full_bank1",
+        "full_bank2"
+      ],
+      "missing_attrs_single": [
+        "day",
+        "contact",
+        "duration",
+        "housing"
+      ],
+      "ordering_single": {
+        "contact": [
+          "age",
+          "balance",
+          "campaign",
+          "month"
+        ],
+        "day": [
+          "age",
+          "balance",
+          "campaign",
+          "contact",
+          "default",
+          "education",
+          "housing"
+        ],
+        "housing": [
+          "age",
+          "balance",
+          "campaign"
+        ],
+        "duration": [
+          "age",
+          "balance",
+          "campaign",
+          "contact",
+          "day",
+          "default",
+          "education"
+        ]
+      },
+      "missing_attrs_T": [
+        "day",
+        "contact",
+        "housing"
+      ],
+      "ordering_T": {
+        "contact": [
+          "age",
+          "balance",
+          "campaign",
+          "month"
+        ],
+        "day": [
+          "age",
+          "balance",
+          "campaign",
+          "contact",
+          "default",
+          "education",
+          "housing"
+        ],
+        "housing": [
+          "age",
+          "balance",
+          "campaign"
+        ]
+      },
+      "missing_attrs_S": [],
+      "ordering_S": {},
+      "queries": [
+        "Select contact, count(*) as cnt From data/mcdb_test_data/bank_mnar_mcdb_10.csv WHERE duration > 100 AND housing = 'yes' GROUP BY contact HAVING count(*) > 50",
+        "Select housing, count(*) as cnt From data/mcdb_test_data/bank_mnar_mcdb_10.csv WHERE duration > 150 AND contact = 'cellular' GROUP BY housing HAVING count(*) > 750",
+        "Select contact, count(*) as cnt From data/mcdb_test_data/bank_mnar_mcdb_10.csv WHERE duration > 200 GROUP BY contact HAVING count(*) > 80",
+        "Select housing, count(*) as cnt From data/mcdb_test_data/bank_mnar_mcdb_10.csv WHERE day > 10 AND duration > 100 GROUP BY housing HAVING count(*) > 850",
+        "Select contact, count(*) as cnt From data/Mnar1JoinsData/bank_mnar1_10_join1.csv JOIN data/Mnar1JoinsData/bank_mnar1_10_join2.csv USING (customer_id) WHERE day > 10 AND pdays > 0 GROUP BY contact HAVING count(*) > 30"
+      ]
+    },
+    "bank_mnar_20": {
+      "csv": [
+        "data/mcdb_test_data/bank_mnar_mcdb_20.csv",
+        "data/Mnar1JoinsData/bank_mnar1_20_join1.csv",
+        "data/Mnar1JoinsData/bank_mnar1_20_join2.csv"
+      ],
+      "table": [
+        "mnar20c_bank0",
+        "mnar20c_bank1",
+        "mnar20c_bank2"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/bank_complete.csv",
+        "data/Injected_JoinsData/bank_complete1.csv",
+        "data/Injected_JoinsData/bank_complete2.csv"
+      ],
+      "complete_table": [
+        "full_bank0",
+        "full_bank1",
+        "full_bank2"
+      ],
+      "missing_attrs_single": [
+        "day",
+        "contact",
+        "duration",
+        "housing"
+      ],
+      "ordering_single": {
+        "contact": [
+          "age",
+          "balance",
+          "campaign",
+          "month"
+        ],
+        "day": [
+          "age",
+          "balance",
+          "campaign",
+          "contact",
+          "default",
+          "education",
+          "housing"
+        ],
+        "housing": [
+          "age",
+          "balance",
+          "campaign"
+        ],
+        "duration": [
+          "age",
+          "balance",
+          "campaign",
+          "contact",
+          "day",
+          "default",
+          "education"
+        ]
+      },
+      "missing_attrs_T": [
+        "day",
+        "contact",
+        "housing"
+      ],
+      "ordering_T": {
+        "contact": [
+          "age",
+          "balance",
+          "campaign",
+          "month"
+        ],
+        "day": [
+          "age",
+          "balance",
+          "campaign",
+          "contact",
+          "default",
+          "education",
+          "housing"
+        ],
+        "housing": [
+          "age",
+          "balance",
+          "campaign"
+        ]
+      },
+      "missing_attrs_S": [],
+      "ordering_S": {},
+      "queries": [
+        "Select contact, count(*) as cnt From data/mcdb_test_data/bank_mnar_mcdb_20.csv WHERE duration > 100 AND housing = 'yes' GROUP BY contact HAVING count(*) > 50",
+        "Select housing, count(*) as cnt From data/mcdb_test_data/bank_mnar_mcdb_20.csv WHERE duration > 150 AND contact = 'cellular' GROUP BY housing HAVING count(*) > 750",
+        "Select contact, count(*) as cnt From data/mcdb_test_data/bank_mnar_mcdb_20.csv WHERE duration > 200 GROUP BY contact HAVING count(*) > 80",
+        "Select housing, count(*) as cnt From data/mcdb_test_data/bank_mnar_mcdb_20.csv WHERE day > 10 AND duration > 100 GROUP BY housing HAVING count(*) > 850",
+        "Select contact, count(*) as cnt From data/Mnar1JoinsData/bank_mnar1_20_join1.csv JOIN data/Mnar1JoinsData/bank_mnar1_20_join2.csv USING (customer_id) WHERE day > 10 AND pdays > 0 GROUP BY contact HAVING count(*) > 30"
+      ]
+    }
+  },
+  "nyc_manr1_set": {
+    "nyc_mnar_5": {
+      "csv": [
+        "data/mcdb_test_data/nyc_mnar_mcdb_5.csv",
+        "data/Mnar1JoinsData/nyc_mnar1_5_join1.csv",
+        "data/Mnar1JoinsData/nyc_mnar1_5_join2.csv"
+      ],
+      "table": [
+        "mnar5c_nyc0",
+        "mnar5c_nyc1",
+        "mnar5c_nyc2"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/nyc_complete.csv",
+        "data/Injected_JoinsData/nyc_complete1.csv",
+        "data/Injected_JoinsData/nyc_complete2.csv"
+      ],
+      "complete_table": [
+        "full_nyc0",
+        "full_nyc1",
+        "full_nyc2"
+      ],
+      "missing_attrs_single": [
+        "vendor_id",
+        "trip_duration",
+        "pickup_longitude"
+      ],
+      "ordering_single": {
+        "pickup_longitude": [
+          "passenger_count",
+          "pickup_latitude",
+          "store_and_fwd_flag"
+        ],
+        "trip_duration": [
+          "passenger_count",
+          "pickup_latitude",
+          "pickup_longitude",
+          "store_and_fwd_flag"
+        ],
+        "vendor_id": [
+          "passenger_count",
+          "pickup_longitude",
+          "store_and_fwd_flag",
+          "trip_duration"
+        ]
+      },
+      "missing_attrs_T": [
+        "vendor_id",
+        "trip_duration",
+        "pickup_longitude"
+      ],
+      "ordering_T": {
+        "pickup_longitude": [
+          "passenger_count",
+          "pickup_latitude",
+          "store_and_fwd_flag"
+        ],
+        "trip_duration": [
+          "passenger_count",
+          "pickup_latitude",
+          "pickup_longitude",
+          "store_and_fwd_flag"
+        ],
+        "vendor_id": [
+          "passenger_count",
+          "pickup_longitude",
+          "store_and_fwd_flag",
+          "trip_duration"
+        ]
+      },
+      "missing_attrs_S": [],
+      "ordering_S": {},
+      "queries": [
+        "Select vendor_id, count(*) as cnt From data/mcdb_test_data/nyc_mnar_mcdb_5.csv WHERE trip_duration > 2000 GROUP BY vendor_id HAVING count(*) > 15000",
+        "Select passenger_count, count(*) as cnt From data/mcdb_test_data/nyc_mnar_mcdb_5.csv WHERE trip_duration > 3000 GROUP BY passenger_count HAVING count(*) > 170",
+        "Select vendor_id, count(*) as cnt From data/mcdb_test_data/nyc_mnar_mcdb_5.csv WHERE trip_duration > 1500 AND pickup_longitude > -73.95 GROUP BY vendor_id HAVING count(*) > 850",
+        "Select store_and_fwd_flag, count(*) as cnt From data/mcdb_test_data/nyc_mnar_mcdb_5.csv WHERE trip_duration > 2500 AND dropoff_longitude < -73.90 GROUP BY store_and_fwd_flag HAVING count(*) > 40000",
+        "Select vendor_id, count(*) as cnt From data/Mnar1JoinsData/nyc_mnar1_5_join1.csv JOIN data/Mnar1JoinsData/nyc_mnar1_5_join2.csv USING (id) WHERE trip_duration > 500 GROUP BY vendor_id HAVING count(*) > 100000"
+      ]
+    },
+    "nyc_mnar_10": {
+      "csv": [
+        "data/mcdb_test_data/nyc_mnar_mcdb_10.csv",
+        "data/Mnar1JoinsData/nyc_mnar1_10_join1.csv",
+        "data/Mnar1JoinsData/nyc_mnar1_10_join2.csv"
+      ],
+      "table": [
+        "mnar10c_nyc0",
+        "mnar10c_nyc1",
+        "mnar10c_nyc2"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/nyc_complete.csv",
+        "data/Injected_JoinsData/nyc_complete1.csv",
+        "data/Injected_JoinsData/nyc_complete2.csv"
+      ],
+      "complete_table": [
+        "full_nyc0",
+        "full_nyc1",
+        "full_nyc2"
+      ],
+      "missing_attrs_single": [
+        "vendor_id",
+        "trip_duration",
+        "pickup_longitude"
+      ],
+      "ordering_single": {
+        "pickup_longitude": [
+          "passenger_count",
+          "pickup_latitude",
+          "store_and_fwd_flag"
+        ],
+        "trip_duration": [
+          "passenger_count",
+          "pickup_latitude",
+          "pickup_longitude",
+          "store_and_fwd_flag"
+        ],
+        "vendor_id": [
+          "passenger_count",
+          "pickup_longitude",
+          "store_and_fwd_flag",
+          "trip_duration"
+        ]
+      },
+      "missing_attrs_T": [
+        "vendor_id",
+        "trip_duration",
+        "pickup_longitude"
+      ],
+      "ordering_T": {
+        "pickup_longitude": [
+          "passenger_count",
+          "pickup_latitude",
+          "store_and_fwd_flag"
+        ],
+        "trip_duration": [
+          "passenger_count",
+          "pickup_latitude",
+          "pickup_longitude",
+          "store_and_fwd_flag"
+        ],
+        "vendor_id": [
+          "passenger_count",
+          "pickup_longitude",
+          "store_and_fwd_flag",
+          "trip_duration"
+        ]
+      },
+      "missing_attrs_S": [],
+      "ordering_S": {},
+      "queries": [
+        "Select vendor_id, count(*) as cnt From data/mcdb_test_data/nyc_mnar_mcdb_10.csv WHERE trip_duration > 2000 GROUP BY vendor_id HAVING count(*) > 15000",
+        "Select passenger_count, count(*) as cnt From data/mcdb_test_data/nyc_mnar_mcdb_10.csv WHERE trip_duration > 3000 GROUP BY passenger_count HAVING count(*) > 170",
+        "Select vendor_id, count(*) as cnt From data/mcdb_test_data/nyc_mnar_mcdb_10.csv WHERE trip_duration > 1500 AND pickup_longitude > -73.95 GROUP BY vendor_id HAVING count(*) > 850",
+        "Select store_and_fwd_flag, count(*) as cnt From data/mcdb_test_data/nyc_mnar_mcdb_10.csv WHERE trip_duration > 2500 AND dropoff_longitude < -73.90 GROUP BY store_and_fwd_flag HAVING count(*) > 40000",
+        "Select vendor_id, count(*) as cnt From data/Mnar1JoinsData/nyc_mnar1_10_join1.csv JOIN data/Mnar1JoinsData/nyc_mnar1_10_join2.csv USING (id) WHERE trip_duration > 500 GROUP BY vendor_id HAVING count(*) > 100000"
+      ]
+    },
+    "nyc_mnar_20": {
+      "csv": [
+        "data/mcdb_test_data/nyc_mnar_mcdb_20.csv",
+        "data/Mnar1JoinsData/nyc_mnar1_20_join1.csv",
+        "data/Mnar1JoinsData/nyc_mnar1_20_join2.csv"
+      ],
+      "table": [
+        "mnar20c_nyc0",
+        "mnar20c_nyc1",
+        "mnar20c_nyc2"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/nyc_complete.csv",
+        "data/Injected_JoinsData/nyc_complete1.csv",
+        "data/Injected_JoinsData/nyc_complete2.csv"
+      ],
+      "complete_table": [
+        "full_nyc0",
+        "full_nyc1",
+        "full_nyc2"
+      ],
+      "missing_attrs_single": [
+        "vendor_id",
+        "trip_duration",
+        "pickup_longitude"
+      ],
+      "ordering_single": {
+        "pickup_longitude": [
+          "passenger_count",
+          "pickup_latitude",
+          "store_and_fwd_flag"
+        ],
+        "trip_duration": [
+          "passenger_count",
+          "pickup_latitude",
+          "pickup_longitude",
+          "store_and_fwd_flag"
+        ],
+        "vendor_id": [
+          "passenger_count",
+          "pickup_longitude",
+          "store_and_fwd_flag",
+          "trip_duration"
+        ]
+      },
+      "missing_attrs_T": [
+        "vendor_id",
+        "trip_duration",
+        "pickup_longitude"
+      ],
+      "ordering_T": {
+        "pickup_longitude": [
+          "passenger_count",
+          "pickup_latitude",
+          "store_and_fwd_flag"
+        ],
+        "trip_duration": [
+          "passenger_count",
+          "pickup_latitude",
+          "pickup_longitude",
+          "store_and_fwd_flag"
+        ],
+        "vendor_id": [
+          "passenger_count",
+          "pickup_longitude",
+          "store_and_fwd_flag",
+          "trip_duration"
+        ]
+      },
+      "missing_attrs_S": [],
+      "ordering_S": {},
+      "queries": [
+        "Select vendor_id, count(*) as cnt From data/mcdb_test_data/nyc_mnar_mcdb_20.csv WHERE trip_duration > 2000 GROUP BY vendor_id HAVING count(*) > 15000",
+        "Select passenger_count, count(*) as cnt From data/mcdb_test_data/nyc_mnar_mcdb_20.csv WHERE trip_duration > 3000 GROUP BY passenger_count HAVING count(*) > 170",
+        "Select vendor_id, count(*) as cnt From data/mcdb_test_data/nyc_mnar_mcdb_20.csv WHERE trip_duration > 1500 AND pickup_longitude > -73.95 GROUP BY vendor_id HAVING count(*) > 850",
+        "Select store_and_fwd_flag, count(*) as cnt From data/mcdb_test_data/nyc_mnar_mcdb_20.csv WHERE trip_duration > 2500 AND dropoff_longitude < -73.90 GROUP BY store_and_fwd_flag HAVING count(*) > 40000",
+        "Select vendor_id, count(*) as cnt From data/Mnar1JoinsData/nyc_mnar1_20_join1.csv JOIN data/Mnar1JoinsData/nyc_mnar1_20_join2.csv USING (id) WHERE trip_duration > 500 GROUP BY vendor_id HAVING count(*) > 100000"
+      ]
+    }
+  },
+  "bit_manr1_set": {
+    "BitcoinHeistData_mnar_5": {
+      "csv": [
+        "data/mcdb_test_data/bitcoin_mnar_mcdb_5.csv",
+        "data/Mnar1JoinsData/BitcoinHeistData_mnar1_5_join1.csv",
+        "data/Mnar1JoinsData/BitcoinHeistData_mnar1_5_join2.csv"
+      ],
+      "table": [
+        "mnar5c_BitcoinHeistData0",
+        "mnar5c_BitcoinHeistData1",
+        "mnar5c_BitcoinHeistData2"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/BitcoinHeistData_complete.csv",
+        "data/Injected_JoinsData/bit_complete1.csv",
+        "data/Injected_JoinsData/bit_complete2.csv"
+      ],
+      "complete_table": [
+        "full_BitcoinHeistData0",
+        "full_BitcoinHeistData1",
+        "full_BitcoinHeistData2"
+      ],
+      "missing_attrs_single": [
+        "neighbors",
+        "looped",
+        "count"
+      ],
+      "ordering_single": {
+        "neighbors": [
+          "income",
+          "weight",
+          "year"
+        ],
+        "count": [
+          "income",
+          "neighbors",
+          "weight",
+          "year"
+        ],
+        "looped": [
+          "count",
+          "income",
+          "neighbors",
+          "weight",
+          "year"
+        ]
+      },
+      "missing_attrs_T": [
+        "neighbors",
+        "looped",
+        "count"
+      ],
+      "ordering_T": {
+        "length": [
+          "income",
+          "year"
+        ],
+        "neighbors": [
+          "income",
+          "weight",
+          "year"
+        ],
+        "count": [
+          "income",
+          "neighbors",
+          "weight",
+          "year"
+        ],
+        "looped": [
+          "count",
+          "income",
+          "neighbors",
+          "weight",
+          "year"
+        ]
+      },
+      "missing_attrs_S": [
+        "length",
+        "day"
+      ],
+      "ordering_S": {
+        "length": [
+          "income",
+          "year"
+        ],
+        "day": [
+          "income",
+          "year"
+        ]
+      },
+      "queries": [
+        "Select year, count(*) as cnt From data/mcdb_test_data/bitcoin_mnar_mcdb_5.csv WHERE looped > 50 AND neighbors > 2 GROUP BY year HAVING count(*) > 10",
+        "Select label, count(*) as cnt From data/mcdb_test_data/bitcoin_mnar_mcdb_5.csv WHERE looped > 100 AND count > 200 GROUP BY label HAVING count(*) > 1",
+        "Select year, count(*) as cnt From data/mcdb_test_data/bitcoin_mnar_mcdb_5.csv WHERE count > 500 AND looped > 20 GROUP BY year HAVING count(*) > 100",
+        "Select label, count(*) as cnt From data/mcdb_test_data/bitcoin_mnar_mcdb_5.csv WHERE neighbors > 3 AND looped > 10 GROUP BY label HAVING count(*) > 1",
+        "Select year, count(*) as cnt From data/Mnar1JoinsData/BitcoinHeistData_mnar1_5_join1.csv JOIN data/Mnar1JoinsData/BitcoinHeistData_mnar1_5_join2.csv USING (ID) WHERE looped > 10 GROUP BY year HAVING count(*) > 5000"
+      ]
+    },
+    "BitcoinHeistData_mnar_10": {
+      "csv": [
+        "data/mcdb_test_data/bitcoin_mnar_mcdb_10.csv",
+        "data/Mnar1JoinsData/BitcoinHeistData_mnar1_10_join1.csv",
+        "data/Mnar1JoinsData/BitcoinHeistData_mnar1_10_join2.csv"
+      ],
+      "table": [
+        "mnar10c_BitcoinHeistData0",
+        "mnar10c_BitcoinHeistData1",
+        "mnar10c_BitcoinHeistData2"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/BitcoinHeistData_complete.csv",
+        "data/Injected_JoinsData/bit_complete1.csv",
+        "data/Injected_JoinsData/bit_complete2.csv"
+      ],
+      "complete_table": [
+        "full_BitcoinHeistData0",
+        "full_BitcoinHeistData1",
+        "full_BitcoinHeistData2"
+      ],
+      "missing_attrs_single": [
+        "neighbors",
+        "looped",
+        "count"
+      ],
+      "ordering_single": {
+        "neighbors": [
+          "income",
+          "weight",
+          "year"
+        ],
+        "count": [
+          "income",
+          "neighbors",
+          "weight",
+          "year"
+        ],
+        "looped": [
+          "count",
+          "income",
+          "neighbors",
+          "weight",
+          "year"
+        ]
+      },
+      "missing_attrs_T": [
+        "neighbors",
+        "looped",
+        "count"
+      ],
+      "ordering_T": {
+        "length": [
+          "income",
+          "year"
+        ],
+        "neighbors": [
+          "income",
+          "weight",
+          "year"
+        ],
+        "count": [
+          "income",
+          "neighbors",
+          "weight",
+          "year"
+        ],
+        "looped": [
+          "count",
+          "income",
+          "neighbors",
+          "weight",
+          "year"
+        ]
+      },
+      "missing_attrs_S": [
+        "length",
+        "day"
+      ],
+      "ordering_S": {
+        "length": [
+          "income",
+          "year"
+        ],
+        "day": [
+          "income",
+          "year"
+        ]
+      },
+      "queries": [
+        "Select year, count(*) as cnt From data/mcdb_test_data/bitcoin_mnar_mcdb_10.csv WHERE looped > 50 AND neighbors > 2 GROUP BY year HAVING count(*) > 10",
+        "Select label, count(*) as cnt From data/mcdb_test_data/bitcoin_mnar_mcdb_10.csv WHERE looped > 100 AND count > 200 GROUP BY label HAVING count(*) > 1",
+        "Select year, count(*) as cnt From data/mcdb_test_data/bitcoin_mnar_mcdb_10.csv WHERE count > 500 AND looped > 20 GROUP BY year HAVING count(*) > 100",
+        "Select label, count(*) as cnt From data/mcdb_test_data/bitcoin_mnar_mcdb_10.csv WHERE neighbors > 3 AND looped > 10 GROUP BY label HAVING count(*) > 1",
+        "Select year, count(*) as cnt From data/Mnar1JoinsData/BitcoinHeistData_mnar1_10_join1.csv JOIN data/Mnar1JoinsData/BitcoinHeistData_mnar1_10_join2.csv USING (ID) WHERE looped > 10 GROUP BY year HAVING count(*) > 5000"
+      ]
+    },
+    "BitcoinHeistData_mnar_20": {
+      "csv": [
+        "data/mcdb_test_data/bitcoin_mnar_mcdb_20.csv",
+        "data/Mnar1JoinsData/BitcoinHeistData_mnar1_20_join1.csv",
+        "data/Mnar1JoinsData/BitcoinHeistData_mnar1_20_join2.csv"
+      ],
+      "table": [
+        "mnar20c_BitcoinHeistData0",
+        "mnar20c_BitcoinHeistData1",
+        "mnar20c_BitcoinHeistData2"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/BitcoinHeistData_complete.csv",
+        "data/Injected_JoinsData/bit_complete1.csv",
+        "data/Injected_JoinsData/bit_complete2.csv"
+      ],
+      "complete_table": [
+        "full_BitcoinHeistData0",
+        "full_BitcoinHeistData1",
+        "full_BitcoinHeistData2"
+      ],
+      "missing_attrs_single": [
+        "neighbors",
+        "looped",
+        "count"
+      ],
+      "ordering_single": {
+        "neighbors": [
+          "income",
+          "weight",
+          "year"
+        ],
+        "count": [
+          "income",
+          "neighbors",
+          "weight",
+          "year"
+        ],
+        "looped": [
+          "count",
+          "income",
+          "neighbors",
+          "weight",
+          "year"
+        ]
+      },
+      "missing_attrs_T": [
+        "neighbors",
+        "looped",
+        "count"
+      ],
+      "ordering_T": {
+        "length": [
+          "income",
+          "year"
+        ],
+        "neighbors": [
+          "income",
+          "weight",
+          "year"
+        ],
+        "count": [
+          "income",
+          "neighbors",
+          "weight",
+          "year"
+        ],
+        "looped": [
+          "count",
+          "income",
+          "neighbors",
+          "weight",
+          "year"
+        ]
+      },
+      "missing_attrs_S": [
+        "length",
+        "day"
+      ],
+      "ordering_S": {
+        "length": [
+          "income",
+          "year"
+        ],
+        "day": [
+          "income",
+          "year"
+        ]
+      },
+      "queries": [
+        "Select year, count(*) as cnt From data/mcdb_test_data/bitcoin_mnar_mcdb_20.csv WHERE looped > 50 AND neighbors > 2 GROUP BY year HAVING count(*) > 10",
+        "Select label, count(*) as cnt From data/mcdb_test_data/bitcoin_mnar_mcdb_20.csv WHERE looped > 100 AND count > 200 GROUP BY label HAVING count(*) > 1",
+        "Select year, count(*) as cnt From data/mcdb_test_data/bitcoin_mnar_mcdb_20.csv WHERE count > 500 AND looped > 20 GROUP BY year HAVING count(*) > 100",
+        "Select label, count(*) as cnt From data/mcdb_test_data/bitcoin_mnar_mcdb_20.csv WHERE neighbors > 3 AND looped > 10 GROUP BY label HAVING count(*) > 1",
+        "Select year, count(*) as cnt From data/Mnar1JoinsData/BitcoinHeistData_mnar1_20_join1.csv JOIN data/Mnar1JoinsData/BitcoinHeistData_mnar1_20_join2.csv USING (ID) WHERE looped > 10 GROUP BY year HAVING count(*) > 5000"
+      ]
+    }
+  }
+}

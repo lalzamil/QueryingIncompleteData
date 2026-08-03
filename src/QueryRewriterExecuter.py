@@ -220,7 +220,7 @@ class QueryRewriter:
             FROM grp
             GROUP BY {gb_select};
         """
-    
+
     ############### rewrite queries that already have group by in the input query ###############
     def mcarsingleGroupBy(self,sel, attr,tbl,where):
          return f"""
@@ -279,7 +279,7 @@ class QueryRewriter:
                 FROM j
                 GROUP BY {", ".join(f'"{c}"' for c in group_cols)};
             """
-    
+
 
 class QueryExecutor:
     TYPE_MAP = {'int64':'BIGINT','float64':'NUMERIC'}
@@ -310,12 +310,12 @@ class QueryExecutor:
         self.prepareTables()
 
 
-    def inferSchema(self, path): 
-            df = pd.read_csv(path, nrows=100)
+    def inferSchema(self, path):
+            df = pd.read_csv(path, nrows=1000, low_memory=False)
             df.columns = df.columns.str.lower()
             df = df.loc[:, ~df.columns.str.startswith('unnamed:')]
             return {col:self.TYPE_MAP.get(str(dt),'TEXT') for col,dt in df.dtypes.items()}
-    
+
     def loadCSV(self, path, table_name, cols):
         df = pd.read_csv(path, keep_default_na=True, na_values=['',' ','\\N'])
         df.columns = df.columns.str.lower() # convert to lowercase columsn names I ahd errors with sql if I dont convert
@@ -396,7 +396,7 @@ class QueryExecutor:
         for k in keys:
             expand_one(k, set())
         return out  # stable unique list
-    
+
     def _qualify_group_cols(self,group_cols, schL, schR):
         sel_cols = []
         for c in group_cols:
@@ -407,7 +407,7 @@ class QueryExecutor:
             else:
                 sel_cols.append(f'"{c}"')  # fallback
         return ", ".join(sel_cols), sel_cols
-    
+
     def _basename_noext(self,p: str) -> str:
       b = os.path.basename(p)
       b, _ = os.path.splitext(b)
@@ -440,7 +440,7 @@ class QueryExecutor:
                 cause_list = [[c.lower()] for c in raw_causes]
             else:
                 cause_list = [[c.lower() for c in sub] for sub in raw_causes]
-            
+
 
             ## mnar
             raw_mnar = meta.get('MNAR_Strata', [])
@@ -536,7 +536,7 @@ class QueryExecutor:
                             ftR = self.full_table_for[full_list[iR]]
 
 
-                    
+
                     # if mnar_L or mnar_R:
                     #     # MNAR JOIN
                     #     select_fields = [f'l."{attr}"::NUMERIC AS bal'] \
@@ -545,7 +545,7 @@ class QueryExecutor:
                     #     select_clause = ", ".join(select_fields)
                     #     grpBy = ", ".join([f'"{c}_L"' for c in mnar_L] + [f'"{c}_R"' for c in mnar_R])
                     #     global_sql = rewrite.mnarjoin(select_clause, tblL, tblR, where, key, grpBy)
-                    
+
 
                     if mnar_L_eff or mnar_R_eff:
                         select_fields = [f'l."{attr}"::NUMERIC AS bal'] \
@@ -573,7 +573,7 @@ class QueryExecutor:
                         #           [f'"{c}"'     for c in group_cols]
                         #       )
                         # grpBy = ", ".join(group_by_fields)
-                        
+
                         global_sql    = rewrite.marjoin(select_clause, tblL, tblR, where, key, grpBy)
 
                     # if GROUP BY vendor_id (or any group_cols), we’ll build group_sql below…
@@ -681,7 +681,7 @@ class QueryExecutor:
                     tbl      = self.mar_table_for[mar_path]
                     causes   = cause_list[idx]
                     mnar_keys = mnar_list[idx]
-                    
+
                     if has_truth:
                           full_path = full_list[idx] if idx < len(full_list) else full_list[0]
                           ft = self.full_table_for[ full_path ]
@@ -766,14 +766,14 @@ class QueryExecutor:
                               GROUP BY {", ".join(f'"{c}"' for c in group_cols)};
                             """
 
-                # ── run q hat 
+                # ── run q hat
                 start = time.time()
                 self.cur.execute(global_sql)
                 mytimer = time.time() - start
                 # print("executed global MAR single query without group by: ", global_sql)
                 # print(" the contents of self.cur.fetchone() are:  ", self.cur.fetchone()) ## bug shoudlnt call it here, it will flush out the contents
-                if my_join_timer_flag: 
-                    JQT=mytimer 
+                if my_join_timer_flag:
+                    JQT=mytimer
                 else:
                     QT=mytimer
                 # est, stderr = map(float, self.cur.fetchone())
@@ -782,7 +782,7 @@ class QueryExecutor:
                 est    = float(est_raw) if est_raw is not None else 0.0
                 stderr = float(se_raw)  if se_raw  is not None else 0.0
                 lo, hi = est - z*stderr, est + z*stderr
-                          
+
 
 
                 # 1) Ground‐truth lookup
@@ -821,7 +821,7 @@ class QueryExecutor:
                                     gt_sel_parts.append(f'"{c}" AS g{i}')  # fallback
                             gt_sel_str = ", ".join(gt_sel_parts)
 
-                            # GROUP BY positions 1..k 
+                            # GROUP BY positions 1..k
                             grp_positions = ", ".join(str(i) for i in range(1, len(gt_sel_parts)+1))
 
                             gt_grp_sql = f"""
@@ -871,13 +871,13 @@ class QueryExecutor:
                         else:
                             entry['accuracy']     = -1
                     results[ds_name][qry] = entry
-               
-                #  Otherwise, run the per‐group query 
+
+                #  Otherwise, run the per‐group query
                 else:
                     start = time.time()
                     self.cur.execute(group_sql)
                     mytimer = time.time() - start
-                    if my_join_timer_flag: JQT=mytimer 
+                    if my_join_timer_flag: JQT=mytimer
                     else: QT=mytimer
 
                     rows = self.cur.fetchall()
@@ -887,7 +887,7 @@ class QueryExecutor:
                     for rec in rows:
                         # *key, rec_est, rec_stderr = rec
                         *gvals, rec_est, rec_stderr = rec
-                        gkey = tuple(gvals) 
+                        gkey = tuple(gvals)
                         if rec_stderr == None : continue ## std bight be too low and sometime none cuz small group
 
                         rec_est    = float(rec_est)
@@ -899,7 +899,7 @@ class QueryExecutor:
                             continue
 
                         if jm:
-                               
+
                             _, cond_sel_list = self._qualify_group_cols(group_cols, schL, schR)
                             kc = " AND ".join(f"{col} = %s" for col in cond_sel_list)
                             count_sql = (
@@ -958,8 +958,8 @@ class QueryExecutor:
 
 ### --- start mcar mar runners ----
 # import json
-# with open("all_queries.json") as f:
-# # with open("all_queries_dist.json") as f:
+# with open("configs/all_queries.json") as f:
+# # with open("configs/all_queries_dist.json") as f:
 #     allData = json.load(f)
 #     csv_queries_bank_mar = allData["bank_mar"]
 #     csv_queries_nyc_mar  = allData["nyc_mar"]
@@ -974,11 +974,11 @@ class QueryExecutor:
 # query_config=[csv_queries_bank_mar,csv_queries_nyc_mar,
 #               csv_queries_real_MAR, csv_queries_real_MCAR,
 #               csv_queries_bank_mcar, csv_queries_nyc_mcar,
-#               csv_queries_bitcoin_mcar, csv_queries_bitcoin_mar    
+#               csv_queries_bitcoin_mcar, csv_queries_bitcoin_mar
 #               ]
 
-# query_config=[ 
-#               csv_queries_bitcoin_mcar, csv_queries_bitcoin_mar  
+# query_config=[
+#               csv_queries_bitcoin_mcar, csv_queries_bitcoin_mar
 #               ] ###
 # acc_list=[]
 # delta_w=[]
@@ -987,8 +987,8 @@ class QueryExecutor:
 # element_to_remove = -1
 # # connect & run
 # conn = psycopg2.connect(
-#     host="localhost", port=****, dbname="db",
-#     user="user", password="****"
+#     host="localhost", port=5433, dbname="mydb",
+#     user="alzamill", password=os.environ.get("PGPASSWORD", "")
 # )
 # for csv_queries in query_config:
 #     executor = QueryExecutor(conn, csv_queries)
@@ -1005,7 +1005,7 @@ class QueryExecutor:
 #         # print(f" Ground Truth       = {r['ground_truth']:.2f}")
 #             if 'accuracy' in r:
 #                 print(f" Accuracy           = {r['accuracy']:.2f}%")
-#                 acc_list.append(r['accuracy']) ## just to compare with dist based 
+#                 acc_list.append(r['accuracy']) ## just to compare with dist based
 #             if 'accuracy_micro' in r:
 #                 acc_list.append(r['accuracy_micro'])
 #                 print(f"GBY Accuracy           = {r['accuracy_micro']:.2f}%")
@@ -1016,7 +1016,7 @@ class QueryExecutor:
 #             if r['QT'] != -1:
 #                 QT_s.append(r['QT'])
 #                 # if 'accuracy' in r:
-#                   # acc_list.append(r['accuracy']) ## just to compare with dist based 
+#                   # acc_list.append(r['accuracy']) ## just to compare with dist based
 #             print(f" JQT   = {r['JQT']:.5f}")
 #             if r['JQT'] != -1:
 #                 JQT_s.append(r['JQT'])
@@ -1051,8 +1051,8 @@ class QueryExecutor:
 
 # # ### --- start mnar runners ----
 # import json
-# with open("/data/alzamill/CERepair/mnar1_agg_inj_query.json") as f:
-# # with open("all_queries_dist.json") as f:
+# with open("data/mnar1_agg_inj_query.json") as f:
+# # with open("configs/all_queries_dist.json") as f:
 #     allData = json.load(f)
 #     csv_queries_bank_mnar = allData["bank_manr1_agg"]
 #     csv_queries_nyc_mnar  = allData["nyc_manr1_agg"]
@@ -1068,8 +1068,8 @@ class QueryExecutor:
 # element_to_remove = -1
 # # connect & run
 # conn = psycopg2.connect(
-#     host="localhost", port=****, dbname="db",
-#     user="user", password="****"
+#     host="localhost", port=5433, dbname="mydb",
+#     user="alzamill", password=os.environ.get("PGPASSWORD", "")
 # )
 # for csv_queries in query_config:
 #     executor = QueryExecutor(conn, csv_queries)
@@ -1086,7 +1086,7 @@ class QueryExecutor:
 #         # print(f" Ground Truth       = {r['ground_truth']:.2f}")
 #             if 'accuracy' in r:
 #                 print(f" Accuracy           = {r['accuracy']:.2f}%")
-#                 acc_list.append(r['accuracy']) ## just to compare with dist based 
+#                 acc_list.append(r['accuracy']) ## just to compare with dist based
 #             if 'accuracy_micro' in r:
 #                 acc_list.append(r['accuracy_micro'])
 #                 print(f"GBY Accuracy           = {r['accuracy_micro']:.2f}%")
@@ -1097,7 +1097,7 @@ class QueryExecutor:
 #             if r['QT'] != -1:
 #                 QT_s.append(r['QT'])
 #                 # if 'accuracy' in r:
-#                   # acc_list.append(r['accuracy']) ## just to compare with dist based 
+#                   # acc_list.append(r['accuracy']) ## just to compare with dist based
 #             print(f" JQT   = {r['JQT']:.5f}")
 #             if r['JQT'] != -1 or r['JQT']==0 :
 #                 r['JQT']+=1e-9
@@ -1129,80 +1129,65 @@ class QueryExecutor:
 
 
 # ### --- start real mnar runners ----
-import json
-with open("/data/alzamill/CERepair/real_mnar_agg.json") as f:
-# with open("all_queries_dist.json") as f:
-    allData = json.load(f)
-    csv_queries_mi_mnar = allData["mi_mnar_avg"]
+if __name__ == "__main__":
+    import json
+    with open("configs/real_mnar_agg.json") as f:
+        allData = json.load(f)
+        csv_queries_mi_mnar = allData["mi_mnar_avg"]
 
-query_config=[csv_queries_mi_mnar]
+    query_config=[csv_queries_mi_mnar]
 
-##
-acc_list=[]
-delta_w=[]
-QT_s =[]
-JQT_s =[]
-element_to_remove = -1
-# connect & run
-conn = psycopg2.connect(
-    host="localhost", port=****, dbname="db",
-     user="user", password="****"
-)
-for csv_queries in query_config:
-    executor = QueryExecutor(conn, csv_queries)
-    results = executor.compute2()
-    for datasetName in csv_queries:
-        acc_list=[]
-        delta_w=[]
-        QT_s =[]
-        JQT_s =[]
-        for q, r in results[datasetName].items():
-            #lo, hi = r["CI95"]
-            print(f"\nQuery: {q}")
-            print(f" Estimate           = {r['estimate']:.2f} ± {r['stderr']:.4f}")
-        # print(f" Ground Truth       = {r['ground_truth']:.2f}")
-            if 'accuracy' in r:
-                print(f" Accuracy           = {r['accuracy']:.2f}%")
-                acc_list.append(r['accuracy']) ## just to compare with dist based 
-                if 'accuracy_micro' in r:
-                    acc_list.append(r['accuracy_micro'])
-                    print(f"GBY Accuracy           = {r['accuracy_micro']:.2f}%")
-           # print(f" 95% CI             = [{lo:.2f}, {hi:.2f}]")
-            if r['normalized_width'] is not None and pd.notna(r['normalized_width']):
-                print(f"Normalized width = {r['normalized_width']:.4f}")
-            else:
-                r['normalized_width']=0
-                print("Normalized width = None")
-            delta_w.append(r['normalized_width'])
-            print(f" QT   = {r['QT']:.5f}")
-            if r['QT'] != -1:
-                QT_s.append(r['QT'])
-                # if 'accuracy' in r:
-                  # acc_list.append(r['accuracy']) ## just to compare with dist based 
-            print(f" JQT   = {r['JQT']:.5f}")
-            if r['JQT'] != -1 or r['JQT']==0 :
-                r['JQT']+=1e-9
-                JQT_s.append(r['JQT'])
+    acc_list=[]
+    delta_w=[]
+    QT_s =[]
+    JQT_s =[]
+    element_to_remove = -1
+    conn = psycopg2.connect(
+        host="localhost", port=5433, dbname="mydb",
+        user="alzamill", password=os.environ.get("PGPASSWORD", "")
+    )
+    for csv_queries in query_config:
+        executor = QueryExecutor(conn, csv_queries)
+        results = executor.compute2()
+        for datasetName in csv_queries:
+            acc_list=[]
+            delta_w=[]
+            QT_s =[]
+            JQT_s =[]
+            for q, r in results[datasetName].items():
+                print(f"\nQuery: {q}")
+                print(f" Estimate           = {r['estimate']:.2f} ± {r['stderr']:.4f}")
+                if 'accuracy' in r:
+                    print(f" Accuracy           = {r['accuracy']:.2f}%")
+                    acc_list.append(r['accuracy'])
+                    if 'accuracy_micro' in r:
+                        acc_list.append(r['accuracy_micro'])
+                        print(f"GBY Accuracy           = {r['accuracy_micro']:.2f}%")
+                if r['normalized_width'] is not None and pd.notna(r['normalized_width']):
+                    print(f"Normalized width = {r['normalized_width']:.4f}")
+                else:
+                    r['normalized_width']=0
+                    print("Normalized width = None")
+                delta_w.append(r['normalized_width'])
+                print(f" QT   = {r['QT']:.5f}")
+                if r['QT'] != -1:
+                    QT_s.append(r['QT'])
+                print(f" JQT   = {r['JQT']:.5f}")
+                if r['JQT'] != -1 or r['JQT']==0 :
+                    r['JQT']+=1e-9
+                    JQT_s.append(r['JQT'])
 
-        # if element_to_remove in QT_s:
-        #     QT_s.remove(element_to_remove)
+            from statistics import mean
 
-        # if element_to_remove in JQT_s:
-        #     JQT_s.remove(element_to_remove)
-
-        from statistics import mean
-
-        #print("average accs for bank mar 5%:",  mean(acc_list))
-        if not acc_list:
+            if not acc_list:
                 accMean= -1
-        else:
-            accMean= mean(acc_list)
-        analyzer = myDataAnalyzer.myDataAnalyzer(datasetName=datasetName, output_dir="psql_results",out_file="real_mnar_agg_psql.txt")
-        analyzer.add_stats(accMean,mean(QT_s),mean(JQT_s),mean(delta_w))
-        # analyzer.add_stats(accMean,mean(QT_s),-1,mean(delta_w))
-        analyzer.addNewLine()
-    executor.cur.close()
-conn.close()
+            else:
+                accMean= mean(acc_list)
+            analyzer = myDataAnalyzer.myDataAnalyzer(datasetName=datasetName, output_dir="psql_results",out_file="real_mnar_agg_psql.txt")
+            analyzer.add_stats(accMean,mean(QT_s),mean(JQT_s),mean(delta_w))
+            analyzer.addNewLine()
+        executor.cur.close()
+    conn.close()
 
 
 ### --- end mnar runners ----
@@ -1212,11 +1197,11 @@ conn.close()
 
 # csv_queries = {
 #   ## manr test  works---------------------------------
-  
+
 #   "bitcoin_mnar_5": {
-# "csv": ["/data/alzamill/CERepair/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_5.csv",
-# "/data/alzamill/CERepair/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_5_join2.csv",
-# "/data/alzamill/CERepair/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_5_join1.csv"],
+# "csv": ["data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_5.csv",
+# "data/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_5_join2.csv",
+# "data/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_5_join1.csv"],
 # "table": [
 # "mnar5_bitc0",
 # "mnar5_bitc2j",
@@ -1239,25 +1224,25 @@ conn.close()
 #     ['day', 'neighbors']
 
 # ],
-# "mar_causes":[ 
+# "mar_causes":[
 #     {"year": ['day', 'neighbors', 'weight']},
 #      {"year": ['day', 'neighbors', 'weight']},
 #      {}
-    
+
 # ],
 # "queries": [
-#     # "Select AVG(income) From /data/alzamill/CERepair/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_5.csv GROUP BY looped",
-#     # "Select AVG(income) From /data/alzamill/CERepair/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_5.csv",
-#     # "Select AVG(income) From /data/alzamill/CERepair/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_5.csv where length > 2 and weight < 3",
-#     # "Select AVG(income) From /data/alzamill/CERepair/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_5.csv where neighbors > 0",
-#     "Select AVG(income) from /data/alzamill/CERepair/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_5_join2.csv join /data/alzamill/CERepair/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_5_join1.csv USING (id) where day > 4"
+#     # "Select AVG(income) From data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_5.csv GROUP BY looped",
+#     # "Select AVG(income) From data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_5.csv",
+#     # "Select AVG(income) From data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_5.csv where length > 2 and weight < 3",
+#     # "Select AVG(income) From data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_5.csv where neighbors > 0",
+#     "Select AVG(income) from data/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_5_join2.csv join data/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_5_join1.csv USING (id) where day > 4"
 #      ],
 #     },
 #   ## manr test  works---------------------------------
 # #   "bitcoin_mnar_5": {
-# # "csv": ["/data/alzamill/CERepair/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_10.csv",
-# # "/data/alzamill/CERepair/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_10_join1.csv",
-# # "/data/alzamill/CERepair/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_10_join2.csv"],
+# # "csv": ["data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_10.csv",
+# # "data/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_10_join1.csv",
+# # "data/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_10_join2.csv"],
 # # "table": [
 # # "mnar10_bitc0",
 # # "mnar10_bitc1",
@@ -1280,25 +1265,25 @@ conn.close()
 # #     ['day', 'neighbors']
 
 # # ],
-# # "mar_causes":[ 
+# # "mar_causes":[
 # #     {"year": ['day', 'neighbors', 'weight']},
 # #      {"year": ['day', 'neighbors', 'weight']},
 # #      {}
-    
+
 # # ],
 # # "queries": [
-# #     "Select AVG(income) From /data/alzamill/CERepair/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_10.csv GROUP BY looped",
-# #     "Select AVG(income) From /data/alzamill/CERepair/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_10.csv",
-# #     "Select AVG(income) From /data/alzamill/CERepair/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_10.csv where length > 2 and weight < 3",
-# #     "Select AVG(income) From /data/alzamill/CERepair/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_10.csv where neighbors > 0",
-# #     "Select AVG(income) from /data/alzamill/CERepair/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_10_join1.csv join /data/alzamill/CERepair/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_10_join2.csv USING (id) where day > 4"
+# #     "Select AVG(income) From data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_10.csv GROUP BY looped",
+# #     "Select AVG(income) From data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_10.csv",
+# #     "Select AVG(income) From data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_10.csv where length > 2 and weight < 3",
+# #     "Select AVG(income) From data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_10.csv where neighbors > 0",
+# #     "Select AVG(income) from data/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_10_join1.csv join data/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_10_join2.csv USING (id) where day > 4"
 # #      ],
 # #     },
 # #   ## manr test  works---------------------------------
 # #   "bitcoin_mnar_5": {
-# # "csv": ["/data/alzamill/CERepair/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_20.csv",
-# # "/data/alzamill/CERepair/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_20_join1.csv",
-# # "/data/alzamill/CERepair/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_20_join2.csv"],
+# # "csv": ["data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_20.csv",
+# # "data/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_20_join1.csv",
+# # "data/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_20_join2.csv"],
 # # "table": [
 # # "mnar20_bitc0",
 # # "mnar20_bitc1",
@@ -1321,18 +1306,18 @@ conn.close()
 # #     ['day', 'neighbors']
 
 # # ],
-# # "mar_causes":[ 
+# # "mar_causes":[
 # #     {"year": ['day', 'neighbors', 'weight']},
 # #      {"year": ['day', 'neighbors', 'weight']},
 # #      {}
-    
+
 # # ],
 # # "queries": [
-# #     "Select AVG(income) From /data/alzamill/CERepair/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_20.csv GROUP BY looped",
-# #     "Select AVG(income) From /data/alzamill/CERepair/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_20.csv",
-# #     "Select AVG(income) From /data/alzamill/CERepair/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_20.csv where length > 2 and weight < 3",
-# #     "Select AVG(income) From /data/alzamill/CERepair/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_20.csv where neighbors > 0",
-# #     "Select AVG(income) from /data/alzamill/CERepair/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_20_join1.csv join /data/alzamill/CERepair/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_20_join2.csv USING (id) where day > 4"
+# #     "Select AVG(income) From data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_20.csv GROUP BY looped",
+# #     "Select AVG(income) From data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_20.csv",
+# #     "Select AVG(income) From data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_20.csv where length > 2 and weight < 3",
+# #     "Select AVG(income) From data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_20.csv where neighbors > 0",
+# #     "Select AVG(income) from data/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_20_join1.csv join data/Mnar1JoinsData/BitcoinHeistData_agg_mnar1_20_join2.csv USING (id) where day > 4"
 # #      ],
 # #     },
 
@@ -1348,8 +1333,8 @@ conn.close()
 # element_to_remove = -1
 # # connect & run
 # conn = psycopg2.connect(
-#     host="localhost", port=****, dbname="db",
-#     user="user", password="****"
+#     host="localhost", port=5433, dbname="mydb",
+#     user="alzamill", password=os.environ.get("PGPASSWORD", "")
 # )
 
 # executor = QueryExecutor(conn, csv_queries)

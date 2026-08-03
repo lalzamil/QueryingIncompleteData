@@ -1,0 +1,115 @@
+{
+  "dataset": "bitcoin",
+  "join_key": "tuple_id",
+  "set_config_key": "bit_manr1_set",
+  "factor_file": "data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_mnar1_minimal_separators_Xi.csv",
+  "normalized_rows": 20000,
+  "partitions": {
+    "address_class": [
+      "address",
+      "label"
+    ],
+    "observation_time": [
+      "year",
+      "day"
+    ],
+    "transaction_graph": [
+      "ID",
+      "length",
+      "weight",
+      "count",
+      "looped",
+      "neighbors",
+      "income"
+    ]
+  },
+  "rates": {
+    "5": {
+      "csv": [
+        "data/SemanticJoinData/bitcoin_mnar1_5_address_class.csv",
+        "data/SemanticJoinData/bitcoin_mnar1_5_observation_time.csv",
+        "data/SemanticJoinData/bitcoin_mnar1_5_transaction_graph.csv"
+      ],
+      "table": [
+        "bitcoin_5_address_class",
+        "bitcoin_5_observation_time",
+        "bitcoin_5_transaction_graph"
+      ],
+      "complete_csv": [
+        "data/CompleteSemanticJoinData/bitcoin_complete_address_class.csv",
+        "data/CompleteSemanticJoinData/bitcoin_complete_observation_time.csv",
+        "data/CompleteSemanticJoinData/bitcoin_complete_transaction_graph.csv"
+      ],
+      "complete_table": [
+        "bitcoin_complete_address_class",
+        "bitcoin_complete_observation_time",
+        "bitcoin_complete_transaction_graph"
+      ],
+      "set_queries": [
+        "SELECT neighbors FROM data/SemanticJoinData/bitcoin_mnar1_5_address_class.csv JOIN data/SemanticJoinData/bitcoin_mnar1_5_observation_time.csv USING (tuple_id) JOIN data/SemanticJoinData/bitcoin_mnar1_5_transaction_graph.csv USING (tuple_id) WHERE income > 100000000 AND year != 2016",
+        "SELECT weight, looped FROM data/SemanticJoinData/bitcoin_mnar1_5_address_class.csv JOIN data/SemanticJoinData/bitcoin_mnar1_5_observation_time.csv USING (tuple_id) JOIN data/SemanticJoinData/bitcoin_mnar1_5_transaction_graph.csv USING (tuple_id) WHERE income > 130000000 AND year = 2011 GROUP BY weight, looped",
+        "SELECT length FROM data/SemanticJoinData/bitcoin_mnar1_5_address_class.csv JOIN data/SemanticJoinData/bitcoin_mnar1_5_observation_time.csv USING (tuple_id) JOIN data/SemanticJoinData/bitcoin_mnar1_5_transaction_graph.csv USING (tuple_id) WHERE income > 100000000 AND year = 2014",
+        "SELECT count FROM data/SemanticJoinData/bitcoin_mnar1_5_address_class.csv JOIN data/SemanticJoinData/bitcoin_mnar1_5_observation_time.csv USING (tuple_id) JOIN data/SemanticJoinData/bitcoin_mnar1_5_transaction_graph.csv USING (tuple_id) WHERE income > 100000000 AND year = 2016",
+        "SELECT looped, neighbors FROM data/SemanticJoinData/bitcoin_mnar1_5_address_class.csv JOIN data/SemanticJoinData/bitcoin_mnar1_5_observation_time.csv USING (tuple_id) JOIN data/SemanticJoinData/bitcoin_mnar1_5_transaction_graph.csv USING (tuple_id) WHERE income > 100000000 AND year != 2016 GROUP BY looped, neighbors"
+      ]
+    },
+    "10": {
+      "csv": [
+        "data/SemanticJoinData/bitcoin_mnar1_10_address_class.csv",
+        "data/SemanticJoinData/bitcoin_mnar1_10_observation_time.csv",
+        "data/SemanticJoinData/bitcoin_mnar1_10_transaction_graph.csv"
+      ],
+      "table": [
+        "bitcoin_10_address_class",
+        "bitcoin_10_observation_time",
+        "bitcoin_10_transaction_graph"
+      ],
+      "complete_csv": [
+        "data/CompleteSemanticJoinData/bitcoin_complete_address_class.csv",
+        "data/CompleteSemanticJoinData/bitcoin_complete_observation_time.csv",
+        "data/CompleteSemanticJoinData/bitcoin_complete_transaction_graph.csv"
+      ],
+      "complete_table": [
+        "bitcoin_complete_address_class",
+        "bitcoin_complete_observation_time",
+        "bitcoin_complete_transaction_graph"
+      ],
+      "set_queries": [
+        "SELECT neighbors FROM data/SemanticJoinData/bitcoin_mnar1_10_address_class.csv JOIN data/SemanticJoinData/bitcoin_mnar1_10_observation_time.csv USING (tuple_id) JOIN data/SemanticJoinData/bitcoin_mnar1_10_transaction_graph.csv USING (tuple_id) WHERE income > 100000000 AND year != 2016",
+        "SELECT weight, looped FROM data/SemanticJoinData/bitcoin_mnar1_10_address_class.csv JOIN data/SemanticJoinData/bitcoin_mnar1_10_observation_time.csv USING (tuple_id) JOIN data/SemanticJoinData/bitcoin_mnar1_10_transaction_graph.csv USING (tuple_id) WHERE income > 130000000 AND year = 2011 GROUP BY weight, looped",
+        "SELECT length FROM data/SemanticJoinData/bitcoin_mnar1_10_address_class.csv JOIN data/SemanticJoinData/bitcoin_mnar1_10_observation_time.csv USING (tuple_id) JOIN data/SemanticJoinData/bitcoin_mnar1_10_transaction_graph.csv USING (tuple_id) WHERE income > 100000000 AND year = 2014",
+        "SELECT count FROM data/SemanticJoinData/bitcoin_mnar1_10_address_class.csv JOIN data/SemanticJoinData/bitcoin_mnar1_10_observation_time.csv USING (tuple_id) JOIN data/SemanticJoinData/bitcoin_mnar1_10_transaction_graph.csv USING (tuple_id) WHERE income > 100000000 AND year = 2016",
+        "SELECT looped, neighbors FROM data/SemanticJoinData/bitcoin_mnar1_10_address_class.csv JOIN data/SemanticJoinData/bitcoin_mnar1_10_observation_time.csv USING (tuple_id) JOIN data/SemanticJoinData/bitcoin_mnar1_10_transaction_graph.csv USING (tuple_id) WHERE income > 100000000 AND year != 2016 GROUP BY looped, neighbors"
+      ]
+    },
+    "20": {
+      "csv": [
+        "data/SemanticJoinData/bitcoin_mnar1_20_address_class.csv",
+        "data/SemanticJoinData/bitcoin_mnar1_20_observation_time.csv",
+        "data/SemanticJoinData/bitcoin_mnar1_20_transaction_graph.csv"
+      ],
+      "table": [
+        "bitcoin_20_address_class",
+        "bitcoin_20_observation_time",
+        "bitcoin_20_transaction_graph"
+      ],
+      "complete_csv": [
+        "data/CompleteSemanticJoinData/bitcoin_complete_address_class.csv",
+        "data/CompleteSemanticJoinData/bitcoin_complete_observation_time.csv",
+        "data/CompleteSemanticJoinData/bitcoin_complete_transaction_graph.csv"
+      ],
+      "complete_table": [
+        "bitcoin_complete_address_class",
+        "bitcoin_complete_observation_time",
+        "bitcoin_complete_transaction_graph"
+      ],
+      "set_queries": [
+        "SELECT neighbors FROM data/SemanticJoinData/bitcoin_mnar1_20_address_class.csv JOIN data/SemanticJoinData/bitcoin_mnar1_20_observation_time.csv USING (tuple_id) JOIN data/SemanticJoinData/bitcoin_mnar1_20_transaction_graph.csv USING (tuple_id) WHERE income > 100000000 AND year != 2016",
+        "SELECT weight, looped FROM data/SemanticJoinData/bitcoin_mnar1_20_address_class.csv JOIN data/SemanticJoinData/bitcoin_mnar1_20_observation_time.csv USING (tuple_id) JOIN data/SemanticJoinData/bitcoin_mnar1_20_transaction_graph.csv USING (tuple_id) WHERE income > 130000000 AND year = 2011 GROUP BY weight, looped",
+        "SELECT length FROM data/SemanticJoinData/bitcoin_mnar1_20_address_class.csv JOIN data/SemanticJoinData/bitcoin_mnar1_20_observation_time.csv USING (tuple_id) JOIN data/SemanticJoinData/bitcoin_mnar1_20_transaction_graph.csv USING (tuple_id) WHERE income > 100000000 AND year = 2014",
+        "SELECT count FROM data/SemanticJoinData/bitcoin_mnar1_20_address_class.csv JOIN data/SemanticJoinData/bitcoin_mnar1_20_observation_time.csv USING (tuple_id) JOIN data/SemanticJoinData/bitcoin_mnar1_20_transaction_graph.csv USING (tuple_id) WHERE income > 100000000 AND year = 2016",
+        "SELECT looped, neighbors FROM data/SemanticJoinData/bitcoin_mnar1_20_address_class.csv JOIN data/SemanticJoinData/bitcoin_mnar1_20_observation_time.csv USING (tuple_id) JOIN data/SemanticJoinData/bitcoin_mnar1_20_transaction_graph.csv USING (tuple_id) WHERE income > 100000000 AND year != 2016 GROUP BY looped, neighbors"
+      ]
+    }
+  }
+}

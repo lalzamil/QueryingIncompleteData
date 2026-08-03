@@ -1,11 +1,12 @@
 import re
 import time
 import csv
+import os
 import pandas as pd
 import numpy as np
 import psycopg2
 from io import StringIO
-import myDataAnalyzer 
+import myDataAnalyzer
 from statistics import mean
 import signal
 
@@ -20,7 +21,7 @@ signal.signal(signal.SIGALRM, _timeout_handler)
 
 class IntervalAnswers:
     """
-    Implements Algorithm 2 (“Query Evaluation of AVG”) from Zhang et al. (2019)  
+    Implements Algorithm 2 (“Query Evaluation of AVG”) from Zhang et al. (2019)
     """
 
     def __init__(self, cursor):
@@ -36,7 +37,7 @@ class IntervalAnswers:
          implements Algorithm 2 for AVG on a single incomplete table:
         """
 
-       
+
         ws = where_sql.strip().rstrip(';')
         if ws:
             wc = ws.lstrip()
@@ -80,13 +81,13 @@ class IntervalAnswers:
             # If no predicate, then there are no “maybe rows,” because a row is either in TA or fails predicate.
             MA_all = []
 
-      
+
         N = len(TA_all) + len(MA_all)
         if N == 0:
             # No relevant rows at all
             return (0.0, 0.0)
 
-       
+
         if complete_table:
             if where_clause:
                 minmax_sql = f"""
@@ -124,15 +125,15 @@ class IntervalAnswers:
             a, b = float(row[0]), float(row[1])
 
         # UPPER BOUND (substitute every None by b)
-     
+
         TA_sub_b = [ (b if v is None else float(v)) for v in TA_all ]
         MA_sub_b = [ (b if v is None else float(v)) for v in MA_all ]
 
-      
+
         total_sum_u = sum(TA_sub_b) + sum(MA_sub_b)
         MA_desc_b = sorted(MA_sub_b, reverse=True)
 
-  
+
         for v in MA_desc_b:
             current_avg_u = total_sum_u / N
             if v > current_avg_u:
@@ -146,7 +147,7 @@ class IntervalAnswers:
         TA_sub_a = [ (a if v is None else float(v)) for v in TA_all ]
         MA_sub_a = [ (a if v is None else float(v)) for v in MA_all ]
 
-     
+
         total_sum_l = sum(TA_sub_a) + sum(MA_sub_a)
 
 
@@ -171,11 +172,11 @@ class IntervalAnswers:
                                where_sql:           str = ""
                               ):
         """
-        extends Algorithm 2 for AVG on  join of multiple incomplete tables. 
+        extends Algorithm 2 for AVG on  join of multiple incomplete tables.
 
         """
 
-     
+
         ws = where_sql.strip().rstrip(';')
         if ws:
             wc = ws.lstrip()
@@ -185,7 +186,7 @@ class IntervalAnswers:
         else:
             where_clause = ""
 
-      
+
         colsets = []
         for tbl in mar_table_names:
             self.cur.execute("""
@@ -197,7 +198,7 @@ class IntervalAnswers:
             colsets.append(cols)
         join_keys = sorted(set.intersection(*colsets))
 
-    
+
         if len(mar_table_names) == 1:
             return self.getIntervalAnswer_singleRelation(
                 mar_table_name = mar_table_names[0],
@@ -206,13 +207,13 @@ class IntervalAnswers:
                 where_sql      = where_clause
             )
 
-     
+
         from_mar_clause = mar_table_names[0]
         for t in mar_table_names[1:]:
             keys_comma = ", ".join(f'"{k}"' for k in join_keys)
             from_mar_clause = f"{from_mar_clause} JOIN {t} USING ({keys_comma})"
 
-    
+
         count_join_sql = f"""
             SELECT COUNT(*)
             FROM {from_mar_clause}
@@ -223,7 +224,7 @@ class IntervalAnswers:
         if N_join == 0:
             return (0.0, 0.0)
 
-        #  TA_join_all 
+        #  TA_join_all
         if where_clause:
             ta_join_sql = f"""
                 SELECT {attr}
@@ -238,7 +239,7 @@ class IntervalAnswers:
         self.cur.execute(ta_join_sql)
         TA_join_all = [r[0] for r in self.cur.fetchall()]
 
-        #   MA_join_all 
+        #   MA_join_all
         predicate_cols = re.findall(r'([A-Za-z_]\w*)\s*(?:=|<|>|<=|>=)', where_clause)
         predicate_cols = list(set(col.lower() for col in predicate_cols))
         if predicate_cols:
@@ -253,7 +254,7 @@ class IntervalAnswers:
         else:
             MA_join_all = []
 
-       
+
         if where_clause:
             sum_obs_join_sql = f"""
                 SELECT COALESCE(SUM({attr}::NUMERIC), 0)
@@ -284,7 +285,7 @@ class IntervalAnswers:
         n_obs_join = int(self.cur.fetchone()[0] or 0)
         n_miss_join = N_join - n_obs_join
 
-       
+
         if complete_table_names and all(complete_table_names):
             from_full_clause = complete_table_names[0]
             for t in complete_table_names[1:]:
@@ -311,7 +312,7 @@ class IntervalAnswers:
             else:
                 a_join, b_join = float(row[0]), float(row[1])
         else:
-            
+
             if where_clause:
                 minmax_mar_join_sql = f"""
                     SELECT MIN({attr}::NUMERIC), MAX({attr}::NUMERIC)
@@ -332,7 +333,7 @@ class IntervalAnswers:
             else:
                 a_join, b_join = float(row[0]), float(row[1])
 
-     
+
         TA_sub_b = [(b_join if v is None else float(v)) for v in TA_join_all]
         MA_sub_b = [(b_join if v is None else float(v)) for v in MA_join_all]
 
@@ -348,7 +349,7 @@ class IntervalAnswers:
 
         ub_join = total_sum_u / N_join
 
-        
+
         TA_sub_a = [(a_join if v is None else float(v)) for v in TA_join_all]
         MA_sub_a = [(a_join if v is None else float(v)) for v in MA_join_all]
 
@@ -392,8 +393,8 @@ class IntervalQueryExecutor:
         self.csv_queries = csv_queries
 
         # Build mappings:
-        self.mar_table_for  = {} 
-        self.full_table_for = {}  
+        self.mar_table_for  = {}
+        self.full_table_for = {}
 
         self.groundTruth = any(meta.get('complete_csv') for meta in csv_queries.values())
 
@@ -407,7 +408,7 @@ class IntervalQueryExecutor:
         # Load all tables into psql
         self.prepareTables()
 
-       
+
         self.recovery = IntervalAnswers(self.cur)
 
     def inferSchema(self, path):
@@ -415,7 +416,7 @@ class IntervalQueryExecutor:
         Inspect the first 100 rows of a CSV to guess each column's dtype.
         Returns a dict { column_name  - > SQL type } for CREATE TABLE.
         """
-        df = pd.read_csv(path, nrows=100)
+        df = pd.read_csv(path, nrows=1000, low_memory=False)
         df.columns = df.columns.str.lower()
         df = df.loc[:, ~df.columns.str.startswith('unnamed:')]
         schema = {}
@@ -498,7 +499,7 @@ class IntervalQueryExecutor:
                 try:
                     # Schedule an alarm in 300 seconds
                     signal.alarm(120)
-                    # 
+                    #
                     qry_clean = qry.strip().rstrip(';')
 
                     #  Parse “SELECT AVG(attr) FROM … [WHERE …] [GROUP BY …]”
@@ -514,21 +515,21 @@ class IntervalQueryExecutor:
                     attr = attr.lower()
                     from_clause = from_clause.strip()
 
-                 
+
                     if where_clause:
                         wc = where_clause.strip().rstrip(';')
                         where_sql = f"WHERE {wc}"
                     else:
                         where_sql = ""
 
-                  
+
                     if gb_clause:
                         gc = gb_clause.strip().rstrip(';')
                         group_cols = [c.strip().strip('"').lower() for c in gc.split(',')]
                     else:
                         group_cols = []
 
-                  
+
                     csv_paths = re.findall(r'(\S+?\.csv)', from_clause)
                     if not csv_paths:
                         raise ValueError(f"No CSV path found in FROM clause: {from_clause!r}")
@@ -536,16 +537,16 @@ class IntervalQueryExecutor:
                         if p not in csv_list:
                             raise ValueError(f"FROM clause CSV {p!r} not in csv_list for dataset {ds_name}")
 
-                  
+
                     mar_table_names = [self.mar_table_for[p] for p in csv_paths]
                     complete_table_names = []
                     for p in csv_paths:
                         if p in self.full_table_for:
                             complete_table_names.append(self.full_table_for[p])
 
-                  
+
                     if len(group_cols) == 0:
-                        
+
 
                         if len(mar_table_names) == 1:
                             mar_tbl = mar_table_names[0]
@@ -573,7 +574,7 @@ class IntervalQueryExecutor:
                             )
                             JQTime = time.time() - start
 
-                        
+
                         results[ds_name][qry] = {
                             'lb': lb,
                             'ub': ub,
@@ -581,7 +582,7 @@ class IntervalQueryExecutor:
                             'JQT': JQTime
                         }
 
-                   
+
                     else:
                         if len(mar_table_names) > 1:
                             raise ValueError("GROUP BY over a JOIN is not implemented in this snippet.")
@@ -603,9 +604,9 @@ class IntervalQueryExecutor:
                         t0 = time.time()
                         self.cur.execute(group_sql)
                         rows = self.cur.fetchall()
-                       
 
-                        
+
+
                         a_dict = {}
                         b_dict = {}
                         for rec in rows:
@@ -663,7 +664,7 @@ class IntervalQueryExecutor:
                                 a_dict[key] = float(row2[0])
                                 b_dict[key] = float(row2[1])
 
-                        
+
                         per_group = []
                         for rec in rows:
                             *group_vals, N_g, sum_obs_g, n_obs_g = rec
@@ -690,7 +691,7 @@ class IntervalQueryExecutor:
                             'per_group': per_group,
                             'QT':   elapsed
                         }
-                
+
                 except TimeoutException:
                     print(f"query {qry} took > 5 minutes; skipping to next.")
                     results[ds_name][qry] = {
@@ -701,7 +702,7 @@ class IntervalQueryExecutor:
                         }
 
                 finally:
-                  
+
                     signal.alarm(0)
 
 
@@ -720,7 +721,7 @@ class IntervalQueryExecutor:
 #     #         "mcar5_nyc0"
 #     #     ],
 #     #     "complete_csv": [
-#     #       
+#     #
 #     #         # "rwDatasets/nyc_complete.csv"
 #     #     ],
 #     #     "complete_table": [
@@ -771,8 +772,8 @@ class IntervalQueryExecutor:
 
 # # 1) Connect to Postgres:
 # conn = psycopg2.connect(
-#     host="localhost", port=****, dbname="db",
-#     user="user", password="****"
+#     host="localhost", port=5433, dbname="mydb",
+#     user="alzamill", password=os.environ.get("PGPASSWORD", "")
 # )
 # executor = IntervalQueryExecutor(conn, csv_queries)
 
@@ -808,96 +809,78 @@ class IntervalQueryExecutor:
 
 
 
-    
 
 
 
 
-import json
-with open("all_queries.json") as f:
-    allData = json.load(f)
-    csv_queries_bank_mar = allData["bank_mar"]
-    csv_queries_nyc_mar  = allData["nyc_mar"]
-    csv_queries_real_MAR = allData["real_mar"]
-    csv_queries_real_MCAR = allData["real_mcar"]
 
-    csv_queries_bank_mcar = allData["bank_mcar"]
-    csv_queries_nyc_mcar = allData["nyc_mcar"]
-    csv_queries_bitcoin_mcar = allData["bit_macr"]
-    csv_queries_bitcoin_mar = allData["bit_mar"]
+if __name__ == "__main__":
+    import json
+    with open("configs/all_queries.json") as f:
+        allData = json.load(f)
+        csv_queries_bank_mar = allData["bank_mar"]
+        csv_queries_nyc_mar  = allData["nyc_mar"]
+        csv_queries_real_MAR = allData["real_mar"]
+        csv_queries_real_MCAR = allData["real_mcar"]
 
-query_config=[csv_queries_bank_mar,csv_queries_nyc_mar,
-              csv_queries_real_MAR, csv_queries_real_MCAR,
-              csv_queries_bank_mcar, csv_queries_nyc_mcar,
-              csv_queries_bitcoin_mcar, csv_queries_bitcoin_mar    
-              ]
+        csv_queries_bank_mcar = allData["bank_mcar"]
+        csv_queries_nyc_mcar = allData["nyc_mcar"]
+        csv_queries_bitcoin_mcar = allData["bit_macr"]
+        csv_queries_bitcoin_mar = allData["bit_mar"]
 
+    query_config=[csv_queries_bank_mar,csv_queries_nyc_mar,
+                  csv_queries_real_MAR, csv_queries_real_MCAR,
+                  csv_queries_bank_mcar, csv_queries_nyc_mcar,
+                  csv_queries_bitcoin_mcar, csv_queries_bitcoin_mar
+                  ]
 
-# query_config=[csv_queries_bitcoin_mcar, csv_queries_bitcoin_mar   
-# ]
+    conn = psycopg2.connect(host="localhost", port=5433, dbname="mydb",
+                            user="alzamill", password=os.environ.get("PGPASSWORD", ""))
 
-# 1) Connect to Postgres (adjust host/port/dbname/user/password):
-conn = psycopg2.connect(host="localhost", port=123, dbname="db",
-                        user="user", password="****")
+    for csv_queries in query_config:
+        executor = IntervalQueryExecutor(conn, csv_queries)
+        results = executor.estimate_interval()
 
+        for ds_name, queries_dict in results.items():
+            delta_w=[]
+            QT_s =[]
+            JQT_s =[]
+            for qry, out in queries_dict.items():
+                print("Query:")
+                print("  ", qry)
 
-for csv_queries in query_config:
-    executor = IntervalQueryExecutor(conn, csv_queries)
-    results = executor.estimate_interval()
-    
-    for ds_name, queries_dict in results.items():
-     #   print(f"\n=== Dataset: {ds_name} ===\n")
-        delta_w=[]
-        QT_s =[]
-        JQT_s =[]
-        for qry, out in queries_dict.items():
-            print("Query:")
-            print("  ", qry)
+                if 'lb' in out and 'ub' in out:
+                    lb = out['lb']
+                    ub = out['ub']
+                    delta_w.append((lb,ub))
+                    if out['QT'] != -1:
+                        QT_s.append(out['QT'])
+                        qt = out['QT']
+                        print(f" OT  = {qt:.4f} sec")
+                    if out['JQT'] != -1:
+                        JQT_s.append(out['JQT'])
+                        jqt = out['JQT']
+                        print(f" JOT  = {jqt:.4f} sec")
 
-            # CASE 1: no GROUP BY ⇒ there is an 'lb' key
-            if 'lb' in out and 'ub' in out:
-                lb = out['lb']
-                ub = out['ub']
-                # print(f" lb= {lb:.6f}")
-                # print(f" ub= {ub:.6f}")
-                delta_w.append((lb,ub))
-                if out['QT'] != -1:
-                     QT_s.append(out['QT'])
-                     qt = out['QT']
-                     print(f" OT  = {qt:.4f} sec")
-                if out['JQT'] != -1:
-                     JQT_s.append(out['JQT'])
-                     jqt = out['JQT']
-                     print(f" JOT  = {jqt:.4f} sec")
+                if 'per_group' in out:
+                    if out['QT'] != -1:
+                        QT_s.append(out['QT'])
+                        qt = out['QT']
+                        print(f" OT  = {qt:.4f} sec")
+                    for rec in out['per_group']:
+                        grp_key  = rec['group']
+                        count_n  = rec['n']
+                        (lb_g, ub_g) = rec['interval']
+                        delta_w.append((lb_g, ub_g))
 
+            accMean= -1
 
-                
-
-            # CASE 2: GROUP BY 
-            if 'per_group' in out:
-                if out['QT'] != -1:
-                    QT_s.append(out['QT'])
-                    qt = out['QT']
-                    print(f" OT  = {qt:.4f} sec")
-                # print("per‐group intervals:")
-                for rec in out['per_group']:
-                    grp_key  = rec['group']    # a tuple of group‐column values
-                    count_n  = rec['n']        # group size
-                    (lb_g, ub_g) = rec['interval']
-                    delta_w.append((lb_g, ub_g))
-                    # # pretty‐print a tuple of length 1 without the trailing comma:
-                    # if isinstance(grp_key, tuple) and len(grp_key) == 1:
-                    #     grp_key = grp_key[0]
-                    # print(f" group = {grp_key!r}, n = {count_n}, interval = ({lb_g:.6f}, {ub_g:.6f})")
-        
-        accMean= -1
-
-        analyzer = myDataAnalyzer.myDataAnalyzer(datasetName=ds_name, output_dir="psql_results",out_file="mar_psql_interval_2.txt")
-        delatw_mean=analyzer.average_normalized_width(delta_w)
-        analyzer.add_stats(accMean,mean(QT_s),mean(JQT_s),delatw_mean)
-        analyzer.addNewLine()
-    executor.cur.close()
-conn.close()
+            analyzer = myDataAnalyzer.myDataAnalyzer(datasetName=ds_name, output_dir="psql_results",out_file="mar_psql_interval_2.txt")
+            delatw_mean=analyzer.average_normalized_width(delta_w)
+            analyzer.add_stats(accMean,mean(QT_s),mean(JQT_s),delatw_mean)
+            analyzer.addNewLine()
+        executor.cur.close()
+    conn.close()
 
 
 # # ## test
@@ -969,7 +952,10 @@ conn.close()
 
 
 
-
+# # 1) Connect to Postgres (adjust host/port/dbname/user/password):
+# conn = psycopg2.connect(host="localhost", port=5433, dbname="mydb",
+#                         user="alzamill", password=os.environ.get("PGPASSWORD", ""))
+# executor = IntervalQueryExecutor(conn, csv_queries)
 
 # # # 2) Run the estimation:
 # # results = executor.estimate_interval()

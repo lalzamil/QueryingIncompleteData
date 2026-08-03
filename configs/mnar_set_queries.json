@@ -1,0 +1,866 @@
+{
+  "bank_manr1_set": {
+    "bank_mnar_5": {
+      "csv": [
+        "data/MNAR1Data/bank/bank_mnar1_5.csv",
+        "data/Mnar1JoinsData/bank_mnar1_5_join1.csv",
+        "data/Mnar1JoinsData/bank_mnar1_5_join2.csv"
+      ],
+      "table": [
+        "mnar5c_bank0",
+        "mnar5c_bank1",
+        "mnar5c_bank2"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/bank_complete.csv",
+        "data/Injected_JoinsData/bank_complete1.csv",
+        "data/Injected_JoinsData/bank_complete2.csv"
+      ],
+      "complete_table": [
+        "full_bank0",
+        "full_bank1",
+        "full_bank2"
+      ],
+      "missing_attrs_single": [
+        "day",
+        "contact",
+        "duration",
+        "housing"
+      ],
+      "ordering_single": {
+        "contact": [
+          "age",
+          "balance",
+          "campaign",
+          "month"
+        ],
+        "day": [
+          "age",
+          "balance",
+          "campaign",
+          "contact",
+          "default",
+          "education",
+          "housing"
+        ],
+        "housing": [
+          "age",
+          "balance",
+          "campaign"
+        ],
+        "duration": [
+          "age",
+          "balance",
+          "campaign",
+          "contact",
+          "day",
+          "default",
+          "education"
+        ]
+      },
+      "missing_attrs_T": [
+        "day",
+        "contact",
+        "housing"
+      ],
+      "ordering_T": {
+        "contact": [
+          "age",
+          "balance",
+          "campaign",
+          "month"
+        ],
+        "day": [
+          "age",
+          "balance",
+          "campaign",
+          "contact",
+          "default",
+          "education",
+          "housing"
+        ],
+        "housing": [
+          "age",
+          "balance",
+          "campaign"
+        ]
+      },
+      "missing_attrs_S": [],
+      "ordering_S": {},
+      "queries": [
+        "Select day From data/MNAR1Data/bank/bank_mnar1_5.csv where education != 'primary'",
+        "Select housing, contact  From data/MNAR1Data/bank/bank_mnar1_5.csv WHERE loan = 'no' Group By housing, contact",
+        "Select poutcome, duration From data/MNAR1Data/bank/bank_mnar1_5.csv where campaign > 1 Group By poutcome, duration",
+        "Select duration From data/MNAR1Data/bank/bank_mnar1_5.csv where loan = 'yes'",
+        "Select contact from data/Mnar1JoinsData/bank_mnar1_5_join1.csv join data/Mnar1JoinsData/bank_mnar1_5_join2.csv USING (customer_id) where day > 4",
+        "Select contact from data/Mnar1JoinsData/bank_mnar1_5_join1.csv join data/Mnar1JoinsData/bank_mnar1_5_join2.csv USING (customer_id) where balance > 444",
+        "Select day from data/Mnar1JoinsData/bank_mnar1_5_join1.csv join data/Mnar1JoinsData/bank_mnar1_5_join2.csv USING (customer_id) where campaign > 2",
+        "Select duration from data/Mnar1JoinsData/bank_mnar1_5_join1.csv join data/Mnar1JoinsData/bank_mnar1_5_join2.csv USING (customer_id) where education = 'secondary'",
+        "Select housing, contact from data/Mnar1JoinsData/bank_mnar1_5_join1.csv join data/Mnar1JoinsData/bank_mnar1_5_join2.csv USING (customer_id) where age > 39 Group By housing, contact",
+        "Select day, duration from data/Mnar1JoinsData/bank_mnar1_5_join1.csv join data/Mnar1JoinsData/bank_mnar1_5_join2.csv USING (customer_id) where balance < 0 Group By day, duration"
+      ]
+    },
+    "bank_mnar_10": {
+      "csv": [
+        "data/MNAR1Data/bank/bank_mnar1_10.csv",
+        "data/Mnar1JoinsData/bank_mnar1_10_join1.csv",
+        "data/Mnar1JoinsData/bank_mnar1_10_join2.csv"
+      ],
+      "table": [
+        "mnar10c_bank0",
+        "mnar10c_bank1",
+        "mnar10c_bank2"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/bank_complete.csv",
+        "data/Injected_JoinsData/bank_complete1.csv",
+        "data/Injected_JoinsData/bank_complete2.csv"
+      ],
+      "complete_table": [
+        "full_bank0",
+        "full_bank1",
+        "full_bank2"
+      ],
+      "missing_attrs_single": [
+        "day",
+        "contact",
+        "duration",
+        "housing"
+      ],
+      "ordering_single": {
+        "contact": [
+          "age",
+          "balance",
+          "campaign",
+          "month"
+        ],
+        "day": [
+          "age",
+          "balance",
+          "campaign",
+          "contact",
+          "default",
+          "education",
+          "housing"
+        ],
+        "housing": [
+          "age",
+          "balance",
+          "campaign"
+        ],
+        "duration": [
+          "age",
+          "balance",
+          "campaign",
+          "contact",
+          "day",
+          "default",
+          "education"
+        ]
+      },
+      "missing_attrs_T": [
+        "day",
+        "contact",
+        "housing"
+      ],
+      "ordering_T": {
+        "contact": [
+          "age",
+          "balance",
+          "campaign",
+          "month"
+        ],
+        "day": [
+          "age",
+          "balance",
+          "campaign",
+          "contact",
+          "default",
+          "education",
+          "housing"
+        ],
+        "housing": [
+          "age",
+          "balance",
+          "campaign"
+        ]
+      },
+      "missing_attrs_S": [],
+      "ordering_S": {},
+      "queries": [
+        "Select day From data/MNAR1Data/bank/bank_mnar1_10.csv where education != 'primary'",
+        "Select housing, contact  From data/MNAR1Data/bank/bank_mnar1_10.csv WHERE loan = 'no' Group By housing, contact",
+        "Select poutcome, duration From data/MNAR1Data/bank/bank_mnar1_10.csv where campaign > 1 Group By poutcome, duration",
+        "Select duration From data/MNAR1Data/bank/bank_mnar1_10.csv where loan = 'yes'",
+        "Select contact from data/Mnar1JoinsData/bank_mnar1_10_join1.csv join data/Mnar1JoinsData/bank_mnar1_10_join2.csv USING (customer_id) where day > 4",
+        "Select contact from data/Mnar1JoinsData/bank_mnar1_10_join1.csv join data/Mnar1JoinsData/bank_mnar1_10_join2.csv USING (customer_id) where balance > 444",
+        "Select day from data/Mnar1JoinsData/bank_mnar1_10_join1.csv join data/Mnar1JoinsData/bank_mnar1_10_join2.csv USING (customer_id) where campaign > 2",
+        "Select duration from data/Mnar1JoinsData/bank_mnar1_10_join1.csv join data/Mnar1JoinsData/bank_mnar1_10_join2.csv USING (customer_id) where education = 'secondary'",
+        "Select housing, contact from data/Mnar1JoinsData/bank_mnar1_10_join1.csv join data/Mnar1JoinsData/bank_mnar1_10_join2.csv USING (customer_id) where age > 39 Group By housing, contact",
+        "Select day, duration from data/Mnar1JoinsData/bank_mnar1_10_join1.csv join data/Mnar1JoinsData/bank_mnar1_10_join2.csv USING (customer_id) where balance < 0 Group By day, duration"
+      ]
+    },
+    "bank_mnar_20": {
+      "csv": [
+        "data/MNAR1Data/bank/bank_mnar1_20.csv",
+        "data/Mnar1JoinsData/bank_mnar1_20_join1.csv",
+        "data/Mnar1JoinsData/bank_mnar1_20_join2.csv"
+      ],
+      "table": [
+        "mnar20c_bank0",
+        "mnar20c_bank1",
+        "mnar20c_bank2"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/bank_complete.csv",
+        "data/Injected_JoinsData/bank_complete1.csv",
+        "data/Injected_JoinsData/bank_complete2.csv"
+      ],
+      "complete_table": [
+        "full_bank0",
+        "full_bank1",
+        "full_bank2"
+      ],
+      "missing_attrs_single": [
+        "day",
+        "contact",
+        "duration",
+        "housing"
+      ],
+      "ordering_single": {
+        "contact": [
+          "age",
+          "balance",
+          "campaign",
+          "month"
+        ],
+        "day": [
+          "age",
+          "balance",
+          "campaign",
+          "contact",
+          "default",
+          "education",
+          "housing"
+        ],
+        "housing": [
+          "age",
+          "balance",
+          "campaign"
+        ],
+        "duration": [
+          "age",
+          "balance",
+          "campaign",
+          "contact",
+          "day",
+          "default",
+          "education"
+        ]
+      },
+      "missing_attrs_T": [
+        "day",
+        "contact",
+        "housing"
+      ],
+      "ordering_T": {
+        "contact": [
+          "age",
+          "balance",
+          "campaign",
+          "month"
+        ],
+        "day": [
+          "age",
+          "balance",
+          "campaign",
+          "contact",
+          "default",
+          "education",
+          "housing"
+        ],
+        "housing": [
+          "age",
+          "balance",
+          "campaign"
+        ]
+      },
+      "missing_attrs_S": [],
+      "ordering_S": {},
+      "queries": [
+        "Select day From data/MNAR1Data/bank/bank_mnar1_20.csv where education != 'primary'",
+        "Select housing, contact From data/MNAR1Data/bank/bank_mnar1_20.csv WHERE loan = 'no' Group By housing, contact",
+        "Select poutcome, duration From data/MNAR1Data/bank/bank_mnar1_20.csv where campaign > 1 Group By poutcome, duration",
+        "Select duration From data/MNAR1Data/bank/bank_mnar1_20.csv where loan = 'yes'",
+        "Select contact from data/Mnar1JoinsData/bank_mnar1_20_join1.csv join data/Mnar1JoinsData/bank_mnar1_20_join2.csv USING (customer_id) where day > 4",
+        "Select contact from data/Mnar1JoinsData/bank_mnar1_20_join1.csv join data/Mnar1JoinsData/bank_mnar1_20_join2.csv USING (customer_id) where balance > 444",
+        "Select day from data/Mnar1JoinsData/bank_mnar1_20_join1.csv join data/Mnar1JoinsData/bank_mnar1_20_join2.csv USING (customer_id) where campaign > 2",
+        "Select duration from data/Mnar1JoinsData/bank_mnar1_20_join1.csv join data/Mnar1JoinsData/bank_mnar1_20_join2.csv USING (customer_id) where education = 'secondary'",
+        "Select housing, contact from data/Mnar1JoinsData/bank_mnar1_20_join1.csv join data/Mnar1JoinsData/bank_mnar1_20_join2.csv USING (customer_id) where age > 39 Group By housing, contact",
+        "Select day, duration from data/Mnar1JoinsData/bank_mnar1_20_join1.csv join data/Mnar1JoinsData/bank_mnar1_20_join2.csv USING (customer_id) where balance < 0 Group By day, duration"
+      ]
+    }
+  },
+  "nyc_manr1_set": {
+    "nyc_mnar_5": {
+      "csv": [
+        "data/MNAR1Data/nyc/nyc_mnar1_5.csv",
+        "data/Mnar1JoinsData/nyc_mnar1_5_join1.csv",
+        "data/Mnar1JoinsData/nyc_mnar1_5_join2.csv"
+      ],
+      "table": [
+        "mnar5c_nyc0",
+        "mnar5c_nyc1",
+        "mnar5c_nyc2"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/nyc_complete.csv",
+        "data/Injected_JoinsData/nyc_complete1.csv",
+        "data/Injected_JoinsData/nyc_complete2.csv"
+      ],
+      "complete_table": [
+        "full_nyc0",
+        "full_nyc1",
+        "full_nyc2"
+      ],
+      "missing_attrs_single": [
+        "vendor_id",
+        "trip_duration",
+        "pickup_longitude"
+      ],
+      "ordering_single": {
+        "pickup_longitude": [
+          "passenger_count",
+          "pickup_latitude",
+          "store_and_fwd_flag"
+        ],
+        "trip_duration": [
+          "passenger_count",
+          "pickup_latitude",
+          "pickup_longitude",
+          "store_and_fwd_flag"
+        ],
+        "vendor_id": [
+          "passenger_count",
+          "pickup_longitude",
+          "store_and_fwd_flag",
+          "trip_duration"
+        ]
+      },
+      "missing_attrs_T": [
+        "vendor_id",
+        "trip_duration",
+        "pickup_longitude"
+      ],
+      "ordering_T": {
+        "pickup_longitude": [
+          "passenger_count",
+          "pickup_latitude",
+          "store_and_fwd_flag"
+        ],
+        "trip_duration": [
+          "passenger_count",
+          "pickup_latitude",
+          "pickup_longitude",
+          "store_and_fwd_flag"
+        ],
+        "vendor_id": [
+          "passenger_count",
+          "pickup_longitude",
+          "store_and_fwd_flag",
+          "trip_duration"
+        ]
+      },
+      "missing_attrs_S": [],
+      "ordering_S": {},
+      "queries": [
+        "Select vendor_id From data/MNAR1Data/nyc/nyc_mnar1_5.csv where passenger_count = 1 and store_and_fwd_flag = 'N'",
+        "Select pickup_longitude, passenger_count From data/MNAR1Data/nyc/nyc_mnar1_5.csv Group By pickup_longitude, passenger_count",
+        "Select trip_duration From data/MNAR1Data/nyc/nyc_mnar1_5.csv where store_and_fwd_flag != 'Y'",
+        "Select trip_duration From data/MNAR1Data/nyc/nyc_mnar1_5.csv where dropoff_latitude != 40",
+        "Select trip_duration from data/Mnar1JoinsData/nyc_mnar1_5_join1.csv join data/Mnar1JoinsData/nyc_mnar1_5_join2.csv USING (id) where passenger_count > 1",
+        "Select pickup_longitude from data/Mnar1JoinsData/nyc_mnar1_5_join1.csv join data/Mnar1JoinsData/nyc_mnar1_5_join2.csv USING (id) where passenger_count = 2",
+        "Select trip_duration from data/Mnar1JoinsData/nyc_mnar1_5_join1.csv join data/Mnar1JoinsData/nyc_mnar1_5_join2.csv USING (id) where store_and_fwd_flag = 'N'",
+        "Select vendor_id from data/Mnar1JoinsData/nyc_mnar1_5_join1.csv join data/Mnar1JoinsData/nyc_mnar1_5_join2.csv USING (id) where trip_duration > 600",
+        "Select pickup_longitude, trip_duration from data/Mnar1JoinsData/nyc_mnar1_5_join1.csv join data/Mnar1JoinsData/nyc_mnar1_5_join2.csv USING (id) where pickup_latitude > 40.5 Group By pickup_longitude, trip_duration",
+        "Select vendor_id, trip_duration from data/Mnar1JoinsData/nyc_mnar1_5_join1.csv join data/Mnar1JoinsData/nyc_mnar1_5_join2.csv USING (id) where passenger_count > 1 and store_and_fwd_flag = 'N' Group By vendor_id, trip_duration"
+      ]
+    },
+    "nyc_mnar_10": {
+      "csv": [
+        "data/MNAR1Data/nyc/nyc_mnar1_10.csv",
+        "data/Mnar1JoinsData/nyc_mnar1_10_join1.csv",
+        "data/Mnar1JoinsData/nyc_mnar1_10_join2.csv"
+      ],
+      "table": [
+        "mnar10c_nyc0",
+        "mnar10c_nyc1",
+        "mnar10c_nyc2"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/nyc_complete.csv",
+        "data/Injected_JoinsData/nyc_complete1.csv",
+        "data/Injected_JoinsData/nyc_complete2.csv"
+      ],
+      "complete_table": [
+        "full_nyc0",
+        "full_nyc1",
+        "full_nyc2"
+      ],
+      "missing_attrs_single": [
+        "vendor_id",
+        "trip_duration",
+        "pickup_longitude"
+      ],
+      "ordering_single": {
+        "pickup_longitude": [
+          "passenger_count",
+          "pickup_latitude",
+          "store_and_fwd_flag"
+        ],
+        "trip_duration": [
+          "passenger_count",
+          "pickup_latitude",
+          "pickup_longitude",
+          "store_and_fwd_flag"
+        ],
+        "vendor_id": [
+          "passenger_count",
+          "pickup_longitude",
+          "store_and_fwd_flag",
+          "trip_duration"
+        ]
+      },
+      "missing_attrs_T": [
+        "vendor_id",
+        "trip_duration",
+        "pickup_longitude"
+      ],
+      "ordering_T": {
+        "pickup_longitude": [
+          "passenger_count",
+          "pickup_latitude",
+          "store_and_fwd_flag"
+        ],
+        "trip_duration": [
+          "passenger_count",
+          "pickup_latitude",
+          "pickup_longitude",
+          "store_and_fwd_flag"
+        ],
+        "vendor_id": [
+          "passenger_count",
+          "pickup_longitude",
+          "store_and_fwd_flag",
+          "trip_duration"
+        ]
+      },
+      "missing_attrs_S": [],
+      "ordering_S": {},
+      "queries": [
+        "Select vendor_id From data/MNAR1Data/nyc/nyc_mnar1_10.csv where passenger_count = 1 and store_and_fwd_flag = 'N'",
+        "Select pickup_longitude, passenger_count From data/MNAR1Data/nyc/nyc_mnar1_10.csv Group By pickup_longitude, passenger_count",
+        "Select trip_duration From data/MNAR1Data/nyc/nyc_mnar1_10.csv where store_and_fwd_flag != 'Y'",
+        "Select trip_duration From data/MNAR1Data/nyc/nyc_mnar1_10.csv where dropoff_latitude != 40",
+        "Select trip_duration from data/Mnar1JoinsData/nyc_mnar1_10_join1.csv join data/Mnar1JoinsData/nyc_mnar1_10_join2.csv USING (id) where passenger_count > 1",
+        "Select pickup_longitude from data/Mnar1JoinsData/nyc_mnar1_10_join1.csv join data/Mnar1JoinsData/nyc_mnar1_10_join2.csv USING (id) where passenger_count = 2",
+        "Select trip_duration from data/Mnar1JoinsData/nyc_mnar1_10_join1.csv join data/Mnar1JoinsData/nyc_mnar1_10_join2.csv USING (id) where store_and_fwd_flag = 'N'",
+        "Select vendor_id from data/Mnar1JoinsData/nyc_mnar1_10_join1.csv join data/Mnar1JoinsData/nyc_mnar1_10_join2.csv USING (id) where trip_duration > 600",
+        "Select pickup_longitude, trip_duration from data/Mnar1JoinsData/nyc_mnar1_10_join1.csv join data/Mnar1JoinsData/nyc_mnar1_10_join2.csv USING (id) where pickup_latitude > 40.5 Group By pickup_longitude, trip_duration",
+        "Select vendor_id, trip_duration from data/Mnar1JoinsData/nyc_mnar1_10_join1.csv join data/Mnar1JoinsData/nyc_mnar1_10_join2.csv USING (id) where passenger_count > 1 and store_and_fwd_flag = 'N' Group By vendor_id, trip_duration"
+      ]
+    },
+    "nyc_mnar_20": {
+      "csv": [
+        "data/MNAR1Data/nyc/nyc_mnar1_20.csv",
+        "data/Mnar1JoinsData/nyc_mnar1_20_join1.csv",
+        "data/Mnar1JoinsData/nyc_mnar1_20_join2.csv"
+      ],
+      "table": [
+        "mnar20c_nyc0",
+        "mnar20c_nyc1",
+        "mnar20c_nyc2"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/nyc_complete.csv",
+        "data/Injected_JoinsData/nyc_complete1.csv",
+        "data/Injected_JoinsData/nyc_complete2.csv"
+      ],
+      "complete_table": [
+        "full_nyc0",
+        "full_nyc1",
+        "full_nyc2"
+      ],
+      "missing_attrs_single": [
+        "vendor_id",
+        "trip_duration",
+        "pickup_longitude"
+      ],
+      "ordering_single": {
+        "pickup_longitude": [
+          "passenger_count",
+          "pickup_latitude",
+          "store_and_fwd_flag"
+        ],
+        "trip_duration": [
+          "passenger_count",
+          "pickup_latitude",
+          "pickup_longitude",
+          "store_and_fwd_flag"
+        ],
+        "vendor_id": [
+          "passenger_count",
+          "pickup_longitude",
+          "store_and_fwd_flag",
+          "trip_duration"
+        ]
+      },
+      "missing_attrs_T": [
+        "vendor_id",
+        "trip_duration",
+        "pickup_longitude"
+      ],
+      "ordering_T": {
+        "pickup_longitude": [
+          "passenger_count",
+          "pickup_latitude",
+          "store_and_fwd_flag"
+        ],
+        "trip_duration": [
+          "passenger_count",
+          "pickup_latitude",
+          "pickup_longitude",
+          "store_and_fwd_flag"
+        ],
+        "vendor_id": [
+          "passenger_count",
+          "pickup_longitude",
+          "store_and_fwd_flag",
+          "trip_duration"
+        ]
+      },
+      "missing_attrs_S": [],
+      "ordering_S": {},
+      "queries": [
+        "Select vendor_id From data/MNAR1Data/nyc/nyc_mnar1_20.csv where passenger_count = 1 and store_and_fwd_flag = 'N'",
+        "Select pickup_longitude, passenger_count From data/MNAR1Data/nyc/nyc_mnar1_20.csv Group By pickup_longitude, passenger_count",
+        "Select trip_duration From data/MNAR1Data/nyc/nyc_mnar1_20.csv where store_and_fwd_flag != 'Y'",
+        "Select trip_duration From data/MNAR1Data/nyc/nyc_mnar1_20.csv where dropoff_latitude != 40",
+        "Select trip_duration from data/Mnar1JoinsData/nyc_mnar1_20_join1.csv join data/Mnar1JoinsData/nyc_mnar1_20_join2.csv USING (id) where passenger_count > 1",
+        "Select pickup_longitude from data/Mnar1JoinsData/nyc_mnar1_20_join1.csv join data/Mnar1JoinsData/nyc_mnar1_20_join2.csv USING (id) where passenger_count = 2",
+        "Select trip_duration from data/Mnar1JoinsData/nyc_mnar1_20_join1.csv join data/Mnar1JoinsData/nyc_mnar1_20_join2.csv USING (id) where store_and_fwd_flag = 'N'",
+        "Select vendor_id from data/Mnar1JoinsData/nyc_mnar1_20_join1.csv join data/Mnar1JoinsData/nyc_mnar1_20_join2.csv USING (id) where trip_duration > 600",
+        "Select pickup_longitude, trip_duration from data/Mnar1JoinsData/nyc_mnar1_20_join1.csv join data/Mnar1JoinsData/nyc_mnar1_20_join2.csv USING (id) where pickup_latitude > 40.5 Group By pickup_longitude, trip_duration",
+        "Select vendor_id, trip_duration from data/Mnar1JoinsData/nyc_mnar1_20_join1.csv join data/Mnar1JoinsData/nyc_mnar1_20_join2.csv USING (id) where passenger_count > 1 and store_and_fwd_flag = 'N' Group By vendor_id, trip_duration"
+      ]
+    }
+  },
+  "bit_manr1_set": {
+    "BitcoinHeistData_mnar_5": {
+      "csv": [
+        "data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_mnar1_5.csv",
+        "data/Mnar1JoinsData/BitcoinHeistData_mnar1_5_join1.csv",
+        "data/Mnar1JoinsData/BitcoinHeistData_mnar1_5_join2.csv"
+      ],
+      "table": [
+        "mnar5c_BitcoinHeistData0",
+        "mnar5c_BitcoinHeistData1",
+        "mnar5c_BitcoinHeistData2"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/BitcoinHeistData_complete.csv",
+        "data/Injected_JoinsData/bit_complete1.csv",
+        "data/Injected_JoinsData/bit_complete2.csv"
+      ],
+      "complete_table": [
+        "full_BitcoinHeistData0",
+        "full_BitcoinHeistData1",
+        "full_BitcoinHeistData2"
+      ],
+      "missing_attrs_single": [
+        "neighbors",
+        "looped",
+        "count"
+      ],
+      "ordering_single": {
+        "neighbors": [
+          "income",
+          "weight",
+          "year"
+        ],
+        "count": [
+          "income",
+          "neighbors",
+          "weight",
+          "year"
+        ],
+        "looped": [
+          "count",
+          "income",
+          "neighbors",
+          "weight",
+          "year"
+        ]
+      },
+      "missing_attrs_T": [
+        "neighbors",
+        "looped",
+        "count"
+      ],
+      "ordering_T": {
+        "length": [
+          "income",
+          "year"
+        ],
+        "neighbors": [
+          "income",
+          "weight",
+          "year"
+        ],
+        "count": [
+          "income",
+          "neighbors",
+          "weight",
+          "year"
+        ],
+        "looped": [
+          "count",
+          "income",
+          "neighbors",
+          "weight",
+          "year"
+        ]
+      },
+      "missing_attrs_S": [
+        "length",
+        "day"
+      ],
+      "ordering_S": {
+        "length": [
+          "income",
+          "year"
+        ],
+        "day": [
+          "income",
+          "year"
+        ]
+      },
+      "queries": [
+        "Select neighbors From data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_mnar1_5.csv where income > 100000 and year != 2016",
+        "Select  year, looped From data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_mnar1_5.csv Group By year, looped",
+        "Select neighbors From data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_mnar1_5.csv where length != 144",
+        "Select neighbors From data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_mnar1_5.csv where year = 2016",
+        "Select neighbors from data/Mnar1JoinsData/BitcoinHeistData_mnar1_5_join1.csv join data/Mnar1JoinsData/BitcoinHeistData_mnar1_5_join2.csv USING (ID) where length > 144",
+        "Select neighbors from data/Mnar1JoinsData/BitcoinHeistData_mnar1_5_join1.csv join data/Mnar1JoinsData/BitcoinHeistData_mnar1_5_join2.csv USING (ID) where income > 100000000",
+        "Select count from data/Mnar1JoinsData/BitcoinHeistData_mnar1_5_join1.csv join data/Mnar1JoinsData/BitcoinHeistData_mnar1_5_join2.csv USING (ID) where year = 2016",
+        "Select looped from data/Mnar1JoinsData/BitcoinHeistData_mnar1_5_join1.csv join data/Mnar1JoinsData/BitcoinHeistData_mnar1_5_join2.csv USING (ID) where count > 1",
+        "Select weight from data/Mnar1JoinsData/BitcoinHeistData_mnar1_5_join1.csv join data/Mnar1JoinsData/BitcoinHeistData_mnar1_5_join2.csv USING (ID) where year = 2014",
+        "Select looped, neighbors from data/Mnar1JoinsData/BitcoinHeistData_mnar1_5_join1.csv join data/Mnar1JoinsData/BitcoinHeistData_mnar1_5_join2.csv USING (ID) where income > 100000000 and year != 2016 Group By looped, neighbors"
+      ]
+    },
+    "BitcoinHeistData_mnar_10": {
+      "csv": [
+        "data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_mnar1_10.csv",
+        "data/Mnar1JoinsData/BitcoinHeistData_mnar1_10_join1.csv",
+        "data/Mnar1JoinsData/BitcoinHeistData_mnar1_10_join2.csv"
+      ],
+      "table": [
+        "mnar10c_BitcoinHeistData0",
+        "mnar10c_BitcoinHeistData1",
+        "mnar10c_BitcoinHeistData2"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/BitcoinHeistData_complete.csv",
+        "data/Injected_JoinsData/bit_complete1.csv",
+        "data/Injected_JoinsData/bit_complete2.csv"
+      ],
+      "complete_table": [
+        "full_BitcoinHeistData0",
+        "full_BitcoinHeistData1",
+        "full_BitcoinHeistData2"
+      ],
+      "missing_attrs_single": [
+        "neighbors",
+        "looped",
+        "count"
+      ],
+      "ordering_single": {
+        "neighbors": [
+          "income",
+          "weight",
+          "year"
+        ],
+        "count": [
+          "income",
+          "neighbors",
+          "weight",
+          "year"
+        ],
+        "looped": [
+          "count",
+          "income",
+          "neighbors",
+          "weight",
+          "year"
+        ]
+      },
+      "missing_attrs_T": [
+        "neighbors",
+        "looped",
+        "count"
+      ],
+      "ordering_T": {
+        "length": [
+          "income",
+          "year"
+        ],
+        "neighbors": [
+          "income",
+          "weight",
+          "year"
+        ],
+        "count": [
+          "income",
+          "neighbors",
+          "weight",
+          "year"
+        ],
+        "looped": [
+          "count",
+          "income",
+          "neighbors",
+          "weight",
+          "year"
+        ]
+      },
+      "missing_attrs_S": [
+        "length",
+        "day"
+      ],
+      "ordering_S": {
+        "length": [
+          "income",
+          "year"
+        ],
+        "day": [
+          "income",
+          "year"
+        ]
+      },
+      "queries": [
+        "Select neighbors From data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_mnar1_10.csv where income > 100000 and year != 2016",
+        "Select  year, looped From data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_mnar1_10.csv Group By year, looped",
+        "Select neighbors From data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_mnar1_10.csv where length != 144",
+        "Select neighbors From data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_mnar1_10.csv where year = 2016",
+        "Select neighbors from data/Mnar1JoinsData/BitcoinHeistData_mnar1_10_join1.csv join data/Mnar1JoinsData/BitcoinHeistData_mnar1_10_join2.csv USING (ID) where length > 144",
+        "Select neighbors from data/Mnar1JoinsData/BitcoinHeistData_mnar1_10_join1.csv join data/Mnar1JoinsData/BitcoinHeistData_mnar1_10_join2.csv USING (ID) where income > 100000000",
+        "Select count from data/Mnar1JoinsData/BitcoinHeistData_mnar1_10_join1.csv join data/Mnar1JoinsData/BitcoinHeistData_mnar1_10_join2.csv USING (ID) where year = 2016",
+        "Select looped from data/Mnar1JoinsData/BitcoinHeistData_mnar1_10_join1.csv join data/Mnar1JoinsData/BitcoinHeistData_mnar1_10_join2.csv USING (ID) where count > 1",
+        "Select weight from data/Mnar1JoinsData/BitcoinHeistData_mnar1_10_join1.csv join data/Mnar1JoinsData/BitcoinHeistData_mnar1_10_join2.csv USING (ID) where year = 2014",
+        "Select looped, neighbors from data/Mnar1JoinsData/BitcoinHeistData_mnar1_10_join1.csv join data/Mnar1JoinsData/BitcoinHeistData_mnar1_10_join2.csv USING (ID) where income > 100000000 and year != 2016 Group By looped, neighbors"
+      ]
+    },
+    "BitcoinHeistData_mnar_20": {
+      "csv": [
+        "data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_mnar1_20.csv",
+        "data/Mnar1JoinsData/BitcoinHeistData_mnar1_20_join1.csv",
+        "data/Mnar1JoinsData/BitcoinHeistData_mnar1_20_join2.csv"
+      ],
+      "table": [
+        "mnar20c_BitcoinHeistData0",
+        "mnar20c_BitcoinHeistData1",
+        "mnar20c_BitcoinHeistData2"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/BitcoinHeistData_complete.csv",
+        "data/Injected_JoinsData/bit_complete1.csv",
+        "data/Injected_JoinsData/bit_complete2.csv"
+      ],
+      "complete_table": [
+        "full_BitcoinHeistData0",
+        "full_BitcoinHeistData1",
+        "full_BitcoinHeistData2"
+      ],
+      "missing_attrs_single": [
+        "neighbors",
+        "looped",
+        "count"
+      ],
+      "ordering_single": {
+        "neighbors": [
+          "income",
+          "weight",
+          "year"
+        ],
+        "count": [
+          "income",
+          "neighbors",
+          "weight",
+          "year"
+        ],
+        "looped": [
+          "count",
+          "income",
+          "neighbors",
+          "weight",
+          "year"
+        ]
+      },
+      "missing_attrs_T": [
+        "neighbors",
+        "looped",
+        "count"
+      ],
+      "ordering_T": {
+        "length": [
+          "income",
+          "year"
+        ],
+        "neighbors": [
+          "income",
+          "weight",
+          "year"
+        ],
+        "count": [
+          "income",
+          "neighbors",
+          "weight",
+          "year"
+        ],
+        "looped": [
+          "count",
+          "income",
+          "neighbors",
+          "weight",
+          "year"
+        ]
+      },
+      "missing_attrs_S": [
+        "length",
+        "day"
+      ],
+      "ordering_S": {
+        "length": [
+          "income",
+          "year"
+        ],
+        "day": [
+          "income",
+          "year"
+        ]
+      },
+      "queries": [
+        "Select neighbors From data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_mnar1_20.csv where income > 100000 and year != 2016",
+        "Select  year, looped From data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_mnar1_20.csv Group By year, looped",
+        "Select neighbors From data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_mnar1_20.csv where length != 144",
+        "Select neighbors From data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_mnar1_20.csv where year = 2016",
+        "Select neighbors from data/Mnar1JoinsData/BitcoinHeistData_mnar1_20_join1.csv join data/Mnar1JoinsData/BitcoinHeistData_mnar1_20_join2.csv USING (ID) where length > 144",
+        "Select neighbors from data/Mnar1JoinsData/BitcoinHeistData_mnar1_20_join1.csv join data/Mnar1JoinsData/BitcoinHeistData_mnar1_20_join2.csv USING (ID) where income > 100000000",
+        "Select count from data/Mnar1JoinsData/BitcoinHeistData_mnar1_20_join1.csv join data/Mnar1JoinsData/BitcoinHeistData_mnar1_20_join2.csv USING (ID) where year = 2016",
+        "Select looped from data/Mnar1JoinsData/BitcoinHeistData_mnar1_20_join1.csv join data/Mnar1JoinsData/BitcoinHeistData_mnar1_20_join2.csv USING (ID) where count > 1",
+        "Select weight from data/Mnar1JoinsData/BitcoinHeistData_mnar1_20_join1.csv join data/Mnar1JoinsData/BitcoinHeistData_mnar1_20_join2.csv USING (ID) where year = 2014",
+        "Select looped, neighbors from data/Mnar1JoinsData/BitcoinHeistData_mnar1_20_join1.csv join data/Mnar1JoinsData/BitcoinHeistData_mnar1_20_join2.csv USING (ID) where income > 100000000 and year != 2016 Group By looped, neighbors"
+      ]
+    }
+  }
+}

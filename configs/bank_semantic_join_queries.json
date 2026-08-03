@@ -1,0 +1,135 @@
+{
+  "dataset": "bank",
+  "join_key": "tuple_id",
+  "set_config_key": "bank_manr1_set",
+  "factor_file": "data/MNAR1Data/bank/bank_mnar1_minimal_separators_Xi.csv",
+  "normalized_rows": 4521,
+  "partitions": {
+    "customer_profile": [
+      "age",
+      "job",
+      "marital",
+      "education"
+    ],
+    "account_status": [
+      "default",
+      "balance",
+      "housing",
+      "loan"
+    ],
+    "current_contact": [
+      "contact",
+      "day",
+      "month",
+      "duration",
+      "campaign",
+      "y"
+    ],
+    "campaign_history": [
+      "pdays",
+      "previous",
+      "poutcome"
+    ]
+  },
+  "rates": {
+    "5": {
+      "csv": [
+        "data/SemanticJoinData/bank_mnar1_5_customer_profile.csv",
+        "data/SemanticJoinData/bank_mnar1_5_account_status.csv",
+        "data/SemanticJoinData/bank_mnar1_5_current_contact.csv",
+        "data/SemanticJoinData/bank_mnar1_5_campaign_history.csv"
+      ],
+      "table": [
+        "bank_5_customer_profile",
+        "bank_5_account_status",
+        "bank_5_current_contact",
+        "bank_5_campaign_history"
+      ],
+      "complete_csv": [
+        "data/CompleteSemanticJoinData/bank_complete_customer_profile.csv",
+        "data/CompleteSemanticJoinData/bank_complete_account_status.csv",
+        "data/CompleteSemanticJoinData/bank_complete_current_contact.csv",
+        "data/CompleteSemanticJoinData/bank_complete_campaign_history.csv"
+      ],
+      "complete_table": [
+        "bank_complete_customer_profile",
+        "bank_complete_account_status",
+        "bank_complete_current_contact",
+        "bank_complete_campaign_history"
+      ],
+      "set_queries": [
+        "SELECT day FROM data/SemanticJoinData/bank_mnar1_5_customer_profile.csv JOIN data/SemanticJoinData/bank_mnar1_5_account_status.csv USING (tuple_id) JOIN data/SemanticJoinData/bank_mnar1_5_current_contact.csv USING (tuple_id) JOIN data/SemanticJoinData/bank_mnar1_5_campaign_history.csv USING (tuple_id) WHERE balance > 444 AND campaign > 1 AND education = 'secondary'",
+        "SELECT housing, contact FROM data/SemanticJoinData/bank_mnar1_5_customer_profile.csv JOIN data/SemanticJoinData/bank_mnar1_5_account_status.csv USING (tuple_id) JOIN data/SemanticJoinData/bank_mnar1_5_current_contact.csv USING (tuple_id) JOIN data/SemanticJoinData/bank_mnar1_5_campaign_history.csv USING (tuple_id) WHERE age > 39 AND \"default\" = 'no' AND education != 'primary' GROUP BY housing, contact",
+        "SELECT duration FROM data/SemanticJoinData/bank_mnar1_5_customer_profile.csv JOIN data/SemanticJoinData/bank_mnar1_5_account_status.csv USING (tuple_id) JOIN data/SemanticJoinData/bank_mnar1_5_current_contact.csv USING (tuple_id) JOIN data/SemanticJoinData/bank_mnar1_5_campaign_history.csv USING (tuple_id) WHERE balance < 0 AND campaign > 2 AND education = 'secondary'",
+        "SELECT day, duration FROM data/SemanticJoinData/bank_mnar1_5_customer_profile.csv JOIN data/SemanticJoinData/bank_mnar1_5_account_status.csv USING (tuple_id) JOIN data/SemanticJoinData/bank_mnar1_5_current_contact.csv USING (tuple_id) JOIN data/SemanticJoinData/bank_mnar1_5_campaign_history.csv USING (tuple_id) WHERE age > 50 AND campaign > 2 AND education = 'tertiary' GROUP BY day, duration",
+        "SELECT contact, housing FROM data/SemanticJoinData/bank_mnar1_5_customer_profile.csv JOIN data/SemanticJoinData/bank_mnar1_5_account_status.csv USING (tuple_id) JOIN data/SemanticJoinData/bank_mnar1_5_current_contact.csv USING (tuple_id) JOIN data/SemanticJoinData/bank_mnar1_5_campaign_history.csv USING (tuple_id) WHERE balance > 1000 AND campaign > 1 AND education != 'unknown' GROUP BY contact, housing"
+      ]
+    },
+    "10": {
+      "csv": [
+        "data/SemanticJoinData/bank_mnar1_10_customer_profile.csv",
+        "data/SemanticJoinData/bank_mnar1_10_account_status.csv",
+        "data/SemanticJoinData/bank_mnar1_10_current_contact.csv",
+        "data/SemanticJoinData/bank_mnar1_10_campaign_history.csv"
+      ],
+      "table": [
+        "bank_10_customer_profile",
+        "bank_10_account_status",
+        "bank_10_current_contact",
+        "bank_10_campaign_history"
+      ],
+      "complete_csv": [
+        "data/CompleteSemanticJoinData/bank_complete_customer_profile.csv",
+        "data/CompleteSemanticJoinData/bank_complete_account_status.csv",
+        "data/CompleteSemanticJoinData/bank_complete_current_contact.csv",
+        "data/CompleteSemanticJoinData/bank_complete_campaign_history.csv"
+      ],
+      "complete_table": [
+        "bank_complete_customer_profile",
+        "bank_complete_account_status",
+        "bank_complete_current_contact",
+        "bank_complete_campaign_history"
+      ],
+      "set_queries": [
+        "SELECT day FROM data/SemanticJoinData/bank_mnar1_10_customer_profile.csv JOIN data/SemanticJoinData/bank_mnar1_10_account_status.csv USING (tuple_id) JOIN data/SemanticJoinData/bank_mnar1_10_current_contact.csv USING (tuple_id) JOIN data/SemanticJoinData/bank_mnar1_10_campaign_history.csv USING (tuple_id) WHERE balance > 444 AND campaign > 1 AND education = 'secondary'",
+        "SELECT housing, contact FROM data/SemanticJoinData/bank_mnar1_10_customer_profile.csv JOIN data/SemanticJoinData/bank_mnar1_10_account_status.csv USING (tuple_id) JOIN data/SemanticJoinData/bank_mnar1_10_current_contact.csv USING (tuple_id) JOIN data/SemanticJoinData/bank_mnar1_10_campaign_history.csv USING (tuple_id) WHERE age > 39 AND \"default\" = 'no' AND education != 'primary' GROUP BY housing, contact",
+        "SELECT duration FROM data/SemanticJoinData/bank_mnar1_10_customer_profile.csv JOIN data/SemanticJoinData/bank_mnar1_10_account_status.csv USING (tuple_id) JOIN data/SemanticJoinData/bank_mnar1_10_current_contact.csv USING (tuple_id) JOIN data/SemanticJoinData/bank_mnar1_10_campaign_history.csv USING (tuple_id) WHERE balance < 0 AND campaign > 2 AND education = 'secondary'",
+        "SELECT day, duration FROM data/SemanticJoinData/bank_mnar1_10_customer_profile.csv JOIN data/SemanticJoinData/bank_mnar1_10_account_status.csv USING (tuple_id) JOIN data/SemanticJoinData/bank_mnar1_10_current_contact.csv USING (tuple_id) JOIN data/SemanticJoinData/bank_mnar1_10_campaign_history.csv USING (tuple_id) WHERE age > 50 AND campaign > 2 AND education = 'tertiary' GROUP BY day, duration",
+        "SELECT contact, housing FROM data/SemanticJoinData/bank_mnar1_10_customer_profile.csv JOIN data/SemanticJoinData/bank_mnar1_10_account_status.csv USING (tuple_id) JOIN data/SemanticJoinData/bank_mnar1_10_current_contact.csv USING (tuple_id) JOIN data/SemanticJoinData/bank_mnar1_10_campaign_history.csv USING (tuple_id) WHERE balance > 1000 AND campaign > 1 AND education != 'unknown' GROUP BY contact, housing"
+      ]
+    },
+    "20": {
+      "csv": [
+        "data/SemanticJoinData/bank_mnar1_20_customer_profile.csv",
+        "data/SemanticJoinData/bank_mnar1_20_account_status.csv",
+        "data/SemanticJoinData/bank_mnar1_20_current_contact.csv",
+        "data/SemanticJoinData/bank_mnar1_20_campaign_history.csv"
+      ],
+      "table": [
+        "bank_20_customer_profile",
+        "bank_20_account_status",
+        "bank_20_current_contact",
+        "bank_20_campaign_history"
+      ],
+      "complete_csv": [
+        "data/CompleteSemanticJoinData/bank_complete_customer_profile.csv",
+        "data/CompleteSemanticJoinData/bank_complete_account_status.csv",
+        "data/CompleteSemanticJoinData/bank_complete_current_contact.csv",
+        "data/CompleteSemanticJoinData/bank_complete_campaign_history.csv"
+      ],
+      "complete_table": [
+        "bank_complete_customer_profile",
+        "bank_complete_account_status",
+        "bank_complete_current_contact",
+        "bank_complete_campaign_history"
+      ],
+      "set_queries": [
+        "SELECT day FROM data/SemanticJoinData/bank_mnar1_20_customer_profile.csv JOIN data/SemanticJoinData/bank_mnar1_20_account_status.csv USING (tuple_id) JOIN data/SemanticJoinData/bank_mnar1_20_current_contact.csv USING (tuple_id) JOIN data/SemanticJoinData/bank_mnar1_20_campaign_history.csv USING (tuple_id) WHERE balance > 444 AND campaign > 1 AND education = 'secondary'",
+        "SELECT housing, contact FROM data/SemanticJoinData/bank_mnar1_20_customer_profile.csv JOIN data/SemanticJoinData/bank_mnar1_20_account_status.csv USING (tuple_id) JOIN data/SemanticJoinData/bank_mnar1_20_current_contact.csv USING (tuple_id) JOIN data/SemanticJoinData/bank_mnar1_20_campaign_history.csv USING (tuple_id) WHERE age > 39 AND \"default\" = 'no' AND education != 'primary' GROUP BY housing, contact",
+        "SELECT duration FROM data/SemanticJoinData/bank_mnar1_20_customer_profile.csv JOIN data/SemanticJoinData/bank_mnar1_20_account_status.csv USING (tuple_id) JOIN data/SemanticJoinData/bank_mnar1_20_current_contact.csv USING (tuple_id) JOIN data/SemanticJoinData/bank_mnar1_20_campaign_history.csv USING (tuple_id) WHERE balance < 0 AND campaign > 2 AND education = 'secondary'",
+        "SELECT day, duration FROM data/SemanticJoinData/bank_mnar1_20_customer_profile.csv JOIN data/SemanticJoinData/bank_mnar1_20_account_status.csv USING (tuple_id) JOIN data/SemanticJoinData/bank_mnar1_20_current_contact.csv USING (tuple_id) JOIN data/SemanticJoinData/bank_mnar1_20_campaign_history.csv USING (tuple_id) WHERE age > 50 AND campaign > 2 AND education = 'tertiary' GROUP BY day, duration",
+        "SELECT contact, housing FROM data/SemanticJoinData/bank_mnar1_20_customer_profile.csv JOIN data/SemanticJoinData/bank_mnar1_20_account_status.csv USING (tuple_id) JOIN data/SemanticJoinData/bank_mnar1_20_current_contact.csv USING (tuple_id) JOIN data/SemanticJoinData/bank_mnar1_20_campaign_history.csv USING (tuple_id) WHERE balance > 1000 AND campaign > 1 AND education != 'unknown' GROUP BY contact, housing"
+      ]
+    }
+  }
+}

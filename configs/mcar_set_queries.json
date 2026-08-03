@@ -1,0 +1,245 @@
+{
+  "bank_mcar_set": {
+    "bank_mcar_5": {
+      "csv": [
+        "data/rwDatasets/bank_MCAR_5.0.csv"
+      ],
+      "table": [
+        "mcar5_bank0"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/bank_complete.csv"
+      ],
+      "complete_table": [
+        "full_bank0"
+      ],
+      "missing_attrs_single": [
+        "day",
+        "contact",
+        "duration",
+        "housing"
+      ],
+      "ordering_single": {},
+      "queries": [
+        "Select day From data/rwDatasets/bank_MCAR_5.0.csv where education != 'primary'",
+        "Select housing, contact From data/rwDatasets/bank_MCAR_5.0.csv WHERE loan = 'no' Group By housing, contact",
+        "Select duration From data/rwDatasets/bank_MCAR_5.0.csv where campaign > 1",
+        "Select duration From data/rwDatasets/bank_MCAR_5.0.csv where loan = 'yes'"
+      ]
+    },
+    "bank_mcar_10": {
+      "csv": [
+        "data/rwDatasets/bank_MCAR_10.0.csv"
+      ],
+      "table": [
+        "mcar10_bank0"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/bank_complete.csv"
+      ],
+      "complete_table": [
+        "full_bank0"
+      ],
+      "missing_attrs_single": [
+        "day",
+        "contact",
+        "duration",
+        "housing"
+      ],
+      "ordering_single": {},
+      "queries": [
+        "Select day From data/rwDatasets/bank_MCAR_10.0.csv where education != 'primary'",
+        "Select housing, contact From data/rwDatasets/bank_MCAR_10.0.csv WHERE loan = 'no' Group By housing, contact",
+        "Select duration From data/rwDatasets/bank_MCAR_10.0.csv where campaign > 1",
+        "Select duration From data/rwDatasets/bank_MCAR_10.0.csv where loan = 'yes'"
+      ]
+    },
+    "bank_mcar_20": {
+      "csv": [
+        "data/rwDatasets/bank_MCAR_20.0.csv"
+      ],
+      "table": [
+        "mcar20_bank0"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/bank_complete.csv"
+      ],
+      "complete_table": [
+        "full_bank0"
+      ],
+      "missing_attrs_single": [
+        "day",
+        "contact",
+        "duration",
+        "housing"
+      ],
+      "ordering_single": {},
+      "queries": [
+        "Select day From data/rwDatasets/bank_MCAR_20.0.csv where education != 'primary'",
+        "Select housing, contact From data/rwDatasets/bank_MCAR_20.0.csv WHERE loan = 'no' Group By housing, contact",
+        "Select duration From data/rwDatasets/bank_MCAR_20.0.csv where campaign > 1",
+        "Select duration From data/rwDatasets/bank_MCAR_20.0.csv where loan = 'yes'"
+      ]
+    }
+  },
+  "nyc_mcar_set": {
+    "nyc_mcar_5": {
+      "csv": [
+        "data/rwDatasets/nyc_MCAR_5.0.csv"
+      ],
+      "table": [
+        "mcar5_nyc0"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/nyc_complete.csv"
+      ],
+      "complete_table": [
+        "full_nyc0"
+      ],
+      "missing_attrs_single": [
+        "trip_duration",
+        "pickup_longitude",
+        "dropoff_longitude"
+      ],
+      "ordering_single": {},
+      "queries": [
+        "Select trip_duration From data/rwDatasets/nyc_MCAR_5.0.csv where store_and_fwd_flag != 'Y'",
+        "Select pickup_longitude From data/rwDatasets/nyc_MCAR_5.0.csv where vendor_id = 1",
+        "Select trip_duration From data/rwDatasets/nyc_MCAR_5.0.csv where passenger_count > 1",
+        "Select dropoff_longitude From data/rwDatasets/nyc_MCAR_5.0.csv where vendor_id = 2"
+      ]
+    },
+    "nyc_mcar_10": {
+      "csv": [
+        "data/rwDatasets/nyc_MCAR_10.0.csv"
+      ],
+      "table": [
+        "mcar10_nyc0"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/nyc_complete.csv"
+      ],
+      "complete_table": [
+        "full_nyc0"
+      ],
+      "missing_attrs_single": [
+        "trip_duration",
+        "pickup_longitude",
+        "dropoff_longitude"
+      ],
+      "ordering_single": {},
+      "queries": [
+        "Select trip_duration From data/rwDatasets/nyc_MCAR_10.0.csv where store_and_fwd_flag != 'Y'",
+        "Select pickup_longitude From data/rwDatasets/nyc_MCAR_10.0.csv where vendor_id = 1",
+        "Select trip_duration From data/rwDatasets/nyc_MCAR_10.0.csv where passenger_count > 1",
+        "Select dropoff_longitude From data/rwDatasets/nyc_MCAR_10.0.csv where vendor_id = 2"
+      ]
+    },
+    "nyc_mcar_20": {
+      "csv": [
+        "data/rwDatasets/nyc_MCAR_20.0.csv"
+      ],
+      "table": [
+        "mcar20_nyc0"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/nyc_complete.csv"
+      ],
+      "complete_table": [
+        "full_nyc0"
+      ],
+      "missing_attrs_single": [
+        "trip_duration",
+        "pickup_longitude",
+        "dropoff_longitude"
+      ],
+      "ordering_single": {},
+      "queries": [
+        "Select trip_duration From data/rwDatasets/nyc_MCAR_20.0.csv where store_and_fwd_flag != 'Y'",
+        "Select pickup_longitude From data/rwDatasets/nyc_MCAR_20.0.csv where vendor_id = 1",
+        "Select trip_duration From data/rwDatasets/nyc_MCAR_20.0.csv where passenger_count > 1",
+        "Select dropoff_longitude From data/rwDatasets/nyc_MCAR_20.0.csv where vendor_id = 2"
+      ]
+    }
+  },
+  "bitcoin_mcar_set": {
+    "bitcoin_mcar_5": {
+      "csv": [
+        "data/rwDatasets/BitcoinHeistData_MCAR_0.5.csv"
+      ],
+      "table": [
+        "mcar5_bitcoin0"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/BitcoinHeistData_complete.csv"
+      ],
+      "complete_table": [
+        "full_bit0"
+      ],
+      "missing_attrs_single": [
+        "looped",
+        "neighbors",
+        "count"
+      ],
+      "ordering_single": {},
+      "queries": [
+        "Select neighbors From data/rwDatasets/BitcoinHeistData_MCAR_0.5.csv where year != 2016",
+        "Select looped From data/rwDatasets/BitcoinHeistData_MCAR_0.5.csv where year = 2017",
+        "Select count From data/rwDatasets/BitcoinHeistData_MCAR_0.5.csv where length != 144",
+        "Select neighbors From data/rwDatasets/BitcoinHeistData_MCAR_0.5.csv where weight > 1"
+      ]
+    },
+    "bitcoin_mcar_10": {
+      "csv": [
+        "data/rwDatasets/BitcoinHeistData_MCAR_1.0.csv"
+      ],
+      "table": [
+        "mcar10_bitcoin0"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/BitcoinHeistData_complete.csv"
+      ],
+      "complete_table": [
+        "full_bit0"
+      ],
+      "missing_attrs_single": [
+        "looped",
+        "neighbors",
+        "count"
+      ],
+      "ordering_single": {},
+      "queries": [
+        "Select neighbors From data/rwDatasets/BitcoinHeistData_MCAR_1.0.csv where year != 2016",
+        "Select looped From data/rwDatasets/BitcoinHeistData_MCAR_1.0.csv where year = 2017",
+        "Select count From data/rwDatasets/BitcoinHeistData_MCAR_1.0.csv where length != 144",
+        "Select neighbors From data/rwDatasets/BitcoinHeistData_MCAR_1.0.csv where weight > 1"
+      ]
+    },
+    "bitcoin_mcar_20": {
+      "csv": [
+        "data/rwDatasets/BitcoinHeistData_MCAR_2.0.csv"
+      ],
+      "table": [
+        "mcar20_bitcoin0"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/BitcoinHeistData_complete.csv"
+      ],
+      "complete_table": [
+        "full_bit0"
+      ],
+      "missing_attrs_single": [
+        "looped",
+        "neighbors",
+        "count"
+      ],
+      "ordering_single": {},
+      "queries": [
+        "Select neighbors From data/rwDatasets/BitcoinHeistData_MCAR_2.0.csv where year != 2016",
+        "Select looped From data/rwDatasets/BitcoinHeistData_MCAR_2.0.csv where year = 2017",
+        "Select count From data/rwDatasets/BitcoinHeistData_MCAR_2.0.csv where length != 144",
+        "Select neighbors From data/rwDatasets/BitcoinHeistData_MCAR_2.0.csv where weight > 1"
+      ]
+    }
+  }
+}

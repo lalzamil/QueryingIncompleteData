@@ -1,0 +1,199 @@
+{
+  "dataset": "nyc",
+  "join_key": "tuple_id",
+  "set_config_key": "nyc_manr1_set",
+  "factor_file": "data/MNAR1Data/nyc/nyc_mnar1_minimal_separators_Xi.csv",
+  "aggregate_factor_file": "data/MNAR1Data/nyc/nyc_agg_mnar1_minimal_separators_Xi.csv",
+  "normalized_rows": 729322,
+  "partitions": {
+    "r1": [
+      "vendor_id",
+      "pickup_longitude",
+      "pickup_latitude",
+      "dropoff_longitude",
+      "dropoff_latitude",
+      "trip_duration"
+    ],
+    "r2": [
+      "passenger_count"
+    ],
+    "r3": [
+      "store_and_fwd_flag"
+    ],
+    "r4": [
+      "id",
+      "pickup_datetime",
+      "dropoff_datetime"
+    ]
+  },
+  "rates": {
+    "5": {
+      "csv": [
+        "data/Mnar1FourRelationsData/nyc_mnar1_5_r1.csv",
+        "data/Mnar1FourRelationsData/nyc_mnar1_5_r2.csv",
+        "data/Mnar1FourRelationsData/nyc_mnar1_5_r3.csv",
+        "data/Mnar1FourRelationsData/nyc_mnar1_5_r4.csv"
+      ],
+      "table": [
+        "nyc4_mnar_5_r1",
+        "nyc4_mnar_5_r2",
+        "nyc4_mnar_5_r3",
+        "nyc4_mnar_5_r4"
+      ],
+      "factor_csv": "data/MNAR1Data/nyc/nyc_mnar1_5.csv",
+      "factor_table": "nyc4_mnar_5_factor",
+      "aggregate_csv": [
+        "data/Mnar1FourRelationsData/nyc_agg_mnar1_5_r1.csv",
+        "data/Mnar1FourRelationsData/nyc_agg_mnar1_5_r2.csv",
+        "data/Mnar1FourRelationsData/nyc_agg_mnar1_5_r3.csv",
+        "data/Mnar1FourRelationsData/nyc_agg_mnar1_5_r4.csv"
+      ],
+      "aggregate_table": [
+        "nyc4_agg_mnar_5_r1",
+        "nyc4_agg_mnar_5_r2",
+        "nyc4_agg_mnar_5_r3",
+        "nyc4_agg_mnar_5_r4"
+      ],
+      "aggregate_factor_csv": "data/MNAR1Data/nyc/nyc_agg_mnar1_5.csv",
+      "aggregate_factor_table": "nyc4_agg_mnar_5_factor",
+      "complete_csv": [
+        "data/CompleteFourRelationsData/nyc_complete_r1.csv",
+        "data/CompleteFourRelationsData/nyc_complete_r2.csv",
+        "data/CompleteFourRelationsData/nyc_complete_r3.csv",
+        "data/CompleteFourRelationsData/nyc_complete_r4.csv"
+      ],
+      "complete_table": [
+        "nyc4_complete_r1",
+        "nyc4_complete_r2",
+        "nyc4_complete_r3",
+        "nyc4_complete_r4"
+      ],
+      "set_queries": [
+        "SELECT vendor_id FROM data/Mnar1FourRelationsData/nyc_mnar1_5_r1.csv JOIN data/Mnar1FourRelationsData/nyc_mnar1_5_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_mnar1_5_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_mnar1_5_r4.csv USING (tuple_id) WHERE passenger_count = 1 AND store_and_fwd_flag = 'N'",
+        "SELECT pickup_longitude, passenger_count FROM data/Mnar1FourRelationsData/nyc_mnar1_5_r1.csv JOIN data/Mnar1FourRelationsData/nyc_mnar1_5_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_mnar1_5_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_mnar1_5_r4.csv USING (tuple_id) WHERE store_and_fwd_flag = 'N' GROUP BY pickup_longitude, passenger_count",
+        "SELECT dropoff_latitude FROM data/Mnar1FourRelationsData/nyc_mnar1_5_r1.csv JOIN data/Mnar1FourRelationsData/nyc_mnar1_5_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_mnar1_5_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_mnar1_5_r4.csv USING (tuple_id) WHERE passenger_count > 1 AND store_and_fwd_flag = 'N'",
+        "SELECT pickup_latitude FROM data/Mnar1FourRelationsData/nyc_mnar1_5_r1.csv JOIN data/Mnar1FourRelationsData/nyc_mnar1_5_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_mnar1_5_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_mnar1_5_r4.csv USING (tuple_id) WHERE passenger_count = 1 AND store_and_fwd_flag != 'Y'",
+        "SELECT pickup_longitude, trip_duration FROM data/Mnar1FourRelationsData/nyc_mnar1_5_r1.csv JOIN data/Mnar1FourRelationsData/nyc_mnar1_5_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_mnar1_5_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_mnar1_5_r4.csv USING (tuple_id) WHERE pickup_latitude > 40.5 AND store_and_fwd_flag = 'N' GROUP BY pickup_longitude, trip_duration"
+      ],
+      "aggregate_queries": [
+        "SELECT vendor_id, AVG(trip_duration) AS avg_trip_duration FROM data/Mnar1FourRelationsData/nyc_agg_mnar1_5_r1.csv JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_5_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_5_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_5_r4.csv USING (tuple_id) WHERE passenger_count = 1 AND store_and_fwd_flag = 'N' GROUP BY vendor_id",
+        "SELECT passenger_count, AVG(pickup_longitude) AS avg_pickup_longitude FROM data/Mnar1FourRelationsData/nyc_agg_mnar1_5_r1.csv JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_5_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_5_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_5_r4.csv USING (tuple_id) WHERE store_and_fwd_flag = 'N' GROUP BY passenger_count",
+        "SELECT vendor_id, AVG(pickup_latitude) AS avg_pickup_latitude FROM data/Mnar1FourRelationsData/nyc_agg_mnar1_5_r1.csv JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_5_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_5_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_5_r4.csv USING (tuple_id) WHERE trip_duration > 600 AND store_and_fwd_flag != 'Y' GROUP BY vendor_id",
+        "SELECT vendor_id, AVG(dropoff_latitude) AS avg_dropoff_latitude FROM data/Mnar1FourRelationsData/nyc_agg_mnar1_5_r1.csv JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_5_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_5_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_5_r4.csv USING (tuple_id) WHERE trip_duration > 300 AND store_and_fwd_flag = 'N' GROUP BY vendor_id",
+        "SELECT vendor_id, AVG(dropoff_longitude) AS avg_dropoff_longitude FROM data/Mnar1FourRelationsData/nyc_agg_mnar1_5_r1.csv JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_5_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_5_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_5_r4.csv USING (tuple_id) WHERE passenger_count = 1 AND store_and_fwd_flag = 'N' GROUP BY vendor_id"
+      ]
+    },
+    "10": {
+      "csv": [
+        "data/Mnar1FourRelationsData/nyc_mnar1_10_r1.csv",
+        "data/Mnar1FourRelationsData/nyc_mnar1_10_r2.csv",
+        "data/Mnar1FourRelationsData/nyc_mnar1_10_r3.csv",
+        "data/Mnar1FourRelationsData/nyc_mnar1_10_r4.csv"
+      ],
+      "table": [
+        "nyc4_mnar_10_r1",
+        "nyc4_mnar_10_r2",
+        "nyc4_mnar_10_r3",
+        "nyc4_mnar_10_r4"
+      ],
+      "factor_csv": "data/MNAR1Data/nyc/nyc_mnar1_10.csv",
+      "factor_table": "nyc4_mnar_10_factor",
+      "aggregate_csv": [
+        "data/Mnar1FourRelationsData/nyc_agg_mnar1_10_r1.csv",
+        "data/Mnar1FourRelationsData/nyc_agg_mnar1_10_r2.csv",
+        "data/Mnar1FourRelationsData/nyc_agg_mnar1_10_r3.csv",
+        "data/Mnar1FourRelationsData/nyc_agg_mnar1_10_r4.csv"
+      ],
+      "aggregate_table": [
+        "nyc4_agg_mnar_10_r1",
+        "nyc4_agg_mnar_10_r2",
+        "nyc4_agg_mnar_10_r3",
+        "nyc4_agg_mnar_10_r4"
+      ],
+      "aggregate_factor_csv": "data/MNAR1Data/nyc/nyc_agg_mnar1_10.csv",
+      "aggregate_factor_table": "nyc4_agg_mnar_10_factor",
+      "complete_csv": [
+        "data/CompleteFourRelationsData/nyc_complete_r1.csv",
+        "data/CompleteFourRelationsData/nyc_complete_r2.csv",
+        "data/CompleteFourRelationsData/nyc_complete_r3.csv",
+        "data/CompleteFourRelationsData/nyc_complete_r4.csv"
+      ],
+      "complete_table": [
+        "nyc4_complete_r1",
+        "nyc4_complete_r2",
+        "nyc4_complete_r3",
+        "nyc4_complete_r4"
+      ],
+      "set_queries": [
+        "SELECT vendor_id FROM data/Mnar1FourRelationsData/nyc_mnar1_10_r1.csv JOIN data/Mnar1FourRelationsData/nyc_mnar1_10_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_mnar1_10_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_mnar1_10_r4.csv USING (tuple_id) WHERE passenger_count = 1 AND store_and_fwd_flag = 'N'",
+        "SELECT pickup_longitude, passenger_count FROM data/Mnar1FourRelationsData/nyc_mnar1_10_r1.csv JOIN data/Mnar1FourRelationsData/nyc_mnar1_10_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_mnar1_10_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_mnar1_10_r4.csv USING (tuple_id) WHERE store_and_fwd_flag = 'N' GROUP BY pickup_longitude, passenger_count",
+        "SELECT dropoff_latitude FROM data/Mnar1FourRelationsData/nyc_mnar1_10_r1.csv JOIN data/Mnar1FourRelationsData/nyc_mnar1_10_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_mnar1_10_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_mnar1_10_r4.csv USING (tuple_id) WHERE passenger_count > 1 AND store_and_fwd_flag = 'N'",
+        "SELECT pickup_latitude FROM data/Mnar1FourRelationsData/nyc_mnar1_10_r1.csv JOIN data/Mnar1FourRelationsData/nyc_mnar1_10_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_mnar1_10_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_mnar1_10_r4.csv USING (tuple_id) WHERE passenger_count = 1 AND store_and_fwd_flag != 'Y'",
+        "SELECT pickup_longitude, trip_duration FROM data/Mnar1FourRelationsData/nyc_mnar1_10_r1.csv JOIN data/Mnar1FourRelationsData/nyc_mnar1_10_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_mnar1_10_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_mnar1_10_r4.csv USING (tuple_id) WHERE pickup_latitude > 40.5 AND store_and_fwd_flag = 'N' GROUP BY pickup_longitude, trip_duration"
+      ],
+      "aggregate_queries": [
+        "SELECT vendor_id, AVG(trip_duration) AS avg_trip_duration FROM data/Mnar1FourRelationsData/nyc_agg_mnar1_10_r1.csv JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_10_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_10_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_10_r4.csv USING (tuple_id) WHERE passenger_count = 1 AND store_and_fwd_flag = 'N' GROUP BY vendor_id",
+        "SELECT passenger_count, AVG(pickup_longitude) AS avg_pickup_longitude FROM data/Mnar1FourRelationsData/nyc_agg_mnar1_10_r1.csv JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_10_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_10_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_10_r4.csv USING (tuple_id) WHERE store_and_fwd_flag = 'N' GROUP BY passenger_count",
+        "SELECT vendor_id, AVG(pickup_latitude) AS avg_pickup_latitude FROM data/Mnar1FourRelationsData/nyc_agg_mnar1_10_r1.csv JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_10_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_10_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_10_r4.csv USING (tuple_id) WHERE trip_duration > 600 AND store_and_fwd_flag != 'Y' GROUP BY vendor_id",
+        "SELECT vendor_id, AVG(dropoff_latitude) AS avg_dropoff_latitude FROM data/Mnar1FourRelationsData/nyc_agg_mnar1_10_r1.csv JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_10_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_10_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_10_r4.csv USING (tuple_id) WHERE trip_duration > 300 AND store_and_fwd_flag = 'N' GROUP BY vendor_id",
+        "SELECT vendor_id, AVG(dropoff_longitude) AS avg_dropoff_longitude FROM data/Mnar1FourRelationsData/nyc_agg_mnar1_10_r1.csv JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_10_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_10_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_10_r4.csv USING (tuple_id) WHERE passenger_count = 1 AND store_and_fwd_flag = 'N' GROUP BY vendor_id"
+      ]
+    },
+    "20": {
+      "csv": [
+        "data/Mnar1FourRelationsData/nyc_mnar1_20_r1.csv",
+        "data/Mnar1FourRelationsData/nyc_mnar1_20_r2.csv",
+        "data/Mnar1FourRelationsData/nyc_mnar1_20_r3.csv",
+        "data/Mnar1FourRelationsData/nyc_mnar1_20_r4.csv"
+      ],
+      "table": [
+        "nyc4_mnar_20_r1",
+        "nyc4_mnar_20_r2",
+        "nyc4_mnar_20_r3",
+        "nyc4_mnar_20_r4"
+      ],
+      "factor_csv": "data/MNAR1Data/nyc/nyc_mnar1_20.csv",
+      "factor_table": "nyc4_mnar_20_factor",
+      "aggregate_csv": [
+        "data/Mnar1FourRelationsData/nyc_agg_mnar1_20_r1.csv",
+        "data/Mnar1FourRelationsData/nyc_agg_mnar1_20_r2.csv",
+        "data/Mnar1FourRelationsData/nyc_agg_mnar1_20_r3.csv",
+        "data/Mnar1FourRelationsData/nyc_agg_mnar1_20_r4.csv"
+      ],
+      "aggregate_table": [
+        "nyc4_agg_mnar_20_r1",
+        "nyc4_agg_mnar_20_r2",
+        "nyc4_agg_mnar_20_r3",
+        "nyc4_agg_mnar_20_r4"
+      ],
+      "aggregate_factor_csv": "data/MNAR1Data/nyc/nyc_agg_mnar1_20.csv",
+      "aggregate_factor_table": "nyc4_agg_mnar_20_factor",
+      "complete_csv": [
+        "data/CompleteFourRelationsData/nyc_complete_r1.csv",
+        "data/CompleteFourRelationsData/nyc_complete_r2.csv",
+        "data/CompleteFourRelationsData/nyc_complete_r3.csv",
+        "data/CompleteFourRelationsData/nyc_complete_r4.csv"
+      ],
+      "complete_table": [
+        "nyc4_complete_r1",
+        "nyc4_complete_r2",
+        "nyc4_complete_r3",
+        "nyc4_complete_r4"
+      ],
+      "set_queries": [
+        "SELECT vendor_id FROM data/Mnar1FourRelationsData/nyc_mnar1_20_r1.csv JOIN data/Mnar1FourRelationsData/nyc_mnar1_20_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_mnar1_20_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_mnar1_20_r4.csv USING (tuple_id) WHERE passenger_count = 1 AND store_and_fwd_flag = 'N'",
+        "SELECT pickup_longitude, passenger_count FROM data/Mnar1FourRelationsData/nyc_mnar1_20_r1.csv JOIN data/Mnar1FourRelationsData/nyc_mnar1_20_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_mnar1_20_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_mnar1_20_r4.csv USING (tuple_id) WHERE store_and_fwd_flag = 'N' GROUP BY pickup_longitude, passenger_count",
+        "SELECT dropoff_latitude FROM data/Mnar1FourRelationsData/nyc_mnar1_20_r1.csv JOIN data/Mnar1FourRelationsData/nyc_mnar1_20_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_mnar1_20_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_mnar1_20_r4.csv USING (tuple_id) WHERE passenger_count > 1 AND store_and_fwd_flag = 'N'",
+        "SELECT pickup_latitude FROM data/Mnar1FourRelationsData/nyc_mnar1_20_r1.csv JOIN data/Mnar1FourRelationsData/nyc_mnar1_20_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_mnar1_20_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_mnar1_20_r4.csv USING (tuple_id) WHERE passenger_count = 1 AND store_and_fwd_flag != 'Y'",
+        "SELECT pickup_longitude, trip_duration FROM data/Mnar1FourRelationsData/nyc_mnar1_20_r1.csv JOIN data/Mnar1FourRelationsData/nyc_mnar1_20_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_mnar1_20_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_mnar1_20_r4.csv USING (tuple_id) WHERE pickup_latitude > 40.5 AND store_and_fwd_flag = 'N' GROUP BY pickup_longitude, trip_duration"
+      ],
+      "aggregate_queries": [
+        "SELECT vendor_id, AVG(trip_duration) AS avg_trip_duration FROM data/Mnar1FourRelationsData/nyc_agg_mnar1_20_r1.csv JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_20_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_20_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_20_r4.csv USING (tuple_id) WHERE passenger_count = 1 AND store_and_fwd_flag = 'N' GROUP BY vendor_id",
+        "SELECT passenger_count, AVG(pickup_longitude) AS avg_pickup_longitude FROM data/Mnar1FourRelationsData/nyc_agg_mnar1_20_r1.csv JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_20_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_20_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_20_r4.csv USING (tuple_id) WHERE store_and_fwd_flag = 'N' GROUP BY passenger_count",
+        "SELECT vendor_id, AVG(pickup_latitude) AS avg_pickup_latitude FROM data/Mnar1FourRelationsData/nyc_agg_mnar1_20_r1.csv JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_20_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_20_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_20_r4.csv USING (tuple_id) WHERE trip_duration > 600 AND store_and_fwd_flag != 'Y' GROUP BY vendor_id",
+        "SELECT vendor_id, AVG(dropoff_latitude) AS avg_dropoff_latitude FROM data/Mnar1FourRelationsData/nyc_agg_mnar1_20_r1.csv JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_20_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_20_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_20_r4.csv USING (tuple_id) WHERE trip_duration > 300 AND store_and_fwd_flag = 'N' GROUP BY vendor_id",
+        "SELECT vendor_id, AVG(dropoff_longitude) AS avg_dropoff_longitude FROM data/Mnar1FourRelationsData/nyc_agg_mnar1_20_r1.csv JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_20_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_20_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/nyc_agg_mnar1_20_r4.csv USING (tuple_id) WHERE passenger_count = 1 AND store_and_fwd_flag = 'N' GROUP BY vendor_id"
+      ]
+    }
+  }
+}

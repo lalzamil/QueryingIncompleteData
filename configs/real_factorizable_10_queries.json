@@ -1,0 +1,178 @@
+{
+  "student": {
+    "name": "Student Admission",
+    "source": "data/MI/student_admission_record_dirty.csv",
+    "join_key": "id",
+    "relations": [
+      {
+        "name": "student_applicant_profile",
+        "csv": "data/MI/real_factorizable_relations/student_applicant_profile.csv",
+        "table": "real_student_applicant_profile",
+        "columns": ["age", "gender"]
+      },
+      {
+        "name": "student_academic_record",
+        "csv": "data/MI/real_factorizable_relations/student_academic_record.csv",
+        "table": "real_student_academic_record",
+        "columns": ["admission_test_score", "high_school_percentage"]
+      },
+      {
+        "name": "student_admission_record",
+        "csv": "data/MI/real_factorizable_relations/student_admission_record.csv",
+        "table": "real_student_admission_record",
+        "columns": ["name", "city", "admission_status"]
+      }
+    ],
+    "orderings": {
+      "name": ["admission_status"],
+      "city": ["admission_status"],
+      "age": [],
+      "gender": [],
+      "admission_test_score": [],
+      "high_school_percentage": [],
+      "admission_status": []
+    },
+    "set_queries": [
+      "SELECT city FROM student_admission_record WHERE admission_status = 'Accepted'",
+      "SELECT name FROM student_admission_record WHERE admission_status = 'Rejected'",
+      "SELECT city FROM student_admission_record WHERE name != 'Maryam'",
+      "SELECT name, city FROM student_admission_record WHERE admission_status = 'Accepted' GROUP BY name, city",
+      "SELECT city FROM student_admission_record JOIN student_applicant_profile USING (id) WHERE age >= 20",
+      "SELECT name FROM student_admission_record JOIN student_academic_record USING (id) WHERE admission_test_score >= 80",
+      "SELECT city FROM student_admission_record JOIN student_academic_record USING (id) WHERE high_school_percentage > 85",
+      "SELECT city FROM student_admission_record JOIN student_academic_record USING (id) JOIN student_applicant_profile USING (id) WHERE admission_test_score >= 80 AND age >= 20",
+      "SELECT name, city FROM student_admission_record JOIN student_academic_record USING (id) JOIN student_applicant_profile USING (id) WHERE high_school_percentage > 75 AND age < 22 GROUP BY name, city",
+      "SELECT name FROM student_admission_record JOIN student_academic_record USING (id) JOIN student_applicant_profile USING (id) WHERE admission_test_score >= 90 AND gender = 'Female'"
+    ],
+    "aggregate_queries": [
+      "SELECT AVG(age) FROM student_applicant_profile WHERE gender = 'Female'",
+      "SELECT AVG(age) FROM student_applicant_profile WHERE age >= 18",
+      "SELECT AVG(admission_test_score) FROM student_academic_record WHERE high_school_percentage > 75",
+      "SELECT AVG(high_school_percentage) FROM student_academic_record WHERE admission_test_score >= 80",
+      "SELECT AVG(age) FROM student_applicant_profile JOIN student_admission_record USING (id) WHERE city = 'Quetta'",
+      "SELECT AVG(admission_test_score) FROM student_academic_record JOIN student_admission_record USING (id) WHERE city = 'Quetta'",
+      "SELECT city, AVG(high_school_percentage) FROM student_academic_record JOIN student_admission_record USING (id) GROUP BY city",
+      "SELECT AVG(admission_test_score) FROM student_academic_record JOIN student_admission_record USING (id) JOIN student_applicant_profile USING (id) WHERE city = 'Quetta' AND age >= 20",
+      "SELECT admission_status, AVG(admission_test_score) FROM student_academic_record JOIN student_admission_record USING (id) JOIN student_applicant_profile USING (id) WHERE age >= 20 GROUP BY admission_status",
+      "SELECT city, AVG(high_school_percentage) FROM student_academic_record JOIN student_admission_record USING (id) JOIN student_applicant_profile USING (id) WHERE age < 22 GROUP BY city"
+    ]
+  },
+  "aircraft": {
+    "name": "Aircraft Performance",
+    "source": "data/MI/Aiplane_BlueBook.csv",
+    "join_key": "id",
+    "relations": [
+      {
+        "name": "aircraft_description",
+        "csv": "data/MI/real_factorizable_relations/aircraft_description.csv",
+        "table": "real_aircraft_description",
+        "columns": ["model", "company", "engine_type", "fuel_gal_lbs", "gross_weight_lbs", "empty_weight_lbs", "length_ft_in", "height_ft_in", "wing_span_ft_in"]
+      },
+      {
+        "name": "aircraft_flight_performance",
+        "csv": "data/MI/real_factorizable_relations/aircraft_flight_performance.csv",
+        "table": "real_aircraft_flight_performance",
+        "columns": ["max_speed_knots", "rcmnd_cruise_knots", "stall_knots_dirty", "range_n_m"]
+      },
+      {
+        "name": "aircraft_climb_ceiling",
+        "csv": "data/MI/real_factorizable_relations/aircraft_climb_ceiling.csv",
+        "table": "real_aircraft_climb_ceiling",
+        "columns": ["all_eng_service_ceiling", "eng_out_service_ceiling", "all_eng_rate_of_climb", "eng_out_rate_of_climb"]
+      },
+      {
+        "name": "aircraft_takeoff_landing",
+        "csv": "data/MI/real_factorizable_relations/aircraft_takeoff_landing.csv",
+        "table": "real_aircraft_takeoff_landing",
+        "columns": ["takeoff_over_50ft", "takeoff_ground_run", "landing_over_50ft", "landing_ground_roll"]
+      }
+    ],
+    "orderings": {
+      "max_speed_knots": [],
+      "rcmnd_cruise_knots": [],
+      "stall_knots_dirty": [],
+      "empty_weight_lbs": [],
+      "wing_span_ft_in": [],
+      "eng_out_rate_of_climb": ["eng_out_service_ceiling"]
+    },
+    "set_queries": [
+      "SELECT max_speed_knots FROM aircraft_flight_performance WHERE rcmnd_cruise_knots > 170",
+      "SELECT stall_knots_dirty FROM aircraft_flight_performance WHERE max_speed_knots > 200",
+      "SELECT empty_weight_lbs FROM aircraft_description WHERE wing_span_ft_in > 35",
+      "SELECT eng_out_rate_of_climb FROM aircraft_climb_ceiling WHERE eng_out_service_ceiling > 10000",
+      "SELECT eng_out_rate_of_climb FROM aircraft_climb_ceiling JOIN aircraft_description USING (id) WHERE engine_type = 0",
+      "SELECT max_speed_knots FROM aircraft_flight_performance JOIN aircraft_description USING (id) WHERE gross_weight_lbs > 5000",
+      "SELECT eng_out_rate_of_climb FROM aircraft_climb_ceiling JOIN aircraft_takeoff_landing USING (id) WHERE takeoff_over_50ft > 1500",
+      "SELECT eng_out_rate_of_climb FROM aircraft_climb_ceiling JOIN aircraft_description USING (id) JOIN aircraft_flight_performance USING (id) WHERE engine_type = 0 AND max_speed_knots > 200",
+      "SELECT max_speed_knots FROM aircraft_flight_performance JOIN aircraft_description USING (id) JOIN aircraft_climb_ceiling USING (id) WHERE gross_weight_lbs > 5000 AND eng_out_service_ceiling > 10000",
+      "SELECT eng_out_rate_of_climb FROM aircraft_climb_ceiling JOIN aircraft_flight_performance USING (id) JOIN aircraft_takeoff_landing USING (id) JOIN aircraft_description USING (id) WHERE max_speed_knots > 200 AND takeoff_over_50ft > 1500 AND gross_weight_lbs > 5000"
+    ],
+    "aggregate_queries": [
+      "SELECT AVG(max_speed_knots) FROM aircraft_flight_performance WHERE rcmnd_cruise_knots > 170",
+      "SELECT AVG(stall_knots_dirty) FROM aircraft_flight_performance WHERE max_speed_knots > 200",
+      "SELECT AVG(empty_weight_lbs) FROM aircraft_description WHERE wing_span_ft_in > 35",
+      "SELECT AVG(eng_out_rate_of_climb) FROM aircraft_climb_ceiling WHERE eng_out_service_ceiling > 10000",
+      "SELECT AVG(eng_out_rate_of_climb) FROM aircraft_climb_ceiling JOIN aircraft_description USING (id) WHERE engine_type = 0",
+      "SELECT AVG(max_speed_knots) FROM aircraft_flight_performance JOIN aircraft_description USING (id) WHERE gross_weight_lbs > 5000",
+      "SELECT AVG(eng_out_rate_of_climb) FROM aircraft_climb_ceiling JOIN aircraft_takeoff_landing USING (id) WHERE takeoff_over_50ft > 1500",
+      "SELECT AVG(eng_out_rate_of_climb) FROM aircraft_climb_ceiling JOIN aircraft_description USING (id) JOIN aircraft_flight_performance USING (id) WHERE engine_type = 0 AND max_speed_knots > 200",
+      "SELECT AVG(max_speed_knots) FROM aircraft_flight_performance JOIN aircraft_description USING (id) JOIN aircraft_climb_ceiling USING (id) WHERE gross_weight_lbs > 5000 AND eng_out_service_ceiling > 10000",
+      "SELECT AVG(eng_out_rate_of_climb) FROM aircraft_climb_ceiling JOIN aircraft_flight_performance USING (id) JOIN aircraft_takeoff_landing USING (id) JOIN aircraft_description USING (id) WHERE max_speed_knots > 200 AND takeoff_over_50ft > 1500 AND gross_weight_lbs > 5000"
+    ]
+  },
+  "medical": {
+    "name": "Medical Condition",
+    "source": "data/MI/medical_conditions_dataset.csv",
+    "join_key": "id",
+    "relations": [
+      {
+        "name": "medical_patient",
+        "csv": "data/MI/real_factorizable_relations/medical_patient.csv",
+        "table": "real_medical_patient",
+        "columns": ["full_name", "age", "gender", "smoking_status"]
+      },
+      {
+        "name": "medical_measurements",
+        "csv": "data/MI/real_factorizable_relations/medical_measurements.csv",
+        "table": "real_medical_measurements",
+        "columns": ["bmi", "blood_pressure", "glucose_levels"]
+      },
+      {
+        "name": "medical_diagnosis",
+        "csv": "data/MI/real_factorizable_relations/medical_diagnosis.csv",
+        "table": "real_medical_diagnosis",
+        "columns": ["condition"]
+      }
+    ],
+    "orderings": {
+      "age": [],
+      "bmi": [],
+      "blood_pressure": [],
+      "glucose_levels": ["bmi"]
+    },
+    "set_queries": [
+      "SELECT glucose_levels FROM medical_measurements WHERE bmi >= 25",
+      "SELECT glucose_levels FROM medical_measurements WHERE blood_pressure > 130",
+      "SELECT bmi FROM medical_measurements WHERE glucose_levels > 140",
+      "SELECT glucose_levels, bmi FROM medical_measurements WHERE blood_pressure > 130 GROUP BY glucose_levels, bmi",
+      "SELECT glucose_levels FROM medical_measurements JOIN medical_patient USING (id) WHERE gender = 'female'",
+      "SELECT glucose_levels FROM medical_measurements JOIN medical_diagnosis USING (id) WHERE condition = 'Diabetic'",
+      "SELECT glucose_levels FROM medical_measurements JOIN medical_patient USING (id) WHERE age > 60",
+      "SELECT glucose_levels FROM medical_measurements JOIN medical_patient USING (id) JOIN medical_diagnosis USING (id) WHERE gender = 'female' AND condition = 'Diabetic'",
+      "SELECT glucose_levels, bmi FROM medical_measurements JOIN medical_patient USING (id) JOIN medical_diagnosis USING (id) WHERE age > 60 AND condition = 'Pneumonia' GROUP BY glucose_levels, bmi",
+      "SELECT glucose_levels FROM medical_measurements JOIN medical_patient USING (id) JOIN medical_diagnosis USING (id) WHERE smoking_status = 'Smoker' AND condition = 'Cancer'"
+    ],
+    "aggregate_queries": [
+      "SELECT AVG(glucose_levels) FROM medical_measurements",
+      "SELECT AVG(glucose_levels) FROM medical_measurements WHERE bmi >= 25",
+      "SELECT AVG(glucose_levels) FROM medical_measurements WHERE blood_pressure > 130",
+      "SELECT AVG(bmi) FROM medical_measurements WHERE glucose_levels > 140",
+      "SELECT AVG(glucose_levels) FROM medical_measurements JOIN medical_patient USING (id) WHERE gender = 'female'",
+      "SELECT AVG(glucose_levels) FROM medical_measurements JOIN medical_diagnosis USING (id) WHERE condition = 'Diabetic'",
+      "SELECT AVG(glucose_levels) FROM medical_measurements JOIN medical_patient USING (id) WHERE age > 60",
+      "SELECT AVG(glucose_levels) FROM medical_measurements JOIN medical_patient USING (id) JOIN medical_diagnosis USING (id) WHERE gender = 'female' AND condition = 'Diabetic'",
+      "SELECT condition, AVG(glucose_levels) FROM medical_measurements JOIN medical_patient USING (id) JOIN medical_diagnosis USING (id) WHERE age > 60 GROUP BY condition",
+      "SELECT AVG(glucose_levels) FROM medical_measurements JOIN medical_patient USING (id) JOIN medical_diagnosis USING (id) WHERE smoking_status = 'Smoker' AND condition = 'Cancer'"
+    ]
+  }
+}

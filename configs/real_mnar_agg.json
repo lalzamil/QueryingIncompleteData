@@ -1,0 +1,67 @@
+{
+    "mi_mnar_avg": {
+      "plane_mnar_avg": {
+        "csv": [
+          "data/MI/Aiplane_BlueBook.csv",
+          "data/MI/Aiplane_join1.csv",
+          "data/MI/Aiplane_join2.csv"
+        ],
+        "table": ["mnar_plane0", "mnar_plane1", "mnar_plane2"],
+        "complete_csv": [],
+        "complete_table": [],
+        "MNAR_Strata": [
+          ["eng_out_service_ceiling"], ["eng_out_service_ceiling"], []
+        ],
+        "mar_causes": {},
+        "queries": [
+          "Select AVG(eng_out_rate_of_climb) From data/MI/Aiplane_BlueBook.csv",
+          "Select AVG(eng_out_rate_of_climb) From data/MI/Aiplane_BlueBook.csv where rcmnd_cruise_knots > 83",
+          "Select AVG(eng_out_rate_of_climb) From data/MI/Aiplane_BlueBook.csv where gross_weight_lbs > 5000",
+          "Select AVG(eng_out_rate_of_climb) From data/MI/Aiplane_BlueBook.csv Group By model",
+          "Select AVG(eng_out_rate_of_climb) from data/MI/Aiplane_join1.csv JOIN data/MI/Aiplane_join2.csv USING (id) where eng_out_service_ceiling > 20000"
+        ]
+      },
+      "student_mnar_avg": {
+        "csv": [
+          "data/MI/student_admission_record_dirty.csv",
+          "data/MI/student_join1.csv",
+          "data/MI/student_join2.csv"
+        ],
+        "table": ["mnar_student0", "mnar_student1", "mnar_student2"],
+        "complete_csv": [],
+        "complete_table": [],
+        "MNAR_Strata": [
+          ["admission_status"], ["admission_status"], []
+        ],
+        "mar_causes": {},
+        "queries": [
+          "Select AVG(admission_test_score) From data/MI/student_admission_record_dirty.csv where city = 'boston'",
+          "Select AVG(high_school_percentage) From data/MI/student_admission_record_dirty.csv Group By city",
+          "Select AVG(age) From data/MI/student_admission_record_dirty.csv where name != 'Eric'",
+          "Select AVG(admission_test_score) From data/MI/student_admission_record_dirty.csv where admission_status = 'accepted'",
+          "Select AVG(admission_test_score) from data/MI/student_join1.csv JOIN data/MI/student_join2.csv USING (id) where city = 'boston'"
+        ]
+      },
+      "med_mnar_avg": {
+        "csv": [
+          "data/MI/medical_conditions_dataset.csv",
+          "data/MI/medical_join1.csv",
+          "data/MI/medical_join2.csv"
+        ],
+        "table": ["mnar_med0", "mnar_med1", "mnar_med2"],
+        "complete_csv": [],
+        "complete_table": [],
+        "MNAR_Strata": [
+          ["bmi"], ["bmi"], []
+        ],
+        "mar_causes": {},
+        "queries": [
+          "Select AVG(glucose_levels) From data/MI/medical_conditions_dataset.csv",
+          "Select AVG(glucose_levels) From data/MI/medical_conditions_dataset.csv where bmi >= 25",
+          "Select AVG(glucose_levels) From data/MI/medical_conditions_dataset.csv where blood_pressure > 130",
+          "Select AVG(glucose_levels) From data/MI/medical_conditions_dataset.csv Group By age",
+          "Select AVG(glucose_levels) from data/MI/medical_join1.csv JOIN data/MI/medical_join2.csv USING (id) where bmi > 30"
+        ]
+      }
+    }
+  }

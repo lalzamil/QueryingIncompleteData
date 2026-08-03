@@ -1,0 +1,1040 @@
+{
+  "bank_manr1_set": {
+    "bank_mnar_5": {
+      "csv": [
+        "data/SemanticTwoRelationData/bank_mnar1_5_full.csv",
+        "data/SemanticTwoRelationData/bank_mnar1_5_customer_account.csv",
+        "data/SemanticTwoRelationData/bank_mnar1_5_campaign_contact.csv"
+      ],
+      "table": [
+        "semantic_two_bank_5_full",
+        "semantic_two_bank_5_customer_account",
+        "semantic_two_bank_5_campaign_contact"
+      ],
+      "complete_csv": [
+        "data/CompleteSemanticTwoRelationData/bank_complete_full.csv",
+        "data/CompleteSemanticTwoRelationData/bank_complete_customer_account.csv",
+        "data/CompleteSemanticTwoRelationData/bank_complete_campaign_contact.csv"
+      ],
+      "complete_table": [
+        "semantic_two_bank_complete_full",
+        "semantic_two_bank_complete_customer_account",
+        "semantic_two_bank_complete_campaign_contact"
+      ],
+      "missing_attrs_single": [
+        "day",
+        "contact",
+        "duration",
+        "housing"
+      ],
+      "ordering_single": {
+        "contact": [
+          "age",
+          "balance",
+          "campaign",
+          "month"
+        ],
+        "day": [
+          "age",
+          "balance",
+          "campaign",
+          "contact",
+          "default",
+          "education",
+          "housing"
+        ],
+        "housing": [
+          "age",
+          "balance",
+          "campaign"
+        ],
+        "duration": [
+          "age",
+          "balance",
+          "campaign",
+          "contact",
+          "day",
+          "default",
+          "education"
+        ]
+      },
+      "missing_attrs_T": [
+        "housing"
+      ],
+      "ordering_T": {
+        "housing": [
+          "age",
+          "balance",
+          "campaign"
+        ]
+      },
+      "missing_attrs_S": [
+        "day",
+        "contact",
+        "duration"
+      ],
+      "ordering_S": {
+        "day": [
+          "age",
+          "balance",
+          "campaign",
+          "contact",
+          "default",
+          "education",
+          "housing"
+        ],
+        "contact": [
+          "age",
+          "balance",
+          "campaign",
+          "month"
+        ],
+        "duration": [
+          "age",
+          "balance",
+          "campaign",
+          "contact",
+          "day",
+          "default",
+          "education"
+        ]
+      },
+      "queries": [
+        "Select day FROM data/SemanticTwoRelationData/bank_mnar1_5_full.csv where education != 'primary'",
+        "Select housing, contact FROM data/SemanticTwoRelationData/bank_mnar1_5_full.csv WHERE loan = 'no' Group By housing, contact",
+        "Select poutcome, duration FROM data/SemanticTwoRelationData/bank_mnar1_5_full.csv where campaign > 1 Group By poutcome, duration",
+        "Select duration FROM data/SemanticTwoRelationData/bank_mnar1_5_full.csv where loan = 'yes'",
+        "Select contact FROM data/SemanticTwoRelationData/bank_mnar1_5_customer_account.csv JOIN data/SemanticTwoRelationData/bank_mnar1_5_campaign_contact.csv USING (tuple_id) where day > 4",
+        "Select contact FROM data/SemanticTwoRelationData/bank_mnar1_5_customer_account.csv JOIN data/SemanticTwoRelationData/bank_mnar1_5_campaign_contact.csv USING (tuple_id) where balance > 444",
+        "Select day FROM data/SemanticTwoRelationData/bank_mnar1_5_customer_account.csv JOIN data/SemanticTwoRelationData/bank_mnar1_5_campaign_contact.csv USING (tuple_id) where campaign > 2",
+        "Select duration FROM data/SemanticTwoRelationData/bank_mnar1_5_customer_account.csv JOIN data/SemanticTwoRelationData/bank_mnar1_5_campaign_contact.csv USING (tuple_id) where education = 'secondary'",
+        "Select housing, contact FROM data/SemanticTwoRelationData/bank_mnar1_5_customer_account.csv JOIN data/SemanticTwoRelationData/bank_mnar1_5_campaign_contact.csv USING (tuple_id) where age > 39 Group By housing, contact",
+        "Select day, duration FROM data/SemanticTwoRelationData/bank_mnar1_5_customer_account.csv JOIN data/SemanticTwoRelationData/bank_mnar1_5_campaign_contact.csv USING (tuple_id) where balance < 0 Group By day, duration"
+      ],
+      "semantic_relations": {
+        "customer_account": [
+          "age",
+          "job",
+          "marital",
+          "education",
+          "default",
+          "balance",
+          "housing",
+          "loan"
+        ],
+        "campaign_contact": [
+          "contact",
+          "day",
+          "month",
+          "duration",
+          "campaign",
+          "y",
+          "pdays",
+          "previous",
+          "poutcome"
+        ]
+      },
+      "normalized_rows": 4521
+    },
+    "bank_mnar_10": {
+      "csv": [
+        "data/SemanticTwoRelationData/bank_mnar1_10_full.csv",
+        "data/SemanticTwoRelationData/bank_mnar1_10_customer_account.csv",
+        "data/SemanticTwoRelationData/bank_mnar1_10_campaign_contact.csv"
+      ],
+      "table": [
+        "semantic_two_bank_10_full",
+        "semantic_two_bank_10_customer_account",
+        "semantic_two_bank_10_campaign_contact"
+      ],
+      "complete_csv": [
+        "data/CompleteSemanticTwoRelationData/bank_complete_full.csv",
+        "data/CompleteSemanticTwoRelationData/bank_complete_customer_account.csv",
+        "data/CompleteSemanticTwoRelationData/bank_complete_campaign_contact.csv"
+      ],
+      "complete_table": [
+        "semantic_two_bank_complete_full",
+        "semantic_two_bank_complete_customer_account",
+        "semantic_two_bank_complete_campaign_contact"
+      ],
+      "missing_attrs_single": [
+        "day",
+        "contact",
+        "duration",
+        "housing"
+      ],
+      "ordering_single": {
+        "contact": [
+          "age",
+          "balance",
+          "campaign",
+          "month"
+        ],
+        "day": [
+          "age",
+          "balance",
+          "campaign",
+          "contact",
+          "default",
+          "education",
+          "housing"
+        ],
+        "housing": [
+          "age",
+          "balance",
+          "campaign"
+        ],
+        "duration": [
+          "age",
+          "balance",
+          "campaign",
+          "contact",
+          "day",
+          "default",
+          "education"
+        ]
+      },
+      "missing_attrs_T": [
+        "housing"
+      ],
+      "ordering_T": {
+        "housing": [
+          "age",
+          "balance",
+          "campaign"
+        ]
+      },
+      "missing_attrs_S": [
+        "day",
+        "contact",
+        "duration"
+      ],
+      "ordering_S": {
+        "day": [
+          "age",
+          "balance",
+          "campaign",
+          "contact",
+          "default",
+          "education",
+          "housing"
+        ],
+        "contact": [
+          "age",
+          "balance",
+          "campaign",
+          "month"
+        ],
+        "duration": [
+          "age",
+          "balance",
+          "campaign",
+          "contact",
+          "day",
+          "default",
+          "education"
+        ]
+      },
+      "queries": [
+        "Select day FROM data/SemanticTwoRelationData/bank_mnar1_10_full.csv where education != 'primary'",
+        "Select housing, contact FROM data/SemanticTwoRelationData/bank_mnar1_10_full.csv WHERE loan = 'no' Group By housing, contact",
+        "Select poutcome, duration FROM data/SemanticTwoRelationData/bank_mnar1_10_full.csv where campaign > 1 Group By poutcome, duration",
+        "Select duration FROM data/SemanticTwoRelationData/bank_mnar1_10_full.csv where loan = 'yes'",
+        "Select contact FROM data/SemanticTwoRelationData/bank_mnar1_10_customer_account.csv JOIN data/SemanticTwoRelationData/bank_mnar1_10_campaign_contact.csv USING (tuple_id) where day > 4",
+        "Select contact FROM data/SemanticTwoRelationData/bank_mnar1_10_customer_account.csv JOIN data/SemanticTwoRelationData/bank_mnar1_10_campaign_contact.csv USING (tuple_id) where balance > 444",
+        "Select day FROM data/SemanticTwoRelationData/bank_mnar1_10_customer_account.csv JOIN data/SemanticTwoRelationData/bank_mnar1_10_campaign_contact.csv USING (tuple_id) where campaign > 2",
+        "Select duration FROM data/SemanticTwoRelationData/bank_mnar1_10_customer_account.csv JOIN data/SemanticTwoRelationData/bank_mnar1_10_campaign_contact.csv USING (tuple_id) where education = 'secondary'",
+        "Select housing, contact FROM data/SemanticTwoRelationData/bank_mnar1_10_customer_account.csv JOIN data/SemanticTwoRelationData/bank_mnar1_10_campaign_contact.csv USING (tuple_id) where age > 39 Group By housing, contact",
+        "Select day, duration FROM data/SemanticTwoRelationData/bank_mnar1_10_customer_account.csv JOIN data/SemanticTwoRelationData/bank_mnar1_10_campaign_contact.csv USING (tuple_id) where balance < 0 Group By day, duration"
+      ],
+      "semantic_relations": {
+        "customer_account": [
+          "age",
+          "job",
+          "marital",
+          "education",
+          "default",
+          "balance",
+          "housing",
+          "loan"
+        ],
+        "campaign_contact": [
+          "contact",
+          "day",
+          "month",
+          "duration",
+          "campaign",
+          "y",
+          "pdays",
+          "previous",
+          "poutcome"
+        ]
+      },
+      "normalized_rows": 4521
+    },
+    "bank_mnar_20": {
+      "csv": [
+        "data/SemanticTwoRelationData/bank_mnar1_20_full.csv",
+        "data/SemanticTwoRelationData/bank_mnar1_20_customer_account.csv",
+        "data/SemanticTwoRelationData/bank_mnar1_20_campaign_contact.csv"
+      ],
+      "table": [
+        "semantic_two_bank_20_full",
+        "semantic_two_bank_20_customer_account",
+        "semantic_two_bank_20_campaign_contact"
+      ],
+      "complete_csv": [
+        "data/CompleteSemanticTwoRelationData/bank_complete_full.csv",
+        "data/CompleteSemanticTwoRelationData/bank_complete_customer_account.csv",
+        "data/CompleteSemanticTwoRelationData/bank_complete_campaign_contact.csv"
+      ],
+      "complete_table": [
+        "semantic_two_bank_complete_full",
+        "semantic_two_bank_complete_customer_account",
+        "semantic_two_bank_complete_campaign_contact"
+      ],
+      "missing_attrs_single": [
+        "day",
+        "contact",
+        "duration",
+        "housing"
+      ],
+      "ordering_single": {
+        "contact": [
+          "age",
+          "balance",
+          "campaign",
+          "month"
+        ],
+        "day": [
+          "age",
+          "balance",
+          "campaign",
+          "contact",
+          "default",
+          "education",
+          "housing"
+        ],
+        "housing": [
+          "age",
+          "balance",
+          "campaign"
+        ],
+        "duration": [
+          "age",
+          "balance",
+          "campaign",
+          "contact",
+          "day",
+          "default",
+          "education"
+        ]
+      },
+      "missing_attrs_T": [
+        "housing"
+      ],
+      "ordering_T": {
+        "housing": [
+          "age",
+          "balance",
+          "campaign"
+        ]
+      },
+      "missing_attrs_S": [
+        "day",
+        "contact",
+        "duration"
+      ],
+      "ordering_S": {
+        "day": [
+          "age",
+          "balance",
+          "campaign",
+          "contact",
+          "default",
+          "education",
+          "housing"
+        ],
+        "contact": [
+          "age",
+          "balance",
+          "campaign",
+          "month"
+        ],
+        "duration": [
+          "age",
+          "balance",
+          "campaign",
+          "contact",
+          "day",
+          "default",
+          "education"
+        ]
+      },
+      "queries": [
+        "Select day FROM data/SemanticTwoRelationData/bank_mnar1_20_full.csv where education != 'primary'",
+        "Select housing, contact FROM data/SemanticTwoRelationData/bank_mnar1_20_full.csv WHERE loan = 'no' Group By housing, contact",
+        "Select poutcome, duration FROM data/SemanticTwoRelationData/bank_mnar1_20_full.csv where campaign > 1 Group By poutcome, duration",
+        "Select duration FROM data/SemanticTwoRelationData/bank_mnar1_20_full.csv where loan = 'yes'",
+        "Select contact FROM data/SemanticTwoRelationData/bank_mnar1_20_customer_account.csv JOIN data/SemanticTwoRelationData/bank_mnar1_20_campaign_contact.csv USING (tuple_id) where day > 4",
+        "Select contact FROM data/SemanticTwoRelationData/bank_mnar1_20_customer_account.csv JOIN data/SemanticTwoRelationData/bank_mnar1_20_campaign_contact.csv USING (tuple_id) where balance > 444",
+        "Select day FROM data/SemanticTwoRelationData/bank_mnar1_20_customer_account.csv JOIN data/SemanticTwoRelationData/bank_mnar1_20_campaign_contact.csv USING (tuple_id) where campaign > 2",
+        "Select duration FROM data/SemanticTwoRelationData/bank_mnar1_20_customer_account.csv JOIN data/SemanticTwoRelationData/bank_mnar1_20_campaign_contact.csv USING (tuple_id) where education = 'secondary'",
+        "Select housing, contact FROM data/SemanticTwoRelationData/bank_mnar1_20_customer_account.csv JOIN data/SemanticTwoRelationData/bank_mnar1_20_campaign_contact.csv USING (tuple_id) where age > 39 Group By housing, contact",
+        "Select day, duration FROM data/SemanticTwoRelationData/bank_mnar1_20_customer_account.csv JOIN data/SemanticTwoRelationData/bank_mnar1_20_campaign_contact.csv USING (tuple_id) where balance < 0 Group By day, duration"
+      ],
+      "semantic_relations": {
+        "customer_account": [
+          "age",
+          "job",
+          "marital",
+          "education",
+          "default",
+          "balance",
+          "housing",
+          "loan"
+        ],
+        "campaign_contact": [
+          "contact",
+          "day",
+          "month",
+          "duration",
+          "campaign",
+          "y",
+          "pdays",
+          "previous",
+          "poutcome"
+        ]
+      },
+      "normalized_rows": 4521
+    }
+  },
+  "nyc_manr1_set": {
+    "nyc_mnar_5": {
+      "csv": [
+        "data/SemanticTwoRelationData/nyc_mnar1_5_full.csv",
+        "data/SemanticTwoRelationData/nyc_mnar1_5_trip.csv",
+        "data/SemanticTwoRelationData/nyc_mnar1_5_locations.csv"
+      ],
+      "table": [
+        "semantic_two_nyc_5_full",
+        "semantic_two_nyc_5_trip",
+        "semantic_two_nyc_5_locations"
+      ],
+      "complete_csv": [
+        "data/CompleteSemanticTwoRelationData/nyc_complete_full.csv",
+        "data/CompleteSemanticTwoRelationData/nyc_complete_trip.csv",
+        "data/CompleteSemanticTwoRelationData/nyc_complete_locations.csv"
+      ],
+      "complete_table": [
+        "semantic_two_nyc_complete_full",
+        "semantic_two_nyc_complete_trip",
+        "semantic_two_nyc_complete_locations"
+      ],
+      "missing_attrs_single": [
+        "vendor_id",
+        "trip_duration",
+        "pickup_longitude"
+      ],
+      "ordering_single": {
+        "pickup_longitude": [
+          "passenger_count",
+          "pickup_latitude",
+          "store_and_fwd_flag"
+        ],
+        "trip_duration": [
+          "passenger_count",
+          "pickup_latitude",
+          "pickup_longitude",
+          "store_and_fwd_flag"
+        ],
+        "vendor_id": [
+          "passenger_count",
+          "pickup_longitude",
+          "store_and_fwd_flag",
+          "trip_duration"
+        ]
+      },
+      "missing_attrs_T": [
+        "vendor_id",
+        "trip_duration"
+      ],
+      "ordering_T": {
+        "vendor_id": [
+          "passenger_count",
+          "pickup_longitude",
+          "store_and_fwd_flag",
+          "trip_duration"
+        ],
+        "trip_duration": [
+          "passenger_count",
+          "pickup_latitude",
+          "pickup_longitude",
+          "store_and_fwd_flag"
+        ]
+      },
+      "missing_attrs_S": [
+        "pickup_longitude"
+      ],
+      "ordering_S": {
+        "pickup_longitude": [
+          "passenger_count",
+          "pickup_latitude",
+          "store_and_fwd_flag"
+        ]
+      },
+      "queries": [
+        "Select vendor_id FROM data/SemanticTwoRelationData/nyc_mnar1_5_full.csv where passenger_count = 1 and store_and_fwd_flag = 'N'",
+        "Select pickup_longitude, passenger_count FROM data/SemanticTwoRelationData/nyc_mnar1_5_full.csv Group By pickup_longitude, passenger_count",
+        "Select trip_duration FROM data/SemanticTwoRelationData/nyc_mnar1_5_full.csv where store_and_fwd_flag != 'Y'",
+        "Select trip_duration FROM data/SemanticTwoRelationData/nyc_mnar1_5_full.csv where dropoff_latitude != 40",
+        "Select trip_duration FROM data/SemanticTwoRelationData/nyc_mnar1_5_trip.csv JOIN data/SemanticTwoRelationData/nyc_mnar1_5_locations.csv USING (tuple_id) where passenger_count > 1",
+        "Select pickup_longitude FROM data/SemanticTwoRelationData/nyc_mnar1_5_trip.csv JOIN data/SemanticTwoRelationData/nyc_mnar1_5_locations.csv USING (tuple_id) where passenger_count = 2",
+        "Select trip_duration FROM data/SemanticTwoRelationData/nyc_mnar1_5_trip.csv JOIN data/SemanticTwoRelationData/nyc_mnar1_5_locations.csv USING (tuple_id) where store_and_fwd_flag = 'N'",
+        "Select vendor_id FROM data/SemanticTwoRelationData/nyc_mnar1_5_trip.csv JOIN data/SemanticTwoRelationData/nyc_mnar1_5_locations.csv USING (tuple_id) where trip_duration > 600",
+        "Select pickup_longitude, trip_duration FROM data/SemanticTwoRelationData/nyc_mnar1_5_trip.csv JOIN data/SemanticTwoRelationData/nyc_mnar1_5_locations.csv USING (tuple_id) where pickup_latitude > 40.5 Group By pickup_longitude, trip_duration",
+        "Select vendor_id, trip_duration FROM data/SemanticTwoRelationData/nyc_mnar1_5_trip.csv JOIN data/SemanticTwoRelationData/nyc_mnar1_5_locations.csv USING (tuple_id) where passenger_count > 1 and store_and_fwd_flag = 'N' Group By vendor_id, trip_duration"
+      ],
+      "semantic_relations": {
+        "trip": [
+          "vendor_id",
+          "passenger_count",
+          "store_and_fwd_flag",
+          "trip_duration"
+        ],
+        "locations": [
+          "id",
+          "pickup_datetime",
+          "pickup_longitude",
+          "pickup_latitude",
+          "dropoff_datetime",
+          "dropoff_longitude",
+          "dropoff_latitude"
+        ]
+      },
+      "normalized_rows": 20000
+    },
+    "nyc_mnar_10": {
+      "csv": [
+        "data/SemanticTwoRelationData/nyc_mnar1_10_full.csv",
+        "data/SemanticTwoRelationData/nyc_mnar1_10_trip.csv",
+        "data/SemanticTwoRelationData/nyc_mnar1_10_locations.csv"
+      ],
+      "table": [
+        "semantic_two_nyc_10_full",
+        "semantic_two_nyc_10_trip",
+        "semantic_two_nyc_10_locations"
+      ],
+      "complete_csv": [
+        "data/CompleteSemanticTwoRelationData/nyc_complete_full.csv",
+        "data/CompleteSemanticTwoRelationData/nyc_complete_trip.csv",
+        "data/CompleteSemanticTwoRelationData/nyc_complete_locations.csv"
+      ],
+      "complete_table": [
+        "semantic_two_nyc_complete_full",
+        "semantic_two_nyc_complete_trip",
+        "semantic_two_nyc_complete_locations"
+      ],
+      "missing_attrs_single": [
+        "vendor_id",
+        "trip_duration",
+        "pickup_longitude"
+      ],
+      "ordering_single": {
+        "pickup_longitude": [
+          "passenger_count",
+          "pickup_latitude",
+          "store_and_fwd_flag"
+        ],
+        "trip_duration": [
+          "passenger_count",
+          "pickup_latitude",
+          "pickup_longitude",
+          "store_and_fwd_flag"
+        ],
+        "vendor_id": [
+          "passenger_count",
+          "pickup_longitude",
+          "store_and_fwd_flag",
+          "trip_duration"
+        ]
+      },
+      "missing_attrs_T": [
+        "vendor_id",
+        "trip_duration"
+      ],
+      "ordering_T": {
+        "vendor_id": [
+          "passenger_count",
+          "pickup_longitude",
+          "store_and_fwd_flag",
+          "trip_duration"
+        ],
+        "trip_duration": [
+          "passenger_count",
+          "pickup_latitude",
+          "pickup_longitude",
+          "store_and_fwd_flag"
+        ]
+      },
+      "missing_attrs_S": [
+        "pickup_longitude"
+      ],
+      "ordering_S": {
+        "pickup_longitude": [
+          "passenger_count",
+          "pickup_latitude",
+          "store_and_fwd_flag"
+        ]
+      },
+      "queries": [
+        "Select vendor_id FROM data/SemanticTwoRelationData/nyc_mnar1_10_full.csv where passenger_count = 1 and store_and_fwd_flag = 'N'",
+        "Select pickup_longitude, passenger_count FROM data/SemanticTwoRelationData/nyc_mnar1_10_full.csv Group By pickup_longitude, passenger_count",
+        "Select trip_duration FROM data/SemanticTwoRelationData/nyc_mnar1_10_full.csv where store_and_fwd_flag != 'Y'",
+        "Select trip_duration FROM data/SemanticTwoRelationData/nyc_mnar1_10_full.csv where dropoff_latitude != 40",
+        "Select trip_duration FROM data/SemanticTwoRelationData/nyc_mnar1_10_trip.csv JOIN data/SemanticTwoRelationData/nyc_mnar1_10_locations.csv USING (tuple_id) where passenger_count > 1",
+        "Select pickup_longitude FROM data/SemanticTwoRelationData/nyc_mnar1_10_trip.csv JOIN data/SemanticTwoRelationData/nyc_mnar1_10_locations.csv USING (tuple_id) where passenger_count = 2",
+        "Select trip_duration FROM data/SemanticTwoRelationData/nyc_mnar1_10_trip.csv JOIN data/SemanticTwoRelationData/nyc_mnar1_10_locations.csv USING (tuple_id) where store_and_fwd_flag = 'N'",
+        "Select vendor_id FROM data/SemanticTwoRelationData/nyc_mnar1_10_trip.csv JOIN data/SemanticTwoRelationData/nyc_mnar1_10_locations.csv USING (tuple_id) where trip_duration > 600",
+        "Select pickup_longitude, trip_duration FROM data/SemanticTwoRelationData/nyc_mnar1_10_trip.csv JOIN data/SemanticTwoRelationData/nyc_mnar1_10_locations.csv USING (tuple_id) where pickup_latitude > 40.5 Group By pickup_longitude, trip_duration",
+        "Select vendor_id, trip_duration FROM data/SemanticTwoRelationData/nyc_mnar1_10_trip.csv JOIN data/SemanticTwoRelationData/nyc_mnar1_10_locations.csv USING (tuple_id) where passenger_count > 1 and store_and_fwd_flag = 'N' Group By vendor_id, trip_duration"
+      ],
+      "semantic_relations": {
+        "trip": [
+          "vendor_id",
+          "passenger_count",
+          "store_and_fwd_flag",
+          "trip_duration"
+        ],
+        "locations": [
+          "id",
+          "pickup_datetime",
+          "pickup_longitude",
+          "pickup_latitude",
+          "dropoff_datetime",
+          "dropoff_longitude",
+          "dropoff_latitude"
+        ]
+      },
+      "normalized_rows": 20000
+    },
+    "nyc_mnar_20": {
+      "csv": [
+        "data/SemanticTwoRelationData/nyc_mnar1_20_full.csv",
+        "data/SemanticTwoRelationData/nyc_mnar1_20_trip.csv",
+        "data/SemanticTwoRelationData/nyc_mnar1_20_locations.csv"
+      ],
+      "table": [
+        "semantic_two_nyc_20_full",
+        "semantic_two_nyc_20_trip",
+        "semantic_two_nyc_20_locations"
+      ],
+      "complete_csv": [
+        "data/CompleteSemanticTwoRelationData/nyc_complete_full.csv",
+        "data/CompleteSemanticTwoRelationData/nyc_complete_trip.csv",
+        "data/CompleteSemanticTwoRelationData/nyc_complete_locations.csv"
+      ],
+      "complete_table": [
+        "semantic_two_nyc_complete_full",
+        "semantic_two_nyc_complete_trip",
+        "semantic_two_nyc_complete_locations"
+      ],
+      "missing_attrs_single": [
+        "vendor_id",
+        "trip_duration",
+        "pickup_longitude"
+      ],
+      "ordering_single": {
+        "pickup_longitude": [
+          "passenger_count",
+          "pickup_latitude",
+          "store_and_fwd_flag"
+        ],
+        "trip_duration": [
+          "passenger_count",
+          "pickup_latitude",
+          "pickup_longitude",
+          "store_and_fwd_flag"
+        ],
+        "vendor_id": [
+          "passenger_count",
+          "pickup_longitude",
+          "store_and_fwd_flag",
+          "trip_duration"
+        ]
+      },
+      "missing_attrs_T": [
+        "vendor_id",
+        "trip_duration"
+      ],
+      "ordering_T": {
+        "vendor_id": [
+          "passenger_count",
+          "pickup_longitude",
+          "store_and_fwd_flag",
+          "trip_duration"
+        ],
+        "trip_duration": [
+          "passenger_count",
+          "pickup_latitude",
+          "pickup_longitude",
+          "store_and_fwd_flag"
+        ]
+      },
+      "missing_attrs_S": [
+        "pickup_longitude"
+      ],
+      "ordering_S": {
+        "pickup_longitude": [
+          "passenger_count",
+          "pickup_latitude",
+          "store_and_fwd_flag"
+        ]
+      },
+      "queries": [
+        "Select vendor_id FROM data/SemanticTwoRelationData/nyc_mnar1_20_full.csv where passenger_count = 1 and store_and_fwd_flag = 'N'",
+        "Select pickup_longitude, passenger_count FROM data/SemanticTwoRelationData/nyc_mnar1_20_full.csv Group By pickup_longitude, passenger_count",
+        "Select trip_duration FROM data/SemanticTwoRelationData/nyc_mnar1_20_full.csv where store_and_fwd_flag != 'Y'",
+        "Select trip_duration FROM data/SemanticTwoRelationData/nyc_mnar1_20_full.csv where dropoff_latitude != 40",
+        "Select trip_duration FROM data/SemanticTwoRelationData/nyc_mnar1_20_trip.csv JOIN data/SemanticTwoRelationData/nyc_mnar1_20_locations.csv USING (tuple_id) where passenger_count > 1",
+        "Select pickup_longitude FROM data/SemanticTwoRelationData/nyc_mnar1_20_trip.csv JOIN data/SemanticTwoRelationData/nyc_mnar1_20_locations.csv USING (tuple_id) where passenger_count = 2",
+        "Select trip_duration FROM data/SemanticTwoRelationData/nyc_mnar1_20_trip.csv JOIN data/SemanticTwoRelationData/nyc_mnar1_20_locations.csv USING (tuple_id) where store_and_fwd_flag = 'N'",
+        "Select vendor_id FROM data/SemanticTwoRelationData/nyc_mnar1_20_trip.csv JOIN data/SemanticTwoRelationData/nyc_mnar1_20_locations.csv USING (tuple_id) where trip_duration > 600",
+        "Select pickup_longitude, trip_duration FROM data/SemanticTwoRelationData/nyc_mnar1_20_trip.csv JOIN data/SemanticTwoRelationData/nyc_mnar1_20_locations.csv USING (tuple_id) where pickup_latitude > 40.5 Group By pickup_longitude, trip_duration",
+        "Select vendor_id, trip_duration FROM data/SemanticTwoRelationData/nyc_mnar1_20_trip.csv JOIN data/SemanticTwoRelationData/nyc_mnar1_20_locations.csv USING (tuple_id) where passenger_count > 1 and store_and_fwd_flag = 'N' Group By vendor_id, trip_duration"
+      ],
+      "semantic_relations": {
+        "trip": [
+          "vendor_id",
+          "passenger_count",
+          "store_and_fwd_flag",
+          "trip_duration"
+        ],
+        "locations": [
+          "id",
+          "pickup_datetime",
+          "pickup_longitude",
+          "pickup_latitude",
+          "dropoff_datetime",
+          "dropoff_longitude",
+          "dropoff_latitude"
+        ]
+      },
+      "normalized_rows": 20000
+    }
+  },
+  "bit_manr1_set": {
+    "BitcoinHeistData_mnar_5": {
+      "csv": [
+        "data/SemanticTwoRelationData/bitcoin_mnar1_5_full.csv",
+        "data/SemanticTwoRelationData/bitcoin_mnar1_5_address_observation.csv",
+        "data/SemanticTwoRelationData/bitcoin_mnar1_5_transaction_graph.csv"
+      ],
+      "table": [
+        "semantic_two_bitcoin_5_full",
+        "semantic_two_bitcoin_5_address_observation",
+        "semantic_two_bitcoin_5_transaction_graph"
+      ],
+      "complete_csv": [
+        "data/CompleteSemanticTwoRelationData/bitcoin_complete_full.csv",
+        "data/CompleteSemanticTwoRelationData/bitcoin_complete_address_observation.csv",
+        "data/CompleteSemanticTwoRelationData/bitcoin_complete_transaction_graph.csv"
+      ],
+      "complete_table": [
+        "semantic_two_bitcoin_complete_full",
+        "semantic_two_bitcoin_complete_address_observation",
+        "semantic_two_bitcoin_complete_transaction_graph"
+      ],
+      "missing_attrs_single": [
+        "neighbors",
+        "looped",
+        "count"
+      ],
+      "ordering_single": {
+        "neighbors": [
+          "income",
+          "weight",
+          "year"
+        ],
+        "count": [
+          "income",
+          "neighbors",
+          "weight",
+          "year"
+        ],
+        "looped": [
+          "count",
+          "income",
+          "neighbors",
+          "weight",
+          "year"
+        ]
+      },
+      "missing_attrs_T": [],
+      "ordering_T": {},
+      "missing_attrs_S": [
+        "neighbors",
+        "looped",
+        "count"
+      ],
+      "ordering_S": {
+        "neighbors": [
+          "income",
+          "weight",
+          "year"
+        ],
+        "looped": [
+          "count",
+          "income",
+          "neighbors",
+          "weight",
+          "year"
+        ],
+        "count": [
+          "income",
+          "neighbors",
+          "weight",
+          "year"
+        ]
+      },
+      "queries": [
+        "Select neighbors FROM data/SemanticTwoRelationData/bitcoin_mnar1_5_full.csv where income > 100000 and year != 2016",
+        "Select year, looped FROM data/SemanticTwoRelationData/bitcoin_mnar1_5_full.csv Group By year, looped",
+        "Select neighbors FROM data/SemanticTwoRelationData/bitcoin_mnar1_5_full.csv where length != 144",
+        "Select neighbors FROM data/SemanticTwoRelationData/bitcoin_mnar1_5_full.csv where year = 2016",
+        "Select neighbors FROM data/SemanticTwoRelationData/bitcoin_mnar1_5_address_observation.csv JOIN data/SemanticTwoRelationData/bitcoin_mnar1_5_transaction_graph.csv USING (tuple_id) where length > 144",
+        "Select neighbors FROM data/SemanticTwoRelationData/bitcoin_mnar1_5_address_observation.csv JOIN data/SemanticTwoRelationData/bitcoin_mnar1_5_transaction_graph.csv USING (tuple_id) where income > 100000000",
+        "Select count FROM data/SemanticTwoRelationData/bitcoin_mnar1_5_address_observation.csv JOIN data/SemanticTwoRelationData/bitcoin_mnar1_5_transaction_graph.csv USING (tuple_id) where year = 2016",
+        "Select looped FROM data/SemanticTwoRelationData/bitcoin_mnar1_5_address_observation.csv JOIN data/SemanticTwoRelationData/bitcoin_mnar1_5_transaction_graph.csv USING (tuple_id) where count > 1",
+        "Select weight FROM data/SemanticTwoRelationData/bitcoin_mnar1_5_address_observation.csv JOIN data/SemanticTwoRelationData/bitcoin_mnar1_5_transaction_graph.csv USING (tuple_id) where year = 2014",
+        "Select looped, neighbors FROM data/SemanticTwoRelationData/bitcoin_mnar1_5_address_observation.csv JOIN data/SemanticTwoRelationData/bitcoin_mnar1_5_transaction_graph.csv USING (tuple_id) where income > 100000000 and year != 2016 Group By looped, neighbors"
+      ],
+      "semantic_relations": {
+        "address_observation": [
+          "address",
+          "label",
+          "year",
+          "day"
+        ],
+        "transaction_graph": [
+          "ID",
+          "length",
+          "weight",
+          "count",
+          "looped",
+          "neighbors",
+          "income"
+        ]
+      },
+      "normalized_rows": 20000
+    },
+    "BitcoinHeistData_mnar_10": {
+      "csv": [
+        "data/SemanticTwoRelationData/bitcoin_mnar1_10_full.csv",
+        "data/SemanticTwoRelationData/bitcoin_mnar1_10_address_observation.csv",
+        "data/SemanticTwoRelationData/bitcoin_mnar1_10_transaction_graph.csv"
+      ],
+      "table": [
+        "semantic_two_bitcoin_10_full",
+        "semantic_two_bitcoin_10_address_observation",
+        "semantic_two_bitcoin_10_transaction_graph"
+      ],
+      "complete_csv": [
+        "data/CompleteSemanticTwoRelationData/bitcoin_complete_full.csv",
+        "data/CompleteSemanticTwoRelationData/bitcoin_complete_address_observation.csv",
+        "data/CompleteSemanticTwoRelationData/bitcoin_complete_transaction_graph.csv"
+      ],
+      "complete_table": [
+        "semantic_two_bitcoin_complete_full",
+        "semantic_two_bitcoin_complete_address_observation",
+        "semantic_two_bitcoin_complete_transaction_graph"
+      ],
+      "missing_attrs_single": [
+        "neighbors",
+        "looped",
+        "count"
+      ],
+      "ordering_single": {
+        "neighbors": [
+          "income",
+          "weight",
+          "year"
+        ],
+        "count": [
+          "income",
+          "neighbors",
+          "weight",
+          "year"
+        ],
+        "looped": [
+          "count",
+          "income",
+          "neighbors",
+          "weight",
+          "year"
+        ]
+      },
+      "missing_attrs_T": [],
+      "ordering_T": {},
+      "missing_attrs_S": [
+        "neighbors",
+        "looped",
+        "count"
+      ],
+      "ordering_S": {
+        "neighbors": [
+          "income",
+          "weight",
+          "year"
+        ],
+        "looped": [
+          "count",
+          "income",
+          "neighbors",
+          "weight",
+          "year"
+        ],
+        "count": [
+          "income",
+          "neighbors",
+          "weight",
+          "year"
+        ]
+      },
+      "queries": [
+        "Select neighbors FROM data/SemanticTwoRelationData/bitcoin_mnar1_10_full.csv where income > 100000 and year != 2016",
+        "Select year, looped FROM data/SemanticTwoRelationData/bitcoin_mnar1_10_full.csv Group By year, looped",
+        "Select neighbors FROM data/SemanticTwoRelationData/bitcoin_mnar1_10_full.csv where length != 144",
+        "Select neighbors FROM data/SemanticTwoRelationData/bitcoin_mnar1_10_full.csv where year = 2016",
+        "Select neighbors FROM data/SemanticTwoRelationData/bitcoin_mnar1_10_address_observation.csv JOIN data/SemanticTwoRelationData/bitcoin_mnar1_10_transaction_graph.csv USING (tuple_id) where length > 144",
+        "Select neighbors FROM data/SemanticTwoRelationData/bitcoin_mnar1_10_address_observation.csv JOIN data/SemanticTwoRelationData/bitcoin_mnar1_10_transaction_graph.csv USING (tuple_id) where income > 100000000",
+        "Select count FROM data/SemanticTwoRelationData/bitcoin_mnar1_10_address_observation.csv JOIN data/SemanticTwoRelationData/bitcoin_mnar1_10_transaction_graph.csv USING (tuple_id) where year = 2016",
+        "Select looped FROM data/SemanticTwoRelationData/bitcoin_mnar1_10_address_observation.csv JOIN data/SemanticTwoRelationData/bitcoin_mnar1_10_transaction_graph.csv USING (tuple_id) where count > 1",
+        "Select weight FROM data/SemanticTwoRelationData/bitcoin_mnar1_10_address_observation.csv JOIN data/SemanticTwoRelationData/bitcoin_mnar1_10_transaction_graph.csv USING (tuple_id) where year = 2014",
+        "Select looped, neighbors FROM data/SemanticTwoRelationData/bitcoin_mnar1_10_address_observation.csv JOIN data/SemanticTwoRelationData/bitcoin_mnar1_10_transaction_graph.csv USING (tuple_id) where income > 100000000 and year != 2016 Group By looped, neighbors"
+      ],
+      "semantic_relations": {
+        "address_observation": [
+          "address",
+          "label",
+          "year",
+          "day"
+        ],
+        "transaction_graph": [
+          "ID",
+          "length",
+          "weight",
+          "count",
+          "looped",
+          "neighbors",
+          "income"
+        ]
+      },
+      "normalized_rows": 20000
+    },
+    "BitcoinHeistData_mnar_20": {
+      "csv": [
+        "data/SemanticTwoRelationData/bitcoin_mnar1_20_full.csv",
+        "data/SemanticTwoRelationData/bitcoin_mnar1_20_address_observation.csv",
+        "data/SemanticTwoRelationData/bitcoin_mnar1_20_transaction_graph.csv"
+      ],
+      "table": [
+        "semantic_two_bitcoin_20_full",
+        "semantic_two_bitcoin_20_address_observation",
+        "semantic_two_bitcoin_20_transaction_graph"
+      ],
+      "complete_csv": [
+        "data/CompleteSemanticTwoRelationData/bitcoin_complete_full.csv",
+        "data/CompleteSemanticTwoRelationData/bitcoin_complete_address_observation.csv",
+        "data/CompleteSemanticTwoRelationData/bitcoin_complete_transaction_graph.csv"
+      ],
+      "complete_table": [
+        "semantic_two_bitcoin_complete_full",
+        "semantic_two_bitcoin_complete_address_observation",
+        "semantic_two_bitcoin_complete_transaction_graph"
+      ],
+      "missing_attrs_single": [
+        "neighbors",
+        "looped",
+        "count"
+      ],
+      "ordering_single": {
+        "neighbors": [
+          "income",
+          "weight",
+          "year"
+        ],
+        "count": [
+          "income",
+          "neighbors",
+          "weight",
+          "year"
+        ],
+        "looped": [
+          "count",
+          "income",
+          "neighbors",
+          "weight",
+          "year"
+        ]
+      },
+      "missing_attrs_T": [],
+      "ordering_T": {},
+      "missing_attrs_S": [
+        "neighbors",
+        "looped",
+        "count"
+      ],
+      "ordering_S": {
+        "neighbors": [
+          "income",
+          "weight",
+          "year"
+        ],
+        "looped": [
+          "count",
+          "income",
+          "neighbors",
+          "weight",
+          "year"
+        ],
+        "count": [
+          "income",
+          "neighbors",
+          "weight",
+          "year"
+        ]
+      },
+      "queries": [
+        "Select neighbors FROM data/SemanticTwoRelationData/bitcoin_mnar1_20_full.csv where income > 100000 and year != 2016",
+        "Select year, looped FROM data/SemanticTwoRelationData/bitcoin_mnar1_20_full.csv Group By year, looped",
+        "Select neighbors FROM data/SemanticTwoRelationData/bitcoin_mnar1_20_full.csv where length != 144",
+        "Select neighbors FROM data/SemanticTwoRelationData/bitcoin_mnar1_20_full.csv where year = 2016",
+        "Select neighbors FROM data/SemanticTwoRelationData/bitcoin_mnar1_20_address_observation.csv JOIN data/SemanticTwoRelationData/bitcoin_mnar1_20_transaction_graph.csv USING (tuple_id) where length > 144",
+        "Select neighbors FROM data/SemanticTwoRelationData/bitcoin_mnar1_20_address_observation.csv JOIN data/SemanticTwoRelationData/bitcoin_mnar1_20_transaction_graph.csv USING (tuple_id) where income > 100000000",
+        "Select count FROM data/SemanticTwoRelationData/bitcoin_mnar1_20_address_observation.csv JOIN data/SemanticTwoRelationData/bitcoin_mnar1_20_transaction_graph.csv USING (tuple_id) where year = 2016",
+        "Select looped FROM data/SemanticTwoRelationData/bitcoin_mnar1_20_address_observation.csv JOIN data/SemanticTwoRelationData/bitcoin_mnar1_20_transaction_graph.csv USING (tuple_id) where count > 1",
+        "Select weight FROM data/SemanticTwoRelationData/bitcoin_mnar1_20_address_observation.csv JOIN data/SemanticTwoRelationData/bitcoin_mnar1_20_transaction_graph.csv USING (tuple_id) where year = 2014",
+        "Select looped, neighbors FROM data/SemanticTwoRelationData/bitcoin_mnar1_20_address_observation.csv JOIN data/SemanticTwoRelationData/bitcoin_mnar1_20_transaction_graph.csv USING (tuple_id) where income > 100000000 and year != 2016 Group By looped, neighbors"
+      ],
+      "semantic_relations": {
+        "address_observation": [
+          "address",
+          "label",
+          "year",
+          "day"
+        ],
+        "transaction_graph": [
+          "ID",
+          "length",
+          "weight",
+          "count",
+          "looped",
+          "neighbors",
+          "income"
+        ]
+      },
+      "normalized_rows": 20000
+    }
+  }
+}

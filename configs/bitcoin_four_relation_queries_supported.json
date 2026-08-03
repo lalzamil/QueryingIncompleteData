@@ -1,0 +1,198 @@
+{
+  "dataset": "bitcoin",
+  "join_key": "tuple_id",
+  "set_config_key": "bit_manr1_set",
+  "factor_file": "data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_mnar1_minimal_separators_Xi.csv",
+  "aggregate_factor_file": "data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_minimal_separators_Xi.csv",
+  "normalized_rows": 2916697,
+  "partitions": {
+    "r1": [
+      "label",
+      "weight",
+      "day",
+      "length",
+      "neighbors",
+      "count",
+      "looped"
+    ],
+    "r2": [
+      "income"
+    ],
+    "r3": [
+      "year"
+    ],
+    "r4": [
+      "address"
+    ]
+  },
+  "rates": {
+    "5": {
+      "csv": [
+        "data/Mnar1FourRelationsData/bitcoin_mnar1_5_r1.csv",
+        "data/Mnar1FourRelationsData/bitcoin_mnar1_5_r2.csv",
+        "data/Mnar1FourRelationsData/bitcoin_mnar1_5_r3.csv",
+        "data/Mnar1FourRelationsData/bitcoin_mnar1_5_r4.csv"
+      ],
+      "table": [
+        "bitcoin4_mnar_5_r1",
+        "bitcoin4_mnar_5_r2",
+        "bitcoin4_mnar_5_r3",
+        "bitcoin4_mnar_5_r4"
+      ],
+      "factor_csv": "data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_mnar1_5.csv",
+      "factor_table": "bitcoin4_mnar_5_factor",
+      "aggregate_csv": [
+        "data/Mnar1FourRelationsData/bitcoin_agg_mnar1_5_r1.csv",
+        "data/Mnar1FourRelationsData/bitcoin_agg_mnar1_5_r2.csv",
+        "data/Mnar1FourRelationsData/bitcoin_agg_mnar1_5_r3.csv",
+        "data/Mnar1FourRelationsData/bitcoin_agg_mnar1_5_r4.csv"
+      ],
+      "aggregate_table": [
+        "bitcoin4_agg_mnar_5_r1",
+        "bitcoin4_agg_mnar_5_r2",
+        "bitcoin4_agg_mnar_5_r3",
+        "bitcoin4_agg_mnar_5_r4"
+      ],
+      "aggregate_factor_csv": "data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_5.csv",
+      "aggregate_factor_table": "bitcoin4_agg_mnar_5_factor",
+      "complete_csv": [
+        "data/CompleteFourRelationsData/bitcoin_complete_r1.csv",
+        "data/CompleteFourRelationsData/bitcoin_complete_r2.csv",
+        "data/CompleteFourRelationsData/bitcoin_complete_r3.csv",
+        "data/CompleteFourRelationsData/bitcoin_complete_r4.csv"
+      ],
+      "complete_table": [
+        "bitcoin4_complete_r1",
+        "bitcoin4_complete_r2",
+        "bitcoin4_complete_r3",
+        "bitcoin4_complete_r4"
+      ],
+      "set_queries": [
+        "SELECT neighbors FROM data/Mnar1FourRelationsData/bitcoin_mnar1_5_r1.csv JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_5_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_5_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_5_r4.csv USING (tuple_id) WHERE income > 100000000 AND year != 2016",
+        "SELECT weight, looped FROM data/Mnar1FourRelationsData/bitcoin_mnar1_5_r1.csv JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_5_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_5_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_5_r4.csv USING (tuple_id) WHERE income > 130000000 AND year = 2011 GROUP BY weight, looped",
+        "SELECT length FROM data/Mnar1FourRelationsData/bitcoin_mnar1_5_r1.csv JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_5_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_5_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_5_r4.csv USING (tuple_id) WHERE income > 100000000 AND year = 2014",
+        "SELECT label FROM data/Mnar1FourRelationsData/bitcoin_mnar1_5_r1.csv JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_5_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_5_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_5_r4.csv USING (tuple_id) WHERE income > 100000000 AND year = 2016",
+        "SELECT looped, neighbors FROM data/Mnar1FourRelationsData/bitcoin_mnar1_5_r1.csv JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_5_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_5_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_5_r4.csv USING (tuple_id) WHERE income > 100000000 AND year != 2016 GROUP BY looped, neighbors"
+      ],
+      "aggregate_queries": [
+        "SELECT label, AVG(weight) AS avg_weight FROM data/Mnar1FourRelationsData/bitcoin_agg_mnar1_5_r1.csv JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_5_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_5_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_5_r4.csv USING (tuple_id) WHERE income > 100000000 AND year != 2016 GROUP BY label",
+        "SELECT year, AVG(length) AS avg_length FROM data/Mnar1FourRelationsData/bitcoin_agg_mnar1_5_r1.csv JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_5_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_5_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_5_r4.csv USING (tuple_id) WHERE income > 130000000 AND looped > 0 GROUP BY year",
+        "SELECT label, AVG(weight) AS avg_weight FROM data/Mnar1FourRelationsData/bitcoin_agg_mnar1_5_r1.csv JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_5_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_5_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_5_r4.csv USING (tuple_id) WHERE neighbors > 2 AND day > 10 AND address != '' GROUP BY label",
+        "SELECT looped, AVG(count) AS avg_count FROM data/Mnar1FourRelationsData/bitcoin_agg_mnar1_5_r1.csv JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_5_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_5_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_5_r4.csv USING (tuple_id) WHERE neighbors > 1 AND day > 15 AND address != '' GROUP BY looped",
+        "SELECT label, AVG(income) AS avg_income FROM data/Mnar1FourRelationsData/bitcoin_agg_mnar1_5_r1.csv JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_5_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_5_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_5_r4.csv USING (tuple_id) WHERE neighbors > 2 AND year != 2016 GROUP BY label"
+      ]
+    },
+    "10": {
+      "csv": [
+        "data/Mnar1FourRelationsData/bitcoin_mnar1_10_r1.csv",
+        "data/Mnar1FourRelationsData/bitcoin_mnar1_10_r2.csv",
+        "data/Mnar1FourRelationsData/bitcoin_mnar1_10_r3.csv",
+        "data/Mnar1FourRelationsData/bitcoin_mnar1_10_r4.csv"
+      ],
+      "table": [
+        "bitcoin4_mnar_10_r1",
+        "bitcoin4_mnar_10_r2",
+        "bitcoin4_mnar_10_r3",
+        "bitcoin4_mnar_10_r4"
+      ],
+      "factor_csv": "data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_mnar1_10.csv",
+      "factor_table": "bitcoin4_mnar_10_factor",
+      "aggregate_csv": [
+        "data/Mnar1FourRelationsData/bitcoin_agg_mnar1_10_r1.csv",
+        "data/Mnar1FourRelationsData/bitcoin_agg_mnar1_10_r2.csv",
+        "data/Mnar1FourRelationsData/bitcoin_agg_mnar1_10_r3.csv",
+        "data/Mnar1FourRelationsData/bitcoin_agg_mnar1_10_r4.csv"
+      ],
+      "aggregate_table": [
+        "bitcoin4_agg_mnar_10_r1",
+        "bitcoin4_agg_mnar_10_r2",
+        "bitcoin4_agg_mnar_10_r3",
+        "bitcoin4_agg_mnar_10_r4"
+      ],
+      "aggregate_factor_csv": "data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_10.csv",
+      "aggregate_factor_table": "bitcoin4_agg_mnar_10_factor",
+      "complete_csv": [
+        "data/CompleteFourRelationsData/bitcoin_complete_r1.csv",
+        "data/CompleteFourRelationsData/bitcoin_complete_r2.csv",
+        "data/CompleteFourRelationsData/bitcoin_complete_r3.csv",
+        "data/CompleteFourRelationsData/bitcoin_complete_r4.csv"
+      ],
+      "complete_table": [
+        "bitcoin4_complete_r1",
+        "bitcoin4_complete_r2",
+        "bitcoin4_complete_r3",
+        "bitcoin4_complete_r4"
+      ],
+      "set_queries": [
+        "SELECT neighbors FROM data/Mnar1FourRelationsData/bitcoin_mnar1_10_r1.csv JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_10_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_10_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_10_r4.csv USING (tuple_id) WHERE income > 100000000 AND year != 2016",
+        "SELECT weight, looped FROM data/Mnar1FourRelationsData/bitcoin_mnar1_10_r1.csv JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_10_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_10_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_10_r4.csv USING (tuple_id) WHERE income > 130000000 AND year = 2011 GROUP BY weight, looped",
+        "SELECT length FROM data/Mnar1FourRelationsData/bitcoin_mnar1_10_r1.csv JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_10_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_10_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_10_r4.csv USING (tuple_id) WHERE income > 100000000 AND year = 2014",
+        "SELECT label FROM data/Mnar1FourRelationsData/bitcoin_mnar1_10_r1.csv JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_10_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_10_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_10_r4.csv USING (tuple_id) WHERE income > 100000000 AND year = 2016",
+        "SELECT looped, neighbors FROM data/Mnar1FourRelationsData/bitcoin_mnar1_10_r1.csv JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_10_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_10_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_10_r4.csv USING (tuple_id) WHERE income > 100000000 AND year != 2016 GROUP BY looped, neighbors"
+      ],
+      "aggregate_queries": [
+        "SELECT label, AVG(weight) AS avg_weight FROM data/Mnar1FourRelationsData/bitcoin_agg_mnar1_10_r1.csv JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_10_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_10_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_10_r4.csv USING (tuple_id) WHERE income > 100000000 AND year != 2016 GROUP BY label",
+        "SELECT year, AVG(length) AS avg_length FROM data/Mnar1FourRelationsData/bitcoin_agg_mnar1_10_r1.csv JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_10_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_10_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_10_r4.csv USING (tuple_id) WHERE income > 130000000 AND looped > 0 GROUP BY year",
+        "SELECT label, AVG(weight) AS avg_weight FROM data/Mnar1FourRelationsData/bitcoin_agg_mnar1_10_r1.csv JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_10_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_10_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_10_r4.csv USING (tuple_id) WHERE neighbors > 2 AND day > 10 AND address != '' GROUP BY label",
+        "SELECT looped, AVG(count) AS avg_count FROM data/Mnar1FourRelationsData/bitcoin_agg_mnar1_10_r1.csv JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_10_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_10_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_10_r4.csv USING (tuple_id) WHERE neighbors > 1 AND day > 15 AND address != '' GROUP BY looped",
+        "SELECT label, AVG(income) AS avg_income FROM data/Mnar1FourRelationsData/bitcoin_agg_mnar1_10_r1.csv JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_10_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_10_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_10_r4.csv USING (tuple_id) WHERE neighbors > 2 AND year != 2016 GROUP BY label"
+      ]
+    },
+    "20": {
+      "csv": [
+        "data/Mnar1FourRelationsData/bitcoin_mnar1_20_r1.csv",
+        "data/Mnar1FourRelationsData/bitcoin_mnar1_20_r2.csv",
+        "data/Mnar1FourRelationsData/bitcoin_mnar1_20_r3.csv",
+        "data/Mnar1FourRelationsData/bitcoin_mnar1_20_r4.csv"
+      ],
+      "table": [
+        "bitcoin4_mnar_20_r1",
+        "bitcoin4_mnar_20_r2",
+        "bitcoin4_mnar_20_r3",
+        "bitcoin4_mnar_20_r4"
+      ],
+      "factor_csv": "data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_mnar1_20.csv",
+      "factor_table": "bitcoin4_mnar_20_factor",
+      "aggregate_csv": [
+        "data/Mnar1FourRelationsData/bitcoin_agg_mnar1_20_r1.csv",
+        "data/Mnar1FourRelationsData/bitcoin_agg_mnar1_20_r2.csv",
+        "data/Mnar1FourRelationsData/bitcoin_agg_mnar1_20_r3.csv",
+        "data/Mnar1FourRelationsData/bitcoin_agg_mnar1_20_r4.csv"
+      ],
+      "aggregate_table": [
+        "bitcoin4_agg_mnar_20_r1",
+        "bitcoin4_agg_mnar_20_r2",
+        "bitcoin4_agg_mnar_20_r3",
+        "bitcoin4_agg_mnar_20_r4"
+      ],
+      "aggregate_factor_csv": "data/MNAR1Data/BitcoinHeistData/BitcoinHeistData_agg_mnar1_20.csv",
+      "aggregate_factor_table": "bitcoin4_agg_mnar_20_factor",
+      "complete_csv": [
+        "data/CompleteFourRelationsData/bitcoin_complete_r1.csv",
+        "data/CompleteFourRelationsData/bitcoin_complete_r2.csv",
+        "data/CompleteFourRelationsData/bitcoin_complete_r3.csv",
+        "data/CompleteFourRelationsData/bitcoin_complete_r4.csv"
+      ],
+      "complete_table": [
+        "bitcoin4_complete_r1",
+        "bitcoin4_complete_r2",
+        "bitcoin4_complete_r3",
+        "bitcoin4_complete_r4"
+      ],
+      "set_queries": [
+        "SELECT neighbors FROM data/Mnar1FourRelationsData/bitcoin_mnar1_20_r1.csv JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_20_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_20_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_20_r4.csv USING (tuple_id) WHERE income > 100000000 AND year != 2016",
+        "SELECT weight, looped FROM data/Mnar1FourRelationsData/bitcoin_mnar1_20_r1.csv JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_20_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_20_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_20_r4.csv USING (tuple_id) WHERE income > 130000000 AND year = 2011 GROUP BY weight, looped",
+        "SELECT length FROM data/Mnar1FourRelationsData/bitcoin_mnar1_20_r1.csv JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_20_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_20_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_20_r4.csv USING (tuple_id) WHERE income > 100000000 AND year = 2014",
+        "SELECT label FROM data/Mnar1FourRelationsData/bitcoin_mnar1_20_r1.csv JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_20_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_20_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_20_r4.csv USING (tuple_id) WHERE income > 100000000 AND year = 2016",
+        "SELECT looped, neighbors FROM data/Mnar1FourRelationsData/bitcoin_mnar1_20_r1.csv JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_20_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_20_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_mnar1_20_r4.csv USING (tuple_id) WHERE income > 100000000 AND year != 2016 GROUP BY looped, neighbors"
+      ],
+      "aggregate_queries": [
+        "SELECT label, AVG(weight) AS avg_weight FROM data/Mnar1FourRelationsData/bitcoin_agg_mnar1_20_r1.csv JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_20_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_20_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_20_r4.csv USING (tuple_id) WHERE income > 100000000 AND year != 2016 GROUP BY label",
+        "SELECT year, AVG(length) AS avg_length FROM data/Mnar1FourRelationsData/bitcoin_agg_mnar1_20_r1.csv JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_20_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_20_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_20_r4.csv USING (tuple_id) WHERE income > 130000000 AND looped > 0 GROUP BY year",
+        "SELECT label, AVG(weight) AS avg_weight FROM data/Mnar1FourRelationsData/bitcoin_agg_mnar1_20_r1.csv JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_20_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_20_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_20_r4.csv USING (tuple_id) WHERE neighbors > 2 AND day > 10 AND address != '' GROUP BY label",
+        "SELECT looped, AVG(count) AS avg_count FROM data/Mnar1FourRelationsData/bitcoin_agg_mnar1_20_r1.csv JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_20_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_20_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_20_r4.csv USING (tuple_id) WHERE neighbors > 1 AND day > 15 AND address != '' GROUP BY looped",
+        "SELECT label, AVG(income) AS avg_income FROM data/Mnar1FourRelationsData/bitcoin_agg_mnar1_20_r1.csv JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_20_r2.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_20_r3.csv USING (tuple_id) JOIN data/Mnar1FourRelationsData/bitcoin_agg_mnar1_20_r4.csv USING (tuple_id) WHERE neighbors > 2 AND year != 2016 GROUP BY label"
+      ]
+    }
+  }
+}

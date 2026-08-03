@@ -1,174 +1,141 @@
-# Causality-Aware Query Answering on Incomplete Databases
-A framework for answering SQL queries over incomplete databases with **Missing Not At Random (MNAR)** data. Rather than discarding incomplete tuples or imputing values, the system rewrites queries into probabilistic forms that estimate tuple membership in the query result with quantified uncertainty.
-## Full paper: 
-## Overview
+# Querying Incomplete Data
 
-Given a relational table with missing values and a SQL query, the framework:
+This repository contains the PostgreSQL and Python implementation used to evaluate queries over incomplete data in the paper.
+The snapshot includes the corrected code used for the full-data experiments in July and August 2026.
 
-1. **Decomposes** query predicates using ordered separating sets into conditionally independent factors.
-2. **Estimates** each factor P(φ(A) | X\_A = x) from the observed data via a single-pass aggregation.
-3. **Scores** each tuple with a probability of belonging to the query result.
-4. **Returns** a set (certain + possible tuples) along with confidence intervals.
+## Implemented methods
 
-The system compiles all estimation logic into standard SQL (CTEs, conditional aggregation, joins) and delegates execution to PostgreSQL.
+- **CAEX** implements the causal-aware extensional evaluation from Section 5. The main full-data runner is `src/RunSectionComparisonsFullData.py`.
+- **CADE** implements the causal-aware direct estimation from Section 7. Aggregation queries use `src/QueryRewriterExecuter.py`, and non-aggregation queries use `src/nonAgg_direct.py`.
+- **QE** constructs factor distributions and evaluates the union of the queries obtained from the sampled valuations. Its full-data runners are `src/RunQEFromFactorDistributionsFullData.py`, `src/RunQEMCARMARSelectedFullData.py`, and `src/RunRealFactorizableQE.py`.
+- **Certain** is implemented in `src/RunnerCertainAnswersBagTVD.py` and the full-data runners whose names begin with `RunCertainAnswers`.
+- **Interval-Based** and **Distribution-Centric** are implemented in `src/QueryIntervalBasedEstimator.py` and `src/QueryDistributionBasedEstimator.py`.
 
-## Approaches
+The repository also retains the PostgreSQL MCDB implementation and factor sampler used during method validation in `src/MCDBPostgresNative.py` and `src/FactorSamplerPostgres.py`.
+The marked-null implementations and runners are identified by `marked` in their file names.
 
-| Approach | Description |
-|----------|-------------|
-| **No-optimization(mGraph-QE)** (`SetQueryRewriterExecuter.py`) | Base query rewriting per §4.2. Implements ordered separating sets, cell-based distribution estimation, and rewriting for selection, projection, GROUP BY, and joins. |
-| **Optimized mGraph-QE** (`SetQueryRewriterExecuterOptimized.py`) | All base rewriting plus estimation-aware optimizations from §4.3: selective filter pushdown, deterministic guards, zero-mass pruning, separator-aware filtering, shared computation via merged statistics CTEs, and optional stratified sampling. |
-| **Probabalistic Pattrena mGraph-QE Ranking** (`RankingQueryExecuter.py`) | Pattern-based top-fraction approach. Groups tuples by missingness pattern, ranks by estimated probability mass, and returns the top-*f* fraction. Uses merged stats with theta-based grouping for fast execution on large tables. |
-| **Certain answers** (`RunnerCertainAnswers.py`) | Conservative baseline: returns only tuples with no missing values in query-relevant attributes (IS NOT NULL guards). |
+## Repository structure
 
-## Metrics
-
-
-- **TV\_prob**: Normalized total variation over conditional probability distributions: (1/2) Σ\_t |P̃(t)/Z̃ − P\*(t)/Z\*|.
-- **Confidence intervals**: Hoeffding, CLT/Wald, Wilson, and Delta method.
-- **Interval metrics**: Empirical coverage, mass-weighted mean width, Winkler score.
-- **Bias**: Jensen-Shannon divergence between predicted and ground-truth distributions.
-
-## Project Structure
-
-### Queries Without Aggregation (Set Queries)
-
-Handles SELECT-WHERE, projection, GROUP BY, and join queries that return **sets of tuples** with associated membership probabilities.
-
-```
-├── SetQueryRewriterExecuter.py          # Base query rewriter/executor (mGraph-QE, §4.2)
-├── SetQueryRewriterExecuterOptimized.py # Optimized rewriter with selective pushdown (§4.3)
-├── RankingQueryExecuter.py              # Top-fraction pattern-based mGraph-QE Ranking approach
-├── RunnerSetQueriy.py                   # Set query runner with metric computation
-├── RunnerCertainAnswers.py              # Certain answers baseline (IS NOT NULL guards)
-├── CompareSetQueryApproaches.py         # Main experiment runner and comparison
-├── mnar_set_queries.json                # Query config (datasets, queries, metadata)
-└── certain_answers_queries.json         # Certain answers query config
+```text
+analysis/       Figure and table generation
+configs/        Query definitions and factorization metadata
+scripts/        Commands used for full-data and multi-relation runs
+src/            Implementations, data preparation, and experiment runners
+tests/          PostgreSQL correctness tests
+DATA.md         Required dataset layout
 ```
 
-### Queries With Aggregation (AVG, SUM, COUNT)
-
-Compare mGraph-QE againist two baselines 1)**distribution-based estimates** (full probability distribution over possible aggregate values) or 2) **interval-based bounds** (wide [lower, upper] ranges for the aggregate result).
-
-```
-├── QueryRewriterExecuter.py             # Aggregate query rewriter: rewrites AVG/SUM/COUNT
-│                                        #   queries under MCAR/MAR/MNAR into SQL with
-│                                        #   group-level estimation and variance computation
-├── QueryDistributionBasedEstimator.py   # Distribution recovery: builds joint probability
-│                                        #   tables P(X_o, X_m, R) and computes full
-│                                        #   distributions over possible aggregate outcomes
-├── QueryIntervalBasedEstimator.py       # Interval-based estimator: implements Algorithm 2
-│                                        #   (Zhang et al. 2019) for tight [a, b] bounds on
-│                                        #   AVG queries via greedy substitution of missing
-│                                        #   values with domain endpoints
-└── real_mnar_agg.json                   # Aggregate query config
-```
-
-### Shared Utilities and Data Repair
-
-```
-├── bias_utils.py                        # JSD and bias metrics
-├── myDataAnalyzer.py                    # Result logging utilities
-├── RunnerRepair.py                      # Data repair via imputers (MICE, MissForest, etc.)
-├── create_safe_discretized_temp_json.py # Discretize numeric columns for safe evaluation
-├── requirements_venv311.txt             # Python dependencies
-└── max-mmd/                             # Max-MMD optimization (Frank-Wolfe, projected gradient)
-```
+Generated datasets, result files, logs, virtual environments, and credentials are excluded from Git.
 
 ## Requirements
 
-- **Python** 3.11+
-- **PostgreSQL** (tested with 13+)
-- Dependencies listed in `requirements_venv311.txt`
+The experiments were run with Python 3.11.7 and PostgreSQL 15.8.
+The Python package versions are recorded in `requirements.txt`.
 
-Core dependencies:
-
-```
-psycopg2==2.9.10
-pandas==2.1.4
-numpy==1.26.4
-scipy==1.11.4
-scikit-learn==1.4.2
-func_timeout==4.3.5
-tabulate==0.9.0
-```
-
-## Setup
-
-1. **Create a virtual environment and install dependencies:**
+Create an environment and install the packages:
 
 ```bash
-python3.11 -m venv .venv311
-source .venv311/bin/activate
-pip install -r requirements_venv311.txt
+python3.11 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+export PYTHONPATH="$PWD/src"
 ```
 
-2. **Configure PostgreSQL connection** in `RunnerSetQuery.py` (or whichever runner you use):
-
-```python
-conn = psycopg2.connect(
-    host="localhost",
-    port=5432,
-    dbname="your_db",
-    user="your_user",
-    password="your_password"
-)
-```
-
-3. **Prepare data:** Place MNAR and complete CSV files in the paths referenced by the JSON config files (e.g., `mnar_set_queries.json`). The runner will automatically load CSVs into PostgreSQL tables.
-
-## Usage
-
-### Run the full comparison
+Set the PostgreSQL connection without placing a password in the repository:
 
 ```bash
-python CompareSetQueryApproaches.py
+export PGHOST=127.0.0.1
+export PGPORT=5433
+export PGDATABASE=mydb
+export PGUSER=postgres
+export PGPASSWORD='your-password'
 ```
 
-This evaluates all approaches (mGraph-QE, Optimized mGraph-QE, mGraph-QE Ranking) on the queries defined in the JSON config, computes TV distances, confidence intervals, and timing, and writes results to `results_final.txt`.
+The command-line runners also accept `--db-host`, `--db-port`, `--db-name`, `--db-user`, and `--db-password`.
 
-### Configure experiments
+## Data and query configurations
 
-Edit the constants at the top of `CompareSetQueryApproaches.py`:
+Place the prepared datasets below `data/` as described in `DATA.md`.
+The files in `configs/` define the injected MCAR, MAR, and factorizable MNAR queries, the real-world queries, and the meaningful two- and four-relation join queries.
+All paths in these files are relative to the repository root.
 
-```python
-JSON_PATH = "mnar_set_queries.json"     # Query config file
-TIMEOUT_PER_QUERY = 300                  # Per-approach timeout (seconds)
-RUN_CERTAIN_ANSWERS = False              # Include certain answers baseline
-INTERVAL_MODE = "wilson"                 # Confidence interval method
-INTERVAL_ALPHA = 0.05                    # Significance level
+The full-data runs use `--rows 0`.
+The QE comparisons use `H=783` sampled valuations, and each query has a 300-second timeout in the final comparison runners.
+
+## Running the methods
+
+Run CAEX and CADE on the injected factorizable MNAR data:
+
+```bash
+python src/RunSectionComparisonsFullData.py \
+  --methods CAEX,CADE \
+  --datasets bank,nyc,bitcoin \
+  --rates 5,10,20 \
+  --workloads set,aggregate \
+  --rows 0 \
+  --timeout 300 \
+  --output results/caex_cade.csv
 ```
 
-### JSON config format
+Run QE on the same non-repeating-null queries:
 
-Each JSON config defines dataset groups, where each group contains blocks of queries:
-
-```json
-{
-  "group_name": [
-    {
-      "csv": "path/to/mnar_data.csv",
-      "table": "table_name",
-      "complete_csv": "path/to/ground_truth.csv",
-      "complete_table": "gt_table_name",
-      "missing_attrs_single": ["attr1", "attr2"],
-      "ordering_single": {
-        "attr1": { "name": "attr1", "conditioning": ["X1", "X2"], "condition": "attr1 > 0" },
-        "attr2": { "name": "attr2", "conditioning": ["X1"], "condition": "attr2 = 'yes'" }
-      },
-      "queries": [
-        "SELECT col1, col2 FROM table_name WHERE col1 > 10 AND attr1 > 0"
-      ]
-    }
-  ]
-}
+```bash
+python src/RunQEFromFactorDistributionsFullData.py \
+  --null-semantics nonrepeating \
+  --datasets bank,nyc,bitcoin \
+  --rates 5,10,20 \
+  --workloads set,aggregate \
+  --rows 0 \
+  --h 783 \
+  --timeout 300 \
+  --output results/qe_nonrepeating.csv
 ```
 
+Run QE on marked nulls:
 
-### Selective Filter Pushdown
+```bash
+python src/RunLikeApxMarkedFullData.py \
+  --datasets bank,nyc,bitcoin \
+  --rates 5,10,20 \
+  --workloads set,aggregate \
+  --rows 0 \
+  --h 783 \
+  --timeout 300 \
+  --output results/qe_marked.csv
+```
 
-Predicates on complete attributes (φ(B)) are placed in `WHERE` clauses of the tuple-level scan for early filtering. Predicates on incomplete attributes (φ(A)) are embedded as conditional aggregation expressions inside the statistics CTE, preserving the full sample for probability estimation.
+The scripts in `scripts/` run the multi-relation comparisons for separate PostgreSQL instances.
+Use the `PYTHON` environment variable to select a Python executable.
 
-### Confidence Intervals
+## Tests
 
-For each tuple's probability estimate, the framework computes confidence intervals using one of four methods (Hoeffding, CLT/Wald, Wilson, Delta), with Šidák correction for multiple factors. Intervals are propagated through the product of independent factors.
+The tests create temporary PostgreSQL tables and therefore require a running database configured through the PostgreSQL environment variables.
+
+```bash
+PYTHONPATH=src python tests/TestFactorSamplerPostgres.py
+PYTHONPATH=src python tests/TestMCDBPostgresNative.py
+PYTHONPATH=src python tests/TestLazyCAMC.py
+```
+
+The tests compare optimized tuple-bundle evaluation with explicit repair-indexed evaluation and verify the factor sampler on small relations.
+
+## Reproducing Figure 3
+
+`analysis/generate_figure3.py` reads the CSV results placed below `analysis/inputs/` and creates the execution-time figure and query-quality table.
+It expects the following layout:
+
+```text
+analysis/inputs/
+├── cade/
+│   ├── figure3_cade_mechanism_runtime.csv
+│   └── table3_cade_mechanism_quality.csv
+├── caex_mnar.csv
+├── caex_selected/{MCAR,MAR}/{bank,nyc,bitcoin}.csv
+├── certain/{bank,nyc,bitcoin}.csv
+├── certain_runtime.csv
+├── qe_mnar/{bank,nyc,bitcoin}.csv
+└── qe_selected/{MCAR,MAR}/{bank,nyc,bitcoin}.csv
+```
+
+`analysis/generate_without_caex.py` creates the version that omits CAEX.
+The scripts validate the expected query counts and reject row-limited measurements.

@@ -1,0 +1,314 @@
+{
+  "bank_mar_set": {
+    "bank_mar_5": {
+      "csv": [
+        "data/rwDatasets/bank_MAR_5.0.csv"
+      ],
+      "table": [
+        "mar5_bank0"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/bank_complete.csv"
+      ],
+      "complete_table": [
+        "full_bank0"
+      ],
+      "missing_attrs_single": [
+        "balance"
+      ],
+      "ordering_single": {
+        "balance": [
+          "age",
+          "job",
+          "education",
+          "housing"
+        ]
+      },
+      "queries": [
+        "Select balance From data/rwDatasets/bank_MAR_5.0.csv where education != 'primary'",
+        "Select balance From data/rwDatasets/bank_MAR_5.0.csv WHERE loan = 'no'",
+        "Select balance From data/rwDatasets/bank_MAR_5.0.csv where housing = 'yes'",
+        "Select balance From data/rwDatasets/bank_MAR_5.0.csv where job = 'management'"
+      ]
+    },
+    "bank_mar_10": {
+      "csv": [
+        "data/rwDatasets/bank_MAR_10.0.csv"
+      ],
+      "table": [
+        "mar10_bank0"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/bank_complete.csv"
+      ],
+      "complete_table": [
+        "full_bank0"
+      ],
+      "missing_attrs_single": [
+        "balance"
+      ],
+      "ordering_single": {
+        "balance": [
+          "age",
+          "job",
+          "education",
+          "housing"
+        ]
+      },
+      "queries": [
+        "Select balance From data/rwDatasets/bank_MAR_10.0.csv where education != 'primary'",
+        "Select balance From data/rwDatasets/bank_MAR_10.0.csv WHERE loan = 'no'",
+        "Select balance From data/rwDatasets/bank_MAR_10.0.csv where housing = 'yes'",
+        "Select balance From data/rwDatasets/bank_MAR_10.0.csv where job = 'management'"
+      ]
+    },
+    "bank_mar_20": {
+      "csv": [
+        "data/rwDatasets/bank_MAR_20.0.csv"
+      ],
+      "table": [
+        "mar20_bank0"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/bank_complete.csv"
+      ],
+      "complete_table": [
+        "full_bank0"
+      ],
+      "missing_attrs_single": [
+        "balance"
+      ],
+      "ordering_single": {
+        "balance": [
+          "age",
+          "job",
+          "education",
+          "housing"
+        ]
+      },
+      "queries": [
+        "Select balance From data/rwDatasets/bank_MAR_20.0.csv where education != 'primary'",
+        "Select balance From data/rwDatasets/bank_MAR_20.0.csv WHERE loan = 'no'",
+        "Select balance From data/rwDatasets/bank_MAR_20.0.csv where housing = 'yes'",
+        "Select balance From data/rwDatasets/bank_MAR_20.0.csv where job = 'management'"
+      ]
+    }
+  },
+  "nyc_mar_set": {
+    "nyc_mar_5": {
+      "csv": [
+        "data/rwDatasets/nyc_MAR_5.0.csv"
+      ],
+      "table": [
+        "mar5_nyc0"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/nyc_complete.csv"
+      ],
+      "complete_table": [
+        "full_nyc0"
+      ],
+      "missing_attrs_single": [
+        "passenger_count",
+        "trip_duration"
+      ],
+      "ordering_single": {
+        "passenger_count": [
+          "vendor_id",
+          "store_and_fwd_flag"
+        ],
+        "trip_duration": [
+          "vendor_id",
+          "passenger_count",
+          "store_and_fwd_flag"
+        ]
+      },
+      "queries": [
+        "Select trip_duration From data/rwDatasets/nyc_MAR_5.0.csv where store_and_fwd_flag = 'N'",
+        "Select passenger_count From data/rwDatasets/nyc_MAR_5.0.csv where vendor_id = 1",
+        "Select trip_duration From data/rwDatasets/nyc_MAR_5.0.csv where vendor_id = 2",
+        "Select passenger_count, trip_duration From data/rwDatasets/nyc_MAR_5.0.csv Group By passenger_count, trip_duration"
+      ]
+    },
+    "nyc_mar_10": {
+      "csv": [
+        "data/rwDatasets/nyc_MAR_10.0.csv"
+      ],
+      "table": [
+        "mar10_nyc0"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/nyc_complete.csv"
+      ],
+      "complete_table": [
+        "full_nyc0"
+      ],
+      "missing_attrs_single": [
+        "passenger_count",
+        "trip_duration"
+      ],
+      "ordering_single": {
+        "passenger_count": [
+          "vendor_id",
+          "store_and_fwd_flag"
+        ],
+        "trip_duration": [
+          "vendor_id",
+          "passenger_count",
+          "store_and_fwd_flag"
+        ]
+      },
+      "queries": [
+        "Select trip_duration From data/rwDatasets/nyc_MAR_10.0.csv where store_and_fwd_flag = 'N'",
+        "Select passenger_count From data/rwDatasets/nyc_MAR_10.0.csv where vendor_id = 1",
+        "Select trip_duration From data/rwDatasets/nyc_MAR_10.0.csv where vendor_id = 2",
+        "Select passenger_count, trip_duration From data/rwDatasets/nyc_MAR_10.0.csv Group By passenger_count, trip_duration"
+      ]
+    },
+    "nyc_mar_20": {
+      "csv": [
+        "data/rwDatasets/nyc_MAR_20.0.csv"
+      ],
+      "table": [
+        "mar20_nyc0"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/nyc_complete.csv"
+      ],
+      "complete_table": [
+        "full_nyc0"
+      ],
+      "missing_attrs_single": [
+        "passenger_count",
+        "trip_duration"
+      ],
+      "ordering_single": {
+        "passenger_count": [
+          "vendor_id",
+          "store_and_fwd_flag"
+        ],
+        "trip_duration": [
+          "vendor_id",
+          "passenger_count",
+          "store_and_fwd_flag"
+        ]
+      },
+      "queries": [
+        "Select trip_duration From data/rwDatasets/nyc_MAR_20.0.csv where store_and_fwd_flag = 'N'",
+        "Select passenger_count From data/rwDatasets/nyc_MAR_20.0.csv where vendor_id = 1",
+        "Select trip_duration From data/rwDatasets/nyc_MAR_20.0.csv where vendor_id = 2",
+        "Select passenger_count, trip_duration From data/rwDatasets/nyc_MAR_20.0.csv Group By passenger_count, trip_duration"
+      ]
+    }
+  },
+  "bitcoin_mar_set": {
+    "bitcoin_mar_5": {
+      "csv": [
+        "data/rwDatasets/BitcoinHeistData_MAR_5.csv"
+      ],
+      "table": [
+        "mar5_bitcoin0"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/BitcoinHeistData_complete.csv"
+      ],
+      "complete_table": [
+        "full_bit0"
+      ],
+      "missing_attrs_single": [
+        "neighbors",
+        "income"
+      ],
+      "ordering_single": {
+        "neighbors": [
+          "year",
+          "weight",
+          "length"
+        ],
+        "income": [
+          "year",
+          "weight",
+          "length"
+        ]
+      },
+      "queries": [
+        "Select neighbors From data/rwDatasets/BitcoinHeistData_MAR_5.csv where year != 2016",
+        "Select income From data/rwDatasets/BitcoinHeistData_MAR_5.csv where year = 2017",
+        "Select neighbors From data/rwDatasets/BitcoinHeistData_MAR_5.csv where length != 144",
+        "Select neighbors, income From data/rwDatasets/BitcoinHeistData_MAR_5.csv where weight > 1 Group By neighbors, income"
+      ]
+    },
+    "bitcoin_mar_10": {
+      "csv": [
+        "data/rwDatasets/BitcoinHeistData_MAR_10.csv"
+      ],
+      "table": [
+        "mar10_bitcoin0"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/BitcoinHeistData_complete.csv"
+      ],
+      "complete_table": [
+        "full_bit0"
+      ],
+      "missing_attrs_single": [
+        "neighbors",
+        "income"
+      ],
+      "ordering_single": {
+        "neighbors": [
+          "year",
+          "weight",
+          "length"
+        ],
+        "income": [
+          "year",
+          "weight",
+          "length"
+        ]
+      },
+      "queries": [
+        "Select neighbors From data/rwDatasets/BitcoinHeistData_MAR_10.csv where year != 2016",
+        "Select income From data/rwDatasets/BitcoinHeistData_MAR_10.csv where year = 2017",
+        "Select neighbors From data/rwDatasets/BitcoinHeistData_MAR_10.csv where length != 144",
+        "Select neighbors, income From data/rwDatasets/BitcoinHeistData_MAR_10.csv where weight > 1 Group By neighbors, income"
+      ]
+    },
+    "bitcoin_mar_20": {
+      "csv": [
+        "data/rwDatasets/BitcoinHeistData_MAR_20.csv"
+      ],
+      "table": [
+        "mar20_bitcoin0"
+      ],
+      "complete_csv": [
+        "data/rwDatasets/BitcoinHeistData_complete.csv"
+      ],
+      "complete_table": [
+        "full_bit0"
+      ],
+      "missing_attrs_single": [
+        "neighbors",
+        "income"
+      ],
+      "ordering_single": {
+        "neighbors": [
+          "year",
+          "weight",
+          "length"
+        ],
+        "income": [
+          "year",
+          "weight",
+          "length"
+        ]
+      },
+      "queries": [
+        "Select neighbors From data/rwDatasets/BitcoinHeistData_MAR_20.csv where year != 2016",
+        "Select income From data/rwDatasets/BitcoinHeistData_MAR_20.csv where year = 2017",
+        "Select neighbors From data/rwDatasets/BitcoinHeistData_MAR_20.csv where length != 144",
+        "Select neighbors, income From data/rwDatasets/BitcoinHeistData_MAR_20.csv where weight > 1 Group By neighbors, income"
+      ]
+    }
+  }
+}

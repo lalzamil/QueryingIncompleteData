@@ -55,7 +55,7 @@ GROUP BY {group_by};
         self.cur.execute(ddl)
         self.cur.connection.commit()
         return joint_table
-    
+
     def mcar_distribution_recovery(self,
             joint_table: str,
             xo_cols: list[str],
@@ -88,7 +88,7 @@ GROUP BY {group_by};
     GROUP BY {group_by};
     """.strip()
 
-        # print(sql)  
+        # print(sql)
         self.cur.execute(sql)
         self.cur.connection.commit()
         return dist_table
@@ -209,7 +209,7 @@ GROUP BY {group_by_py}, py.y;
 
 
 
-    
+
 
 # class QueryExecutor:
 #     TYPE_MAP = {'int64':'BIGINT','float64':'NUMERIC'}
@@ -263,15 +263,15 @@ class DistributionQueryExecutor:
 
         # Reuse distribution‐recovery helper
         self.recovery = DsiributionRecovery(self.cur)
-   
 
 
-    def inferSchema(self, path): 
-            df = pd.read_csv(path, nrows=100)
+
+    def inferSchema(self, path):
+            df = pd.read_csv(path, nrows=1000, low_memory=False)
             df.columns = df.columns.str.lower()
             df = df.loc[:, ~df.columns.str.startswith('unnamed:')]
             return {col:self.TYPE_MAP.get(str(dt),'TEXT') for col,dt in df.dtypes.items()}
-    
+
     def loadCSV(self, path, table_name, cols):
         df = pd.read_csv(path, keep_default_na=True, na_values=['',' ','\\N'])
         df.columns = df.columns.str.lower() # convert to lowercase columsn names I ahd errors with sql if I dont convert
@@ -304,10 +304,11 @@ class DistributionQueryExecutor:
                 schema = self.inferSchema(path)
                 cols   = list(schema)
                 # Drop/Create the “full” (ground‐truth) table
+                col_defs = ',\n  '.join(f'"{c}" {t}' for c,t in schema.items())
                 self.cur.execute(f"""
                     DROP TABLE IF EXISTS {tbl};
                     CREATE TABLE {tbl} (
-                      {',\n  '.join(f'"{c}" {t}' for c,t in schema.items())}
+                      {col_defs}
                     );
                     TRUNCATE {tbl};
                 """)
@@ -398,7 +399,7 @@ class DistributionQueryExecutor:
                     """
                 else:
                         if not causes:
-        
+
                     # avg_sql = f"""
                     #   SELECT
                     #     SUM(y::NUMERIC * prob) AS estimate
@@ -485,7 +486,7 @@ class DistributionQueryExecutor:
                         for r in raw_counts
                     }
 
-                    #  per‐group metrics, 
+                    #  per‐group metrics,
                     per_group = []
                     for grp_vals, est in rows:
                         # normalize grp_vals to a tuple
@@ -500,7 +501,7 @@ class DistributionQueryExecutor:
                         raw_gt = gt_rows.get(key) ## new
                         gt_val = float(raw_gt) if (has_truth and raw_gt is not None) else None ## new
                         acc    = (1 - abs(est-gt_val)/gt_val)*100 if has_truth and gt_val else None
-                        
+
                         # lookup group size
                         n = counts.get(key, 0)
 
@@ -517,7 +518,7 @@ class DistributionQueryExecutor:
                     macro = analyzer.unweighted_accuracy(per_group)
                     micro = analyzer.weighted_accuracy(per_group)
 
-                    #  store results 
+                    #  store results
                     results[ds_name][qry] = {
                         'per_group':      per_group,
                         'QT':             QT,
@@ -525,7 +526,7 @@ class DistributionQueryExecutor:
                         'accuracy_macro': macro,
                         'accuracy_micro': micro
                     }
-                    
+
 
         return results
 
@@ -537,81 +538,67 @@ class DistributionQueryExecutor:
 
 
 
-import json
-with open("all_queries_dist.json") as f:
-    allData = json.load(f)
-    csv_queries_bank_mar = allData["bank_mar"]
-    csv_queries_nyc_mar  = allData["nyc_mar"]
-    csv_queries_real_MAR = allData["real_mar"]
-    csv_queries_real_MCAR = allData["real_mcar"]
+if __name__ == "__main__":
+    import json
+    with open("configs/all_queries_dist.json") as f:
+        allData = json.load(f)
+        csv_queries_bank_mar = allData["bank_mar"]
+        csv_queries_nyc_mar  = allData["nyc_mar"]
+        csv_queries_real_MAR = allData["real_mar"]
+        csv_queries_real_MCAR = allData["real_mcar"]
 
-    csv_queries_bank_mcar = allData["bank_mcar"]
-    csv_queries_nyc_mcar = allData["nyc_mcar"]
-    csv_queries_bitcoin_mcar = allData["bit_macr"]
-    csv_queries_bitcoin_mar = allData["bit_mar"]
+        csv_queries_bank_mcar = allData["bank_mcar"]
+        csv_queries_nyc_mcar = allData["nyc_mcar"]
+        csv_queries_bitcoin_mcar = allData["bit_macr"]
+        csv_queries_bitcoin_mar = allData["bit_mar"]
 
-query_config=[csv_queries_bank_mar,csv_queries_nyc_mar,
-              csv_queries_real_MAR, csv_queries_real_MCAR,
-              csv_queries_bank_mcar, csv_queries_nyc_mcar,
-              csv_queries_bitcoin_mcar, csv_queries_bitcoin_mar    
-              ]
+    query_config=[csv_queries_bank_mar,csv_queries_nyc_mar,
+                  csv_queries_real_MAR, csv_queries_real_MCAR,
+                  csv_queries_bank_mcar, csv_queries_nyc_mcar,
+                  csv_queries_bitcoin_mcar, csv_queries_bitcoin_mar
+                  ]
 
-# query_config=[ 
-#                csv_queries_bitcoin_mar ,     
-#               ] ###
+    element_to_remove = -1
+    conn = psycopg2.connect(
+        host="localhost", port=5433, dbname="mydb",
+        user="alzamill", password=os.environ.get("PGPASSWORD", "")
+    )
+    for csv_queries in query_config:
+        executor = DistributionQueryExecutor(conn, csv_queries)
+        results = executor.run_recovery()
+        for datasetName in csv_queries:
+            acc_list=[]
+            QT_s =[]
+            JQT_s =[]
+            for q, r in results[datasetName].items():
+                print(f"\nQuery: {q}")
+                if 'accuracy' in r:
+                    print(f" Accuracy           = {r['accuracy']:.2f}%")
+                    print(f" Estimate           = {r['estimate']:.2f}")
+                    acc_list.append(r['accuracy'])
+                if 'accuracy_micro' in r:
+                    acc_list.append(r['accuracy_micro'])
+                    print(f"GBY Accuracy           = {r['accuracy_micro']:.2f}%")
+                print(f" exe   = {r['QT']:.5f}")
+                if r['QT'] != -1:
+                    QT_s.append(r['QT'])
+                print(f" mdl   = {r['modeling_time']:.5f}")
+                if r['modeling_time'] != -1:
+                    JQT_s.append(r['modeling_time'])
 
-element_to_remove = -1
-# connect & run
-conn = psycopg2.connect(
-    host="localhost", port=****, dbname="db",
-     user="user", password="****"
-)
-for csv_queries in query_config:
-    executor = DistributionQueryExecutor(conn, csv_queries)
-    results = executor.run_recovery()
-    for datasetName in csv_queries:
-        acc_list=[]
-        QT_s =[]
-        JQT_s =[]
-        for q, r in results[datasetName].items():
-            #lo, hi = r["CI95"]
-            print(f"\nQuery: {q}")
-            # print(f" Estimate           = {r['estimate']:.2f} ± {r['stderr']:.4f}")
-        # print(f" Ground Truth       = {r['ground_truth']:.2f}")
-            if 'accuracy' in r:
-                print(f" Accuracy           = {r['accuracy']:.2f}%")
-                print(f" Estimate           = {r['estimate']:.2f}")
-                acc_list.append(r['accuracy'])
-            if 'accuracy_micro' in r:
-                acc_list.append(r['accuracy_micro'])
-                print(f"GBY Accuracy           = {r['accuracy_micro']:.2f}%")
-            print(f" exe   = {r['QT']:.5f}")
-            if r['QT'] != -1:
-                QT_s.append(r['QT'])
-            print(f" mdl   = {r['modeling_time']:.5f}")
-            if r['modeling_time'] != -1:
-                JQT_s.append(r['modeling_time'])
+            from statistics import mean
 
-        # if element_to_remove in QT_s:
-        #     QT_s.remove(element_to_remove)
-
-        # if element_to_remove in JQT_s:
-        #     JQT_s.remove(element_to_remove)
-
-        from statistics import mean
-
-        #print("average accs for bank mar 5%:",  mean(acc_list))
-        if not acc_list:
+            if not acc_list:
                 accMean= -1
-        else:
-            if element_to_remove in acc_list:
-                 acc_list.remove(element_to_remove)
-            accMean= mean(acc_list)
-        analyzer = myDataAnalyzer.myDataAnalyzer(datasetName=datasetName, output_dir="psql_results",out_file="mar_psql_dist_4.txt")
-        analyzer.add_stats(accMean,mean(QT_s),mean(JQT_s))
-        analyzer.addNewLine()
-    executor.cur.close()
-conn.close()
+            else:
+                if element_to_remove in acc_list:
+                    acc_list.remove(element_to_remove)
+                accMean= mean(acc_list)
+            analyzer = myDataAnalyzer.myDataAnalyzer(datasetName=datasetName, output_dir="psql_results",out_file="mar_psql_dist_4.txt")
+            analyzer.add_stats(accMean,mean(QT_s),mean(JQT_s))
+            analyzer.addNewLine()
+        executor.cur.close()
+    conn.close()
 
 
 
@@ -640,12 +627,12 @@ conn.close()
 #         "Cause": [
 #      [],    # for bank_MAR_5.0.csv
 #        [],        # for bank_mar5_1.csv
-#        [] 
+#        []
 #     ],
 #     "queries": [
 #                 #  "Select AVG(passenger_count) From rwDatasets/nyc_MCAR_5.0.csv GROUP BY vendor_id",
 #                  "Select AVG(passenger_count) From rwDatasets/nyc_MCAR_5.0.csv",
- 
+
 #     ]
 #   },
 # # }
@@ -679,7 +666,7 @@ conn.close()
 # #     ]
 # #   },
 
-  
+
 # }
 
 # acc_list=[]
@@ -689,8 +676,8 @@ conn.close()
 # element_to_remove = -1
 # # connect & run
 # conn = psycopg2.connect(
-#     host="localhost", port=****, dbname="db",
-#     user="user", password="****"
+#     host="localhost", port=5433, dbname="mydb",
+#     user="alzamill", password=os.environ.get("PGPASSWORD", "")
 # )
 
 # executor = DistributionQueryExecutor(conn, csv_queries)
