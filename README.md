@@ -5,7 +5,7 @@
 -->
 
 This repository contains the PostgreSQL and Python implementation used to evaluate queries over incomplete data in the paper.
-The snapshot includes the corrected code used for the full-data experiments in July and August 2026.
+
 
 ## Implemented methods
 
