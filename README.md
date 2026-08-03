@@ -1,17 +1,19 @@
-# Querying Incomplete Data
+# Causality-Aware Query Answering on Incomplete Data
+
+<!-- Add the technical-report link here:
+**Technical report:** [Technical report](PASTE_LINK_HERE)
+-->
 
 This repository contains the PostgreSQL and Python implementation used to evaluate queries over incomplete data in the paper.
 The snapshot includes the corrected code used for the full-data experiments in July and August 2026.
 
 ## Implemented methods
 
-- **CAEX** implements the causal-aware extensional evaluation from Section 5. The main full-data runner is `src/RunSectionComparisonsFullData.py`.
-- **CADE** implements the causal-aware direct estimation from Section 7. Aggregation queries use `src/QueryRewriterExecuter.py`, and non-aggregation queries use `src/nonAgg_direct.py`.
+- **CADE** implements the causal-aware query-evaluation methods from Sections 5 and 6. The main full-data runner is `src/RunSectionComparisonsFullData.py`. Aggregation queries use `src/QueryRewriterExecuter.py`, and non-aggregation queries use `src/nonAgg_direct.py`.
 - **QE** constructs factor distributions and evaluates the union of the queries obtained from the sampled valuations. Its full-data runners are `src/RunQEFromFactorDistributionsFullData.py`, `src/RunQEMCARMARSelectedFullData.py`, and `src/RunRealFactorizableQE.py`.
 - **Certain** is implemented in `src/RunnerCertainAnswersBagTVD.py` and the full-data runners whose names begin with `RunCertainAnswers`.
 - **Interval-Based** and **Distribution-Centric** are implemented in `src/QueryIntervalBasedEstimator.py` and `src/QueryDistributionBasedEstimator.py`.
 
-The repository also retains the PostgreSQL MCDB implementation and factor sampler used during method validation in `src/MCDBPostgresNative.py` and `src/FactorSamplerPostgres.py`.
 The marked-null implementations and runners are identified by `marked` in their file names.
 
 ## Repository structure
@@ -64,11 +66,11 @@ The QE comparisons use `H=783` sampled valuations, and each query has a 300-seco
 
 ## Running the methods
 
-Run CAEX and CADE on the injected factorizable MNAR data:
+Run CADE on the injected factorizable MNAR data:
 
 ```bash
 python src/RunSectionComparisonsFullData.py \
-  --methods CAEX,CADE \
+  --methods CADE \
   --datasets bank,nyc,bitcoin \
   --rates 5,10,20 \
   --workloads set,aggregate \
@@ -106,36 +108,3 @@ python src/RunLikeApxMarkedFullData.py \
 
 The scripts in `scripts/` run the multi-relation comparisons for separate PostgreSQL instances.
 Use the `PYTHON` environment variable to select a Python executable.
-
-## Tests
-
-The tests create temporary PostgreSQL tables and therefore require a running database configured through the PostgreSQL environment variables.
-
-```bash
-PYTHONPATH=src python tests/TestFactorSamplerPostgres.py
-PYTHONPATH=src python tests/TestMCDBPostgresNative.py
-PYTHONPATH=src python tests/TestLazyCAMC.py
-```
-
-The tests compare optimized tuple-bundle evaluation with explicit repair-indexed evaluation and verify the factor sampler on small relations.
-
-## Reproducing Figure 3
-
-`analysis/generate_figure3.py` reads the CSV results placed below `analysis/inputs/` and creates the execution-time figure and query-quality table.
-It expects the following layout:
-
-```text
-analysis/inputs/
-├── cade/
-│   ├── figure3_cade_mechanism_runtime.csv
-│   └── table3_cade_mechanism_quality.csv
-├── caex_mnar.csv
-├── caex_selected/{MCAR,MAR}/{bank,nyc,bitcoin}.csv
-├── certain/{bank,nyc,bitcoin}.csv
-├── certain_runtime.csv
-├── qe_mnar/{bank,nyc,bitcoin}.csv
-└── qe_selected/{MCAR,MAR}/{bank,nyc,bitcoin}.csv
-```
-
-`analysis/generate_without_caex.py` creates the version that omits CAEX.
-The scripts validate the expected query counts and reject row-limited measurements.
