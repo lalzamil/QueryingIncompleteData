@@ -25,6 +25,7 @@ scripts/        Commands used for full-data and multi-relation runs
 src/            Implementations, data preparation, and experiment runners
 tests/          PostgreSQL correctness tests
 DATA.md         Required dataset layout
+QUERY_CATALOG.md Query lists and missingness metadata
 ```
 
 Generated datasets, result files, logs, virtual environments, and credentials are excluded from Git.
@@ -59,6 +60,7 @@ The command-line runners also accept `--db-host`, `--db-port`, `--db-name`, `--d
 
 Download the datasets using the links in `DATA.md` and place the prepared files below `data/`.
 The files in `configs/` define the injected MCAR, MAR, and factorizable MNAR queries, the real-world queries, and the meaningful multi-relation join queries.
+The correspondence among datasets, query lists, missingness types, incomplete attributes, and their causes is given in [`QUERY_CATALOG.md`](QUERY_CATALOG.md).
 All paths in these files are relative to the repository root.
 
 The full-data runs use `--rows 0`.
