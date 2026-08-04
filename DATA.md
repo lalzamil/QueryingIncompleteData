@@ -22,6 +22,8 @@ The Download links return the source archive or CSV when the provider supports a
 | Student Admission Records | [Kaggle](https://www.kaggle.com/datasets/zeeshier/student-admission-records) | [ZIP](https://www.kaggle.com/api/v1/datasets/download/zeeshier/student-admission-records) |
 | Aircraft Performance | [Kaggle](https://www.kaggle.com/datasets/heitornunes/aircraft-performance-dataset-aircraft-bluebook) | [ZIP](https://www.kaggle.com/api/v1/datasets/download/heitornunes/aircraft-performance-dataset-aircraft-bluebook) |
 | Medical Condition Prediction | [Kaggle](https://www.kaggle.com/datasets/marius2303/medical-condition-prediction-dataset) | [ZIP](https://www.kaggle.com/api/v1/datasets/download/marius2303/medical-condition-prediction-dataset) |
+| Communities & Crime | [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/183/communities+and+crime) | [Data](https://archive.ics.uci.edu/ml/machine-learning-databases/00211/CommViolPredUnnormalizedData.txt) |
+| NHANES | [CDC National Health and Nutrition Examination Survey](https://www.cdc.gov/nchs/nhanes/) | [2017--2018 files](https://wwwn.cdc.gov/nchs/nhanes/continuousnhanes/default.aspx?BeginYear=2017) |
 
 Kaggle may require sign-in or API credentials before a download begins.
 The injected missingness files and the normalized relations are derived from these source datasets and are not separate external datasets.
@@ -43,7 +45,6 @@ data/
 ├── SemanticJoinData/
 ├── SemanticTwoRelationData/
 ├── joinsData/
-├── mcdb_test_data/
 └── rwDatasets/
 ```
 

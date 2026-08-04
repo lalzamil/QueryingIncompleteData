@@ -69,6 +69,23 @@ The QE comparisons use `H=783` sampled valuations, and each query has a 300-seco
 The join queries use the following meaningful relation decompositions.
 The join key appears in every relation and preserves the association between attributes from the same source tuple.
 The decomposition does not introduce additional missing values.
+The relation counts match the maximum number of relations reported for each dataset in Table 2 of the paper.
+
+| Dataset | Number of relations |
+|---|---:|
+| Bank Marketing | 4 |
+| NYC Taxi Trips | 4 |
+| Bitcoin Heist | 4 |
+| Building Permits | 2 |
+| Street Construction Permits | 2 |
+| Employees Info | 2 |
+| SF Salaries | 2 |
+| Heart Health | 2 |
+| Student Admission | 3 |
+| Aircraft Performance | 4 |
+| Medical Condition | 3 |
+| Communities & Crime | 2 |
+| NHANES | 2 |
 
 ### Bank Marketing
 
@@ -88,24 +105,73 @@ Configuration: `configs/bank_semantic_join_queries.json`.
 Join key: `tuple_id`.
 
 ```text
-trip(tuple_id, vendor_id, passenger_count, store_and_fwd_flag, trip_duration)
-pickup(tuple_id, pickup_datetime, pickup_longitude, pickup_latitude)
-dropoff(tuple_id, id, dropoff_datetime, dropoff_longitude, dropoff_latitude)
+trip_route [r1](tuple_id, vendor_id, pickup_longitude, pickup_latitude, dropoff_longitude, dropoff_latitude, trip_duration)
+trip_passengers [r2](tuple_id, passenger_count)
+trip_handling [r3](tuple_id, store_and_fwd_flag)
+trip_time [r4](tuple_id, id, pickup_datetime, dropoff_datetime)
 ```
 
-Configuration: `configs/nyc_semantic_join_queries.json`.
+The labels in brackets identify the physical partitions in `configs/nyc_four_relation_queries.json`.
 
 ### Bitcoin Heist Ransomware Address
 
 Join key: `tuple_id`.
 
 ```text
-address_class(tuple_id, address, label)
-observation_time(tuple_id, year, day)
-transaction_graph(tuple_id, ID, length, weight, count, looped, neighbors, income)
+transaction_graph [r1](tuple_id, label, weight, day, length, neighbors, count, looped)
+transaction_income [r2](tuple_id, income)
+observation_year [r3](tuple_id, year)
+address_identity [r4](tuple_id, address)
 ```
 
-Configuration: `configs/bitcoin_semantic_join_queries.json`.
+The labels in brackets identify the physical partitions in `configs/bitcoin_four_relation_queries.json`.
+
+### Building Permits
+
+Join key: `customer_id`.
+
+```text
+permit_record(customer_id, id, permit#, permit_status, permit_milestone, permit_type, review_type, application_start_date, issue_date, processing_time, work_type, work_description)
+permit_fees(customer_id, id, building_fee_paid, zoning_fee_paid, other_fee_paid, subtotal_paid, building_fee_unpaid, zoning_fee_unpaid, other_fee_unpaid, subtotal_unpaid, building_fee_waived, building_fee_subtotal, zoning_fee_subtotal, other_fee_subtotal, zoning_fee_waived, other_fee_waived, subtotal_waived, total_fee)
+```
+
+### Street Construction Permits
+
+Join key: `permitnumber`.
+
+```text
+permit_record(permitnumber, applicationtrackingid, sequencenumber, applicationtypeshortdesc, permitstatusid, permitstatusshortdesc, permitseriesid, permitseriesshortdesc, permittypeid, permittypedesc, permitnumberofzones, permitlinearfeet, permittotalsqfeet, permitestimatednumberofcuts, equipmenttypedesc, numberofcontainers, numberofminicontainers, specificstipulations, previouspermitnumber, nextpermitnumber, emergencyissuedate, permitissuedate, issuedworkstartdate, issuedworkenddate, boroughname, permitpurposecomments, permitlocationcomments, pavementshortdesc, sidewalkshortdesc, createdon, modifiedon, oftcode)
+permittee(permitnumber, permitteename)
+```
+
+### Employees Info
+
+Join key: `employeeid`.
+
+```text
+employee_profile(employeeid, name, department, full_or_part_time)
+employee_compensation(employeeid, job_titles, salary_or_hourly, typical_hours, annual_salary, hourly_rate)
+```
+
+### SF Salaries
+
+Join key: `id`.
+
+```text
+employee_record(id, employeename, agency, status)
+employee_compensation(id, jobtitle, basepay, overtimepay, otherpay, benefits, totalpay, totalpaybenefits, year, notes)
+```
+
+### Heart Health
+
+Join key: `person_id`.
+
+```text
+person_profile(person_id, State, Sex, RaceEthnicityCategory, HeightInMeters, WeightInKilograms, BMI, SmokerStatus, ECigaretteUsage, AlcoholDrinkers)
+health_record(person_id, GeneralHealth, PhysicalHealthDays, MentalHealthDays, LastCheckupTime, PhysicalActivities, SleepHours, RemovedTeeth, HadHeartAttack, HadAngina, HadStroke, HadAsthma, HadSkinCancer, HadCOPD, HadDepressiveDisorder, HadKidneyDisease, HadArthritis, HadDiabetes, DeafOrHardOfHearing, BlindOrVisionDifficulty, DifficultyConcentrating, DifficultyWalking, DifficultyDressingBathing, DifficultyErrands, ChestScan, HIVTesting, FluVaxLast12, PneumoVaxEver, TetanusLast10Tdap, HighRiskLastYear, CovidPos)
+```
+
+The Building Permits, Street Construction Permits, Employees Info, SF Salaries, and Heart Health schemas are defined by the relation files referenced in `configs/all_queries.json`.
 
 ### Student Admission Records
 
@@ -140,6 +206,28 @@ medical_diagnosis(id, condition)
 
 The Student Admission, Aircraft Performance, and Medical Condition schemas are defined in `configs/real_factorizable_10_queries.json`.
 
+### Communities & Crime
+
+Join key: `row_id`, assigned during relation preparation.
+
+```text
+community_characteristics(row_id, feat_001 through feat_100)
+policing_and_crime(row_id, feat_101 through feat_146)
+```
+
+The feature numbers preserve the column order of the prepared Communities & Crime relation.
+
+### NHANES
+
+Join key: `SEQN`, the NHANES sample-person identifier.
+
+```text
+participant_profile(SEQN, RIDAGEYR, RIAGENDR, RIDRETH3, DMDEDUC2, INDHHIN2)
+health_record(SEQN, BMXBMI, BMXWAIST, BMXHT, BMXWT, BPXSY1, BPXDI1, LBXTC, LBDHDD, LBXTR, LBDLDL, LBXGH, LBXGLU, LBXSCR, LBXSUA, LBXSGL, BPQ020, BPQ080, BPQ100D, DIQ010, DIQ160, MCQ160B, MCQ160C, MCQ160E)
+```
+
+The prepared single-relation file drops `SEQN` after joining the original NHANES files.
+
 ## Running the methods
 
 Run CADE on the injected factorizable MNAR data:
@@ -152,7 +240,7 @@ python src/RunSectionComparisonsFullData.py \
   --workloads set,aggregate \
   --rows 0 \
   --timeout 300 \
-  --output results/caex_cade.csv
+  --output results/cade.csv
 ```
 
 Run QE on the same non-repeating-null queries:
