@@ -25,7 +25,6 @@ scripts/        Commands used for full-data and multi-relation runs
 src/            Implementations, data preparation, and experiment runners
 tests/          PostgreSQL correctness tests
 DATA.md         Required dataset layout
-QUERY_LIST.md    Queries and missingness information
 ```
 
 Generated datasets, result files, logs, virtual environments, and credentials are excluded from Git.
@@ -60,11 +59,42 @@ The command-line runners also accept `--db-host`, `--db-port`, `--db-name`, `--d
 
 Download the datasets using the links in `DATA.md` and place the prepared files below `data/`.
 The files in `configs/` define the injected MCAR, MAR, and factorizable MNAR queries, the real-world queries, and the meaningful multi-relation join queries.
-The correspondence among datasets, query lists, missingness types, incomplete attributes, and their causes is given in [`QUERY_LIST.md`](QUERY_LIST.md).
 All paths in these files are relative to the repository root.
 
 The full-data runs use `--rows 0`.
 The QE comparisons use `H=783` sampled valuations, and each query has a 300-second timeout in the final comparison runners.
+
+## Query list
+
+This table identifies the query lists used for each dataset and records the missingness type, incomplete attributes, and their causes.
+For the injected datasets, the same five aggregation and five non-aggregation query forms are evaluated at the 5%, 10%, and 20% missingness rates.
+In the last column, `A <- B` means that the missingness of attribute `A` depends on attribute `B`.
+`No cause` means that the missingness indicator has no attribute parent in the m-graph.
+
+| Dataset | Query list | Missingness type | Incomplete attributes and their causes |
+|---|---|---|---|
+| Bank Marketing | Aggregation A1--A5 in [selected5_mcar_aggregate.json](configs/selected5_mcar_aggregate.json); non-aggregation S1--S5 in [selected5_mcar_set.json](configs/selected5_mcar_set.json) | Injected MCAR | `age`, `balance`, `campaign`, `contact`, `day`, `default`, `duration`, `education`, `housing`, `job`, `loan`, `marital`, `month`, `pdays`, `poutcome`, `previous`, `y` <- No cause |
+| Bank Marketing | Aggregation A1--A5 in [selected5_mar_aggregate.json](configs/selected5_mar_aggregate.json); non-aggregation S1--S5 in [selected5_mar_set.json](configs/selected5_mar_set.json) | Injected MAR | `balance` <- `campaign` |
+| Bank Marketing | Aggregation A1--A5 in [selected5_mnar_aggregate.json](configs/selected5_mnar_aggregate.json); non-aggregation S1--S5 in [selected5_mnar_set.json](configs/selected5_mnar_set.json) | Injected factorizable MNAR | `age`, `duration`, `loan`, `month`, `pdays`, `previous` <- No cause; `campaign` <- `day`, `duration`, `month`; `housing`, `poutcome` <- `contact`, `education`, `job`, `marital`; `day` <- `contact`, `default`, `education`, `job`, `marital`, `month`; `y` <- `contact`, `default`, `education`, `job`, `marital`; `balance` <- `campaign`, `contact`, `day`, `default`, `education`, `job`, `marital` |
+| NYC Taxi Trips | Aggregation A1--A5 in [selected5_mcar_aggregate.json](configs/selected5_mcar_aggregate.json); non-aggregation S1--S5 in [selected5_mcar_set.json](configs/selected5_mcar_set.json) | Injected MCAR | `dropoff_datetime`, `dropoff_latitude`, `dropoff_longitude`, `id`, `passenger_count`, `pickup_datetime`, `pickup_latitude`, `pickup_longitude`, `store_and_fwd_flag`, `trip_duration`, `vendor_id` <- No cause |
+| NYC Taxi Trips | Aggregation A1--A5 in [selected5_mar_aggregate.json](configs/selected5_mar_aggregate.json); non-aggregation S1--S5 in [selected5_mar_set.json](configs/selected5_mar_set.json) | Injected MAR | `passenger_count`, `trip_duration` <- `vendor_id` |
+| NYC Taxi Trips | Aggregation A1--A5 in [selected5_mnar_aggregate.json](configs/selected5_mnar_aggregate.json); non-aggregation S1--S5 in [selected5_mnar_set.json](configs/selected5_mnar_set.json) | Injected factorizable MNAR | `pickup_latitude`, `store_and_fwd_flag` <- No cause; `dropoff_latitude` <- `trip_duration`, `vendor_id`; `dropoff_longitude` <- `pickup_latitude`, `trip_duration`, `vendor_id`; `passenger_count` <- `dropoff_longitude`, `trip_duration`, `vendor_id`; `pickup_longitude` <- `dropoff_longitude`, `passenger_count`, `trip_duration`, `vendor_id` |
+| Bitcoin Heist | Aggregation A1--A5 in [selected5_mcar_aggregate.json](configs/selected5_mcar_aggregate.json); non-aggregation S1--S5 in [selected5_mcar_set.json](configs/selected5_mcar_set.json) | Injected MCAR | `address`, `count`, `day`, `income`, `label`, `length`, `looped`, `neighbors`, `weight`, `year` <- No cause |
+| Bitcoin Heist | Aggregation A1--A5 in [selected5_mar_aggregate.json](configs/selected5_mar_aggregate.json); non-aggregation S1--S5 in [selected5_mar_set.json](configs/selected5_mar_set.json) | Injected MAR | `income`, `neighbors` <- `year` |
+| Bitcoin Heist | Aggregation A1--A5 in [selected5_mnar_aggregate.json](configs/selected5_mnar_aggregate.json); non-aggregation S1--S5 in [selected5_mnar_set.json](configs/selected5_mnar_set.json) | Injected factorizable MNAR | `looped`, `weight` <- No cause; `count`, `label` <- `day`, `neighbors`; `year` <- `day`, `neighbors`, `weight`; `income` <- `day`, `neighbors`, `weight`, `year`; `length` <- `day`, `income`, `neighbors`, `year` |
+| Building Permits | Q1--Q5 under `real_mcar/building` in [all_queries.json](configs/all_queries.json) | Real-world MCAR | `application_start_date`, `census_tract`, `community_area`, `latitude`, `location`, `longitude`, `permit_milestone`, `permit_status`, `pin_list`, `processing_time`, `reported_cost`, `review_type`, `street_direction`, `street_name`, `street_number`, `ward`, `work_type`, `xcoordinate`, `ycoordinate` <- No cause |
+| Street Construction Permits | Q1--Q5 under `real_mcar/street` in [all_queries.json](configs/all_queries.json) | Real-world MCAR | `applicationtrackingid`, `applicationtypeshortdesc`, `emergencyissuedate`, `equipmenttypedesc`, `fromstreetname`, `issuedworkenddate`, `issuedworkstartdate`, `nextpermitnumber`, `numberofcontainers`, `numberofminicontainers`, `oftcode`, `onstreetname`, `pavementshortdesc`, `permitestimatednumberofcuts`, `permithousenumber`, `permitissuedate`, `permitlinearfeet`, `permitlocationcomments`, `permitnumberofzones`, `permitpurposecomments`, `permitstatusid`, `permittotalsqfeet`, `previouspermitnumber`, `sequencenumber`, `sidewalkshortdesc`, `specificstipulations`, `tostreetname` <- No cause |
+| Employees Info | Q1--Q5 under `real_mar/emp_MAR` in [all_queries.json](configs/all_queries.json) | Real-world MAR | `annual_salary`, `full_or_part_time`, `hourly_rate`, `typical_hours` <- `department` |
+| SF Salaries | Q1--Q5 under `real_mar/salaries_MAR` in [all_queries.json](configs/all_queries.json) | Real-world MAR | `basepay`, `benefits`, `notes`, `otherpay`, `overtimepay`, `status` <- `jobtitle` |
+| Heart Health | Q1--Q5 under `real_mar/heart_MAR.csv` in [all_queries.json](configs/all_queries.json) | Real-world MAR | `alcoholdrinkers`, `blindorvisiondifficulty`, `bmi`, `chestscan`, `covidpos`, `deaforhardofhearing`, `difficultyconcentrating`, `difficultydressingbathing`, `difficultyerrands`, `difficultywalking`, `ecigaretteusage`, `fluvaxlast12`, `generalhealth`, `hadangina`, `hadarthritis`, `hadasthma`, `hadcopd`, `haddepressivedisorder`, `haddiabetes`, `hadheartattack`, `hadkidneydisease`, `hadskincancer`, `hadstroke`, `heightinmeters`, `highrisklastyear`, `hivtesting`, `lastcheckuptime`, `mentalhealthdays`, `physicalactivities`, `physicalhealthdays`, `pneumovaxever`, `raceethnicitycategory`, `removedteeth`, `sleephours`, `smokerstatus`, `tetanuslast10tdap`, `weightinkilograms` <- `sex` |
+| Student Admission | Aggregation A1--A10 and non-aggregation S1--S10 under `student` in [real_factorizable_10_queries.json](configs/real_factorizable_10_queries.json) | Real-world factorizable MNAR | `age`, `gender`, `admission_test_score`, `high_school_percentage`, `admission_status` <- No cause; `name`, `city` <- `admission_status` |
+| Aircraft Performance | Aggregation A1--A10 and non-aggregation S1--S10 under `aircraft` in [real_factorizable_10_queries.json](configs/real_factorizable_10_queries.json) | Real-world factorizable MNAR | `max_speed_knots`, `rcmnd_cruise_knots`, `stall_knots_dirty`, `empty_weight_lbs`, `wing_span_ft_in` <- No cause; `eng_out_rate_of_climb` <- `eng_out_service_ceiling` |
+| Medical Condition | Aggregation A1--A10 and non-aggregation S1--S10 under `medical` in [real_factorizable_10_queries.json](configs/real_factorizable_10_queries.json) | Real-world factorizable MNAR | `age`, `bmi`, `blood_pressure` <- No cause; `glucose_levels` <- `bmi` |
+| Communities & Crime | No SQL query; this dataset is used in the repair experiment | Real-world non-factorizable MNAR | Not applicable to query answering |
+| NHANES | No SQL query; this dataset is used in the repair experiment | Real-world non-factorizable MNAR | Not applicable to query answering |
+
+The query identifiers refer to their order within the indicated dataset entry.
+The configured paths change with the missingness rate, while the SQL form and the missingness causes remain the same.
 
 ## Multi-relation schemas
 
