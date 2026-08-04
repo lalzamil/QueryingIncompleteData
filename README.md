@@ -58,11 +58,87 @@ The command-line runners also accept `--db-host`, `--db-port`, `--db-name`, `--d
 ## Data and query configurations
 
 Download the datasets using the links in `DATA.md` and place the prepared files below `data/`.
-The files in `configs/` define the injected MCAR, MAR, and factorizable MNAR queries, the real-world queries, and the meaningful two- and four-relation join queries.
+The files in `configs/` define the injected MCAR, MAR, and factorizable MNAR queries, the real-world queries, and the meaningful multi-relation join queries.
 All paths in these files are relative to the repository root.
 
 The full-data runs use `--rows 0`.
 The QE comparisons use `H=783` sampled valuations, and each query has a 300-second timeout in the final comparison runners.
+
+## Multi-relation schemas
+
+The join queries use the following meaningful relation decompositions.
+The join key appears in every relation and preserves the association between attributes from the same source tuple.
+The decomposition does not introduce additional missing values.
+
+### Bank Marketing
+
+Join key: `tuple_id`.
+
+```text
+customer_profile(tuple_id, age, job, marital, education)
+account_status(tuple_id, default, balance, housing, loan)
+current_contact(tuple_id, contact, day, month, duration, campaign, y)
+campaign_history(tuple_id, pdays, previous, poutcome)
+```
+
+Configuration: `configs/bank_semantic_join_queries.json`.
+
+### NYC Taxi Trip Duration
+
+Join key: `tuple_id`.
+
+```text
+trip(tuple_id, vendor_id, passenger_count, store_and_fwd_flag, trip_duration)
+pickup(tuple_id, pickup_datetime, pickup_longitude, pickup_latitude)
+dropoff(tuple_id, id, dropoff_datetime, dropoff_longitude, dropoff_latitude)
+```
+
+Configuration: `configs/nyc_semantic_join_queries.json`.
+
+### Bitcoin Heist Ransomware Address
+
+Join key: `tuple_id`.
+
+```text
+address_class(tuple_id, address, label)
+observation_time(tuple_id, year, day)
+transaction_graph(tuple_id, ID, length, weight, count, looped, neighbors, income)
+```
+
+Configuration: `configs/bitcoin_semantic_join_queries.json`.
+
+### Student Admission Records
+
+Join key: `id`.
+
+```text
+student_applicant_profile(id, age, gender)
+student_academic_record(id, admission_test_score, high_school_percentage)
+student_admission_record(id, name, city, admission_status)
+```
+
+### Aircraft Performance
+
+Join key: `id`.
+
+```text
+aircraft_description(id, model, company, engine_type, fuel_gal_lbs, gross_weight_lbs, empty_weight_lbs, length_ft_in, height_ft_in, wing_span_ft_in)
+aircraft_flight_performance(id, max_speed_knots, rcmnd_cruise_knots, stall_knots_dirty, range_n_m)
+aircraft_climb_ceiling(id, all_eng_service_ceiling, eng_out_service_ceiling, all_eng_rate_of_climb, eng_out_rate_of_climb)
+aircraft_takeoff_landing(id, takeoff_over_50ft, takeoff_ground_run, landing_over_50ft, landing_ground_roll)
+```
+
+### Medical Condition Prediction
+
+Join key: `id`.
+
+```text
+medical_patient(id, full_name, age, gender, smoking_status)
+medical_measurements(id, bmi, blood_pressure, glucose_levels)
+medical_diagnosis(id, condition)
+```
+
+The Student Admission, Aircraft Performance, and Medical Condition schemas are defined in `configs/real_factorizable_10_queries.json`.
 
 ## Running the methods
 
