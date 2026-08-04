@@ -57,7 +57,7 @@ The command-line runners also accept `--db-host`, `--db-port`, `--db-name`, `--d
 
 ## Data and query configurations
 
-Place the prepared datasets below `data/` as described in `DATA.md`.
+Download the datasets using the links in `DATA.md` and place the prepared files below `data/`.
 The files in `configs/` define the injected MCAR, MAR, and factorizable MNAR queries, the real-world queries, and the meaningful two- and four-relation join queries.
 All paths in these files are relative to the repository root.
 
