@@ -1,4 +1,4 @@
-# Query and missingness catalog
+# Query list
 
 This table identifies the query lists used for each dataset and records the missingness type, incomplete attributes, and their causes.
 For the injected datasets, the same five aggregation and five non-aggregation query forms are evaluated at the 5%, 10%, and 20% missingness rates.
