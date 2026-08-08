@@ -1,6 +1,6 @@
 # Causality-Aware Query Answering on Incomplete Data
 
-**Technical Report:** [Download the PDF](docs/technical-report-draft.pdf) <strong><u>This page will be updated with the final version with an arXiv link by Sunday, August 9, 2026.</u></strong>
+**Technical Report in progress:** [Download the PDF](docs/technical-report-draft.pdf) <strong><u>This page will be updated with the final version with an arXiv link by Sunday, August 9, 2026.</u></strong>
 
 This repository contains the PostgreSQL and Python implementation used to evaluate queries over incomplete data in the paper.
 
