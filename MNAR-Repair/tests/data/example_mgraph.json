@@ -1,0 +1,22 @@
+{
+  "education": {
+    "mechanism": "MCAR",
+    "parents": []
+  },
+  "tax": {
+    "mechanism": "MNAR",
+    "parents": ["education"]
+  },
+  "loan": {
+    "mechanism": "MNAR",
+    "parents": ["income"]
+  },
+  "income": {
+    "mechanism": "MNAR",
+    "parents": ["loan"]
+  },
+  "job": {
+    "mechanism": "FullyObserved",
+    "parents": []
+  }
+}

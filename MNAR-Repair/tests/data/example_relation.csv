@@ -1,0 +1,13 @@
+education,tax,loan,income,job
+college,18,no,52,analyst
+high_school,,yes,41,assistant
+,21,no,63,engineer
+college,24,,75,manager
+graduate,29,yes,,scientist
+high_school,17,no,38,assistant
+,20,,47,technician
+graduate,31,yes,91,manager
+college,,no,58,analyst
+high_school,16,yes,,clerk
+graduate,27,,84,engineer
+college,22,no,69,technician
