@@ -16,8 +16,7 @@ This repository contains the PostgreSQL and Python implementation used to evalua
 - **MNAR-Repair** implements the repair method of Section 9 in the `MNAR-Repair` directory.
 
 The main full-data runner for CAEX, CAMC, and CADE is `src/RunSectionComparisonsFullData.py`.
-It evaluates non-repeating nulls when `--marked-null-group-size` is zero.
-For marked-null comparisons, CAEX is omitted and a positive group size assigns the same marked null to several missing cells.
+For marked-null comparisons, CAEX is omitted.
 
 ## Repository structure
 
