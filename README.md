@@ -7,12 +7,17 @@ This repository contains the PostgreSQL and Python implementation used to evalua
 
 ## Implemented methods
 
-- **CADE** implements the causal-aware query-evaluation methods from Sections 5 and 6. The main full-data runner is `src/RunSectionComparisonsFullData.py`. Aggregation queries use `src/QueryRewriterExecuter.py`, and non-aggregation queries use `src/nonAgg_direct.py`.
+- **CAEX** implements the Causality-Aware Extensional Evaluation of Section 5 for data with non-repeating nulls. The full-data runner evaluates non-aggregation queries with `src/SetQueryRewriterExecuter.py` and aggregation queries with its extensional aggregation path.
+- **CAMC** implements the Causality-Aware Monte Carlo evaluation of Section 6. It draws repairs using `src/FactorSamplerPostgres.py` and evaluates them through `src/RunSectionComparisonsFullData.py`.
+- **CADE** implements the direct estimators for aggregation and non-aggregation queries from Sections 7 and 8. The full-data runner uses its direct aggregation path for aggregation queries and `src/nonAgg_direct.py` for non-aggregation queries.
 - **QE** constructs factor distributions and evaluates the union of the queries obtained from the sampled valuations. Its full-data runners are `src/RunQEFromFactorDistributionsFullData.py`, `src/RunQEMCARMARSelectedFullData.py`, and `src/RunRealFactorizableQE.py`.
 - **Certain** is implemented in `src/RunnerCertainAnswersBagTVD.py` and the full-data runners whose names begin with `RunCertainAnswers`.
 - **Interval-Based** and **Distribution-Centric** are implemented in `src/QueryIntervalBasedEstimator.py` and `src/QueryDistributionBasedEstimator.py`.
+- **MNAR-Repair** implements the repair method of Section 9 in the `MNAR-Repair` directory.
 
-The marked-null implementations and runners are identified by `marked` in their file names.
+The main full-data runner for CAEX, CAMC, and CADE is `src/RunSectionComparisonsFullData.py`.
+It evaluates non-repeating nulls when `--marked-null-group-size` is zero.
+For marked-null comparisons, CAEX is omitted and a positive group size assigns the same marked null to several missing cells.
 
 ## Repository structure
 
@@ -60,7 +65,7 @@ The files in `configs/` define the injected MCAR, MAR, and factorizable MNAR que
 All paths in these files are relative to the repository root.
 
 The full-data runs use `--rows 0`.
-The QE comparisons use `H=783` sampled valuations, and each query has a 300-second timeout in the final comparison runners.
+CAMC and QE use `H=783` sampled repairs, and each query has a 300-second timeout in the final comparison runners.
 
 ## Query list
 
@@ -260,17 +265,18 @@ The prepared single-relation file drops `SEQN` after joining the original NHANES
 
 ## Running the methods
 
-Run CADE on the injected factorizable MNAR data:
+Run CAEX, CAMC, and CADE on the injected factorizable MNAR data with non-repeating nulls:
 
 ```bash
 python src/RunSectionComparisonsFullData.py \
-  --methods CADE \
+  --methods CAEX,CAMC,CADE \
   --datasets bank,nyc,bitcoin \
   --rates 5,10,20 \
   --workloads set,aggregate \
   --rows 0 \
+  --h 783 \
   --timeout 300 \
-  --output results/cade.csv
+  --output results/caex_camc_cade.csv
 ```
 
 Run QE on the same non-repeating-null queries:
