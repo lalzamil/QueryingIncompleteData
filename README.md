@@ -5,7 +5,7 @@
 This repository contains the PostgreSQL and Python implementation used to evaluate queries over incomplete data in the paper.
 
 
-## Implemented methods
+## Implemented methods 
 
 - **CAEX** implements the Causality-Aware Extensional Evaluation of Section 5 for data with non-repeating nulls.
 - **CAMC** implements the Causality-Aware Monte Carlo evaluation of Section 6 using `src/FactorSamplerPostgres.py`.
