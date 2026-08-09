@@ -7,29 +7,29 @@ This repository contains the PostgreSQL and Python implementation used to evalua
 
 ## Implemented methods
 
-- **CAEX** implements the Causality-Aware Extensional Evaluation of Section 5 for data with non-repeating nulls. The full-data runner evaluates non-aggregation queries with `src/SetQueryRewriterExecuter.py` and aggregation queries with its extensional aggregation path.
-- **CAMC** implements the Causality-Aware Monte Carlo evaluation of Section 6. It draws repairs using `src/FactorSamplerPostgres.py` and evaluates them through `src/RunSectionComparisonsFullData.py`.
-- **CADE** implements the direct estimators for aggregation and non-aggregation queries from Sections 7 and 8. The full-data runner uses its direct aggregation path for aggregation queries and `src/nonAgg_direct.py` for non-aggregation queries.
-- **QE** constructs factor distributions and evaluates the union of the queries obtained from the sampled valuations. Its full-data runners are `src/RunQEFromFactorDistributionsFullData.py`, `src/RunQEMCARMARSelectedFullData.py`, and `src/RunRealFactorizableQE.py`.
-- **Certain** is implemented in `src/RunnerCertainAnswersBagTVD.py` and the full-data runners whose names begin with `RunCertainAnswers`.
-- **Interval-Based** and **Distribution-Centric** are implemented in `src/QueryIntervalBasedEstimator.py` and `src/QueryDistributionBasedEstimator.py`.
-- **MNAR-Repair** implements the repair method of Section 9 in the `MNAR-Repair` directory.
+- **CAEX** implements the Causality-Aware Extensional Evaluation of Section 5 for data with non-repeating nulls.
+- **CAMC** implements the Causality-Aware Monte Carlo evaluation of Section 6 using `src/FactorSamplerPostgres.py`.
+- **CADE** implements the direct estimators of Sections 7 and 8.
+- **QE** rewrites the input query as a union of queries, one for each sampled repair.
+- **Certain** returns the tuples that occur in every repair.
+- **Interval-Based** and **Distribution-Centric** implement the two aggregation baselines in the experiments.
+- **MNAR-Repair** implements the repair method of Section 9.
 
-The main full-data runner for CAEX, CAMC, and CADE is `src/RunSectionComparisonsFullData.py`.
+The main experiment file for CAEX, CAMC, and CADE is `src/RunSectionComparisonsFullData.py`.
 For marked-null comparisons, CAEX is omitted.
 
 ## Repository structure
 
 ```text
 analysis/       Figure and table generation
-configs/        Query definitions and factorization metadata
-scripts/        Commands used for full-data and multi-relation runs
-src/            Implementations, data preparation, and experiment runners
+configs/        Query definitions and separating sets
+scripts/        Commands for queries over all tuples and multiple relations
+src/            Methods, data preparation, and experiment files
 tests/          PostgreSQL correctness tests
 DATA.md         Required dataset layout
 ```
 
-Generated datasets, result files, logs, virtual environments, and credentials are excluded from Git.
+Datasets and files created by the experiments are excluded from Git.
 
 ## Requirements
 
@@ -55,20 +55,21 @@ export PGUSER=postgres
 export PGPASSWORD='your-password'
 ```
 
-The command-line runners also accept `--db-host`, `--db-port`, `--db-name`, `--db-user`, and `--db-password`.
+The commands also accept `--db-host`, `--db-port`, `--db-name`, `--db-user`, and `--db-password`.
 
 ## Data and query configurations
 
-Download the datasets using the links in `DATA.md` and place the prepared files below `data/`.
+Download the datasets using the links in `DATA.md` and place the files below `data/`.
 The files in `configs/` define the injected MCAR, MAR, and factorizable MNAR queries, the real-world queries, and the meaningful multi-relation join queries.
 All paths in these files are relative to the repository root.
 
-The full-data runs use `--rows 0`.
-CAMC and QE use `H=783` sampled repairs, and each query has a 300-second timeout in the final comparison runners.
+Set `--rows 0` to evaluate all tuples.
+CAMC and QE use $H=783$ sampled repairs.
+Each query has a 300-second timeout.
 
 ## Query list
 
-This table identifies the query lists used for each dataset and records the missingness type, incomplete attributes, and their causes.
+This table lists the queries, missingness type, incomplete attributes, and their causes for each dataset.
 For the injected datasets, the same five aggregation and five non-aggregation query forms are evaluated at the 5%, 10%, and 20% missingness rates.
 In the last column, `A <- B` means that the missingness of attribute `A` depends on attribute `B`.
 `No cause` means that the missingness indicator has no attribute parent in the m-graph.
@@ -96,13 +97,13 @@ In the last column, `A <- B` means that the missingness of attribute `A` depends
 | NHANES | No SQL query; this dataset is used in the repair experiment | Real-world non-factorizable MNAR | Not applicable to query answering |
 
 The query identifiers refer to their order within the indicated dataset entry.
-The configured paths change with the missingness rate, while the SQL form and the missingness causes remain the same.
+The data file changes with the missingness rate, while the query and the missingness causes remain the same.
 
 ## Multi-relation schemas
 
-The join queries use the following meaningful relation decompositions.
-The join key appears in every relation and preserves the association between attributes from the same source tuple.
-The decomposition does not introduce additional missing values.
+The join queries use the following relations.
+The join key appears in every relation and keeps attributes from the same tuple together.
+Splitting the original relation does not introduce additional missing values.
 The relation counts match the maximum number of relations reported for each dataset in Table 2 of the paper.
 
 | Dataset | Number of relations |
@@ -145,7 +146,7 @@ trip_handling [r3](tuple_id, store_and_fwd_flag)
 trip_time [r4](tuple_id, id, pickup_datetime, dropoff_datetime)
 ```
 
-The labels in brackets identify the physical partitions in `configs/nyc_four_relation_queries.json`.
+The labels in brackets match the relation names in `configs/nyc_four_relation_queries.json`.
 
 ### Bitcoin Heist Ransomware Address
 
@@ -158,7 +159,7 @@ observation_year [r3](tuple_id, year)
 address_identity [r4](tuple_id, address)
 ```
 
-The labels in brackets identify the physical partitions in `configs/bitcoin_four_relation_queries.json`.
+The labels in brackets match the relation names in `configs/bitcoin_four_relation_queries.json`.
 
 ### Building Permits
 
@@ -249,7 +250,7 @@ community_characteristics(row_id, feat_001 through feat_100)
 policing_and_crime(row_id, feat_101 through feat_146)
 ```
 
-The feature numbers preserve the column order of the prepared Communities & Crime relation.
+The feature numbers follow the column order of the Communities & Crime relation.
 
 ### NHANES
 
@@ -260,7 +261,7 @@ participant_profile(SEQN, RIDAGEYR, RIAGENDR, RIDRETH3, DMDEDUC2, INDHHIN2)
 health_record(SEQN, BMXBMI, BMXWAIST, BMXHT, BMXWT, BPXSY1, BPXDI1, LBXTC, LBDHDD, LBXTR, LBDLDL, LBXGH, LBXGLU, LBXSCR, LBXSUA, LBXSGL, BPQ020, BPQ080, BPQ100D, DIQ010, DIQ160, MCQ160B, MCQ160C, MCQ160E)
 ```
 
-The prepared single-relation file drops `SEQN` after joining the original NHANES files.
+The single-relation NHANES file does not retain `SEQN` after joining the original files.
 
 ## Running the methods
 
